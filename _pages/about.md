@@ -40,4 +40,4 @@ I am a PhD candidate in Mathematics at the **University of Idaho**, Moscow, ID, 
 | | |
 |---|---|
 | [📄 **CV**](/cv/) — Education, experience & awards | [📚 **Teaching**](/teaching/) — Courses taught at UI & Nepal |
-| [🤝 **Leadership & Associations**](/portfolio/) — Professional roles & memberships | [🔗 **Helpful Resources**](/resources/) — Curated links in harmonic analysis |
+| [🤝 **Research**](/portfolio/) — Research and Projects | [🔗 **Helpful Resources**](/markdown/) — Curated links in harmonic analysis |
