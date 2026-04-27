@@ -1,36 +1,48 @@
 ---
-layout: archive
+layout: single
 title: "Publications"
 permalink: /publications/
 author_profile: true
 ---
 
-{% if site.author.googlescholar %}
-  <div class="wordwrap">You can also find my articles on <a href="{{site.author.googlescholar}}">my Google Scholar profile</a>.</div>
-{% endif %}
+<p>My research is currently in progress. Publications and preprints will be listed here as they become available.</p>
 
-{% include base_path %}
+<hr>
 
-<!-- New style rendering if publication categories are defined -->
-{% if site.publication_category %}
-  {% for category in site.publication_category  %}
-    {% assign title_shown = false %}
-    {% for post in site.publications reversed %}
-      {% if post.category != category[0] %}
-        {% continue %}
-      {% endif %}
-      {% unless title_shown %}
-        <h2>{{ category[1].title }}</h2><hr />
-        {% assign title_shown = true %}
-      {% endunless %}
-      {% include archive-single.html %}
-    {% endfor %}
-  {% endfor %}
-{% else %}
-  {% for post in site.publications reversed %}
-    {% include archive-single.html %}
-  {% endfor %}
-{% endif %}
+<h2>Papers in Preparation</h2>
 
+<table>
+  <tbody>
+    <tr>
+      <td><strong>Gibbs Phenomenon in Fourier and Slepian Series: A Comparative Analysis for Discontinuous Functions</strong></td>
+    </tr>
+    <tr>
+      <td>Rajib Belbase · Advisor: Somantika Datta</td>
+    </tr>
+    <tr>
+      <td><em>University of Idaho · In preparation</em></td>
+    </tr>
+  </tbody>
+</table>
 
+<hr>
 
+<h2>Thesis</h2>
+
+<table>
+  <tbody>
+    <tr>
+      <td><strong>Approximation Theory and the Gibbs Phenomenon</strong> <em>(title not finalized)</em></td>
+    </tr>
+    <tr>
+      <td>Rajib Belbase · Advisor: Somantika Datta</td>
+    </tr>
+    <tr>
+      <td><em>PhD Thesis · University of Idaho · Expected May 2027</em></td>
+    </tr>
+  </tbody>
+</table>
+
+<hr>
+
+<p>📄 <em>Preprints and journal articles will appear here upon submission. Check back for updates.</em></p>
