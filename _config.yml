@@ -11,8 +11,8 @@ repository               : "rbelbase12/rbelbase12.github.io"
 
 # Site Author
 author:
-  # Biographic information
-  avatar           : "/images/profile.png"
+   # Biographic information
+  avatar           : "https://rbelbase12.github.io/images/profile.png"
   name             : "Rajib Belbase"
   pronouns         :
   bio              : "PhD Candidate in Mathematics at the University of Idaho, specializing in Applied Harmonic Analysis, Frame Theory, and Signal Processing. Passionate about mathematical research and teaching, with over a decade of experience educating students at secondary and university levels."
