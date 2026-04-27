@@ -1,7 +1,7 @@
 ---
 layout: single
 title: "Helpful Resources"
-permalink: /resources/
+permalink: /markdown/
 author_profile: true
 ---
 
