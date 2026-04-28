@@ -9,7 +9,7 @@ author_profile: true
 
 I am a PhD candidate in Mathematics at the **University of Idaho**, Moscow, ID, USA, specializing in **Applied Harmonic Analysis**, **Frame Theory**, and **Signal Processing**. I am passionate about both mathematical research and teaching, with over a decade of experience educating students at secondary and university levels.
 
-📧 [rbelbase@uidaho.edu](mailto:rbelbase@uidaho.edu) &nbsp;|&nbsp; [GitHub](https://github.com/rbelbase12) &nbsp;|&nbsp; [LinkedIn](https://www.linkedin.com/in/rajibbelbase/)
+📧  [rbelbase@uidaho.edu](mailto:rbelbase@uidaho.edu) &nbsp;|&nbsp; [GitHub](https://github.com/rbelbase12) &nbsp;|&nbsp; [LinkedIn](https://www.linkedin.com/in/rajibbelbase/) &nbsp;|&nbsp; [Google Site](https://sites.google.com/view/rbelbase/home)
 
 ---
 
