@@ -10,6 +10,7 @@
 main:
   - title: "Teaching"
     url: /teaching/
+    
   - title: "Research"
     children:
       - title: "Research & Projects"
@@ -18,10 +19,13 @@ main:
         url: /publications/
       - title: "Talks & Conferences"
         url: /talks/
+        
   - title: "Blog"
     url: /year-archive/
+    
   - title: "Resources"
     url: /markdown/
+    
       - title: "CV"
     url: /cv/
 
