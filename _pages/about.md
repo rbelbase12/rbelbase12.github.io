@@ -13,6 +13,12 @@ I am a PhD candidate in Mathematics at the **University of Idaho**, Moscow, ID, 
 
 ---
 
+## Hobbies & Interests
+
+Outside of mathematics, I enjoy **Photography**, **Fishing**, and **Hiking**. The mountains and lakes around Moscow, Idaho provide a perfect backdrop for these pursuits, offering a welcome balance to the demands of research and teaching.
+
+---
+
 ## Research Interests
 
 - Applied Harmonic Analysis
