@@ -9,6 +9,7 @@ tags:
   - euler
 author_profile: true
 ---
+**By: Rajib Belbase**
 
 > **Abstract.** Euler's Identity **$$e^{i\pi} + 1 = 0$$**  is frequently celebrated as the most beautiful equation in mathematics. But its beauty is not mystical. This article dismantles the mysticism and replaces it with something far more satisfying: a rigorous geometric explanation grounded in complex analysis, Taylor series, and the structure of the complex plane. We build every prerequisite from scratch, prove Euler's formula in full, and examine why the identity is not a coincidence but an inevitability.
 
