@@ -79,7 +79,13 @@ These examples illustrate the practical application of Stewart's early chapters.
 2.  **Horizontal Shift:** Replace $$x$$ with $$(x+3)$$, which shifts the graph 3 units to the **left**.
 3.  **Vertical Shift:** Subtract 5 from the result, which shifts the graph 5 units **down**.
 4.  **Final Vertex:** The new vertex is located at **$$(-3, -5)$$**.
-![Transformation of a parabola](/images/shifting.png)
+<figure>
+  <img src="/images/shifting.png" width="600" alt="Graph of y=x^2 shifting to h(x)=(x+3)^2-5">
+  <figcaption align="center">
+    <b>Figure 1:</b> <i>This graph shows the shift from the parent function g(x) to h(x).<br>
+    Notice the vertex moves left 3 and down 5.</i>
+  </figcaption>
+</figure>
 
 ### Example 3: Composition of Functions
 **Problem:** If $$f(x) = x^2$$ and $$g(x) = x - 3$$, find the formula for $$(f \circ g)(x)$$.
