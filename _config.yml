@@ -11,7 +11,7 @@ repository               : "rbelbase12/rbelbase12.github.io"
 
 # Site Author
 author:
-name: "Rajib Belbase"
+  name: "Rajib Belbase"
   bio: "Math Instructor"
   location: "University of Idaho"
    # Biographic information
