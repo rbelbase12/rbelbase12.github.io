@@ -12,6 +12,7 @@ header:
   teaser: "/images/greens_theorem.png"
 ---
 
+**By: Rajib Belbase**
 > **For students in Calculus III.** This post explores Green's Theorem, one of the cornerstones of vector calculus. It establishes a profound link between a line integral around a closed curve and a double integral over the region it encloses. All material follows Chapter 16 of *Calculus*, 9th edition, by James Stewart.
 
 ---
