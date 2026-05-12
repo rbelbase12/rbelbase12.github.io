@@ -1,5 +1,5 @@
 ---
-title: "Calculus I: A Essential Review of Functions"
+title: "Calculus I: A Foundational Review of Functions"
 date: 2026-05-12
 author: "Rajib Belbase"
 permalink: /posts/2026/05/calculus-i-review-functions/
@@ -12,15 +12,20 @@ author_profile: true
 header:
   teaser: "/images/calculus_1_review.png"
 ---
-
 **By: Rajib Belbase**
-> **For students in Calculus I.** This post covers the foundational review of functions required for success in differential calculus. We explore the definition of functions, their representations, and how to combine them. [cite_start]Material follows Chapter 1 of *Calculus*, 9th edition, by James Stewart[cite: 505, 1036].
+> **For students in Calculus I.** This post covers the essential review of functions based on our class materials. We will look at how to represent functions, find their domains and ranges, and apply common transformations. All material follows Sections 1.1–1.3 of *Calculus*, 9th edition, by James Stewart.
 
 ---
 
 ## 1. What is a Function?
 
-[cite_start]A **function** $$f$$ is a rule that assigns to each element $$x$$ in a set $$D$$ (the domain) exactly one element, called $$f(x)$$, in a set $$E$$ (the codomain)[cite: 505, 1037]. 
+A **function** $$f$$is a rule that assigns to each element$$x$$in a set$$D$$(the domain) exactly one element, called$$f(x)$$, in a set $$E$$ (the codomain). 
+
+
+
+As noted in our class review, we must be particularly careful with **Domain Restrictions**:
+1.  **Division by zero:** The denominator cannot be zero.
+2.  **Even roots:** The expression under a square root (or any even root) must be greater than or equal to zero.
 
 ### 1.1 The Four Ways to Represent a Function
 According to Stewart §1.1, we can describe functions in four ways:
@@ -30,105 +35,79 @@ According to Stewart §1.1, we can describe functions in four ways:
 4. **Algebraically** (by an explicit formula)
 
 ### 1.2 The Vertical Line Test
-[cite_start]A curve in the $$xy$$-plane is the graph of a function of $$x$$ if and only if no vertical line intersects the curve more than once[cite: 505, 1040].
+A curve in the $$xy$$-plane is the graph of a function of $$x$$ if and only if no vertical line intersects the curve more than once. If a vertical line hits the graph twice, it means one input has two outputs, which violates the definition of a function.
 
 ---
 
-## 2. Essential Catalog of Functions
+## 2. New Functions from Old (Transformations)
 
-[cite_start]To master Calculus I, you must be familiar with the "library" of basic functions[cite: 505, 1042]:
+We can transform a basic function (like $$f(x) = x^2$$or$$f(x) = \sqrt{x}$$) to create more complex graphs.
 
-### 2.1 Linear Functions
-These follow the form $$y = mx + b$$, where $$m$$ is the slope and $$b$$ is the $$y$$-intercept.
+### 2.1 Shifting
+* **Vertical Shifts:** $$y = f(x) + c$$moves the graph up$$c$$units;$$y = f(x) - c$$ moves it down.
+* **Horizontal Shifts:** $$y = f(x - c)$$moves the graph **right**$$c$$units;$$y = f(x + c)$$ moves it **left**.
 
-### 2.2 Polynomials and Power Functions
-* **Polynomials:** $$P(x) = a_n x^n + a_{n-1} x^{n-1} + \dots + a_1 x + a_0$$
-* **Power Functions:** $$f(x) = x^a$$
 
-### 2.3 Rational and Algebraic Functions
-* **Rational:** A ratio of two polynomials, $$f(x) = \frac{P(x)}{Q(x)}$$.
-* **Algebraic:** Functions constructed using algebraic operations (addition, subtraction, multiplication, division, and taking roots).
 
----
-
-## 3. Mathematical Models
-
-[cite_start]Mathematical modeling is the process of using mathematical structures to represent real-world phenomena[cite: 505, 1045]. A model is never a perfect representation but rather an idealization. Common models in Calculus I include:
-* **Linear Models:** Used when a quantity changes at a constant rate.
-* **Polynomial Models:** Used for more complex curvatures, like the trajectory of a projectile.
-
----
-
-## 4. Combining and Transforming Functions
-
-We can create new functions from old ones using two primary methods: **Transformations** and **Combinations**.
-
-### 4.1 Transformations
-* [cite_start]**Shifting:** Moving a graph vertically or horizontally[cite: 505, 1048].
-* [cite_start]**Stretching/Reflecting:** Changing the shape or orientation of the graph[cite: 505, 1048].
-
-### 4.2 Combinations of Functions
-Given functions $$f$$ and $$g$$, we can form their sum, difference, product, and quotient:
-* $$(f + g)(x) = f(x) + g(x)$$
-* [cite_start]$$(f / g)(x) = \frac{f(x)}{g(x)}$$, provided $$g(x) \neq 0$$ [cite: 505, 1051]
-
-### 4.3 Composition of Functions
-The **composite function** $$f \circ g$$ is defined by:
+### 2.2 Function Composition
+The **composite function** $$f \circ g$$ is defined by plugging the "inner" function into the "outer" function:
 $$(f \circ g)(x) = f(g(x))$$
-[cite_start]The domain of $$f \circ g$$ is the set of all $$x$$ in the domain of $$g$$ such that $$g(x)$$ is in the domain of $$f$$[cite: 505, 1051].
+
+**Crucial Note on Domain:** The domain of $$f \circ g$$is the set of all$$x$$in the domain of$$g$$such that$$g(x)$$is in the domain of$$f$$.
 
 ---
 
-## 5. Example Problems and Solutions
+## 3. Worked Examples (From Annotated Notes)
 
-[cite_start]Applying the concepts of function representation and transformation is key to mastering these sections[cite: 1, 2, 4]. Below are common examples encountered in Stewart's Chapter 1.
+These examples follow the logic used in our Section 1.1–1.3 review.
 
 ### Example 1: Finding Domain and Range
-[cite_start]**Problem:** Find the domain and range of the function $$f(x) = \sqrt{x - 2}$$.
+**Problem:** Find the domain and range of the function $$f(x) = \sqrt{x - 2}$$.
 
 **Solution:**
-1.  **Domain:** The expression inside the square root must be non-negative.
+* **Domain:** We require the radicand to be non-negative:
     $$x - 2 \geq 0 \implies x \geq 2$$
-    Domain: $$[2, \infty)$$[cite: 8].
-2.  **Range:** Since the square root function always yields non-negative results, and the minimum value of $$f(x)$$ is $$\sqrt{2 - 2} = 0$$, the range is all non-negative numbers.
-    Range: $$[0, \infty)$$[cite: 8].
+    In interval notation, the domain is **$$[2, \infty)$$**.
+* **Range:** The smallest value occurs at $$x = 2$$, where $$f(2) = \sqrt{0} = 0$$. As $$x$$increases,$$f(x)$$ increases indefinitely. 
+    The range is **$$[0, \infty)$$**.
 
 ### Example 2: Horizontal and Vertical Shifting
-[cite_start]**Problem:** Given the basic graph of $$g(x) = x^2$$, describe the transformations required to graph $$h(x) = (x + 3)^2 - 5$$[cite: 4, 10].
+**Problem:** Use the graph of $$g(x) = x^2$$to sketch$$h(x) = (x + 3)^2 - 5$$.
 
 **Solution:**
-* [cite_start]**Horizontal Shift:** The term $$(x + 3)^2$$ represents a shift to the **left** by 3 units[cite: 4, 10].
-* [cite_start]**Vertical Shift:** The term $$- 5$$ represents a shift **downward** by 5 units[cite: 4, 10].
-* [cite_start]**Final Result:** The graph of $$h(x)$$is the same shape as $$x^2$$, but with its vertex moved from $$(0,0)$$ to $$(-3, -5)$$[cite: 10].
+1.  Start with the parent function $$y = x^2$$(vertex at$$(0,0)$$).
+2.  **Shift Left:** Replace $$x$$with$$(x+3)$$ to move the graph 3 units to the left.
+3.  **Shift Down:** Subtract 5 to move the graph 5 units down.
+4.  **Final Vertex:** The new vertex is located at **$$(-3, -5)$$**.
 
-### Example 3: Function Composition
-[cite_start]**Problem:** If $$f(x) = x^2$$and$$g(x) = x - 3$$, find the composite function $$(f \circ g)(x)$$[cite: 4, 7].
+### Example 3: Composition of Functions
+**Problem:** If $$f(x) = x^2$$and$$g(x) = x - 3$$, find the formula for $$(f \circ g)(x)$$.
 
 **Solution:**
-[cite_start]By definition, $$(f \circ g)(x) = f(g(x))$$[cite: 4].
-1.  Substitute $$g(x)$$ into the input for $$f$$:
-    $$f(x - 3)$$
-2.  Apply the rule for $$f$$ (square the input):
-    $$(f \circ g)(x) = (x - 3)^2$$[cite: 4, 7].
+$$(f \circ g)(x) = f(g(x))$$
+Substitute $$g(x) = x - 3$$into the function$$f$$:
+$$f(x - 3) = (x - 3)^2$$
+Expanding this gives $$x^2 - 6x + 9$$.
 
 ---
-## 6. Summary Table
+
+## 4. Summary Table
 
 | Concept | Key Definition |
 |---|---|
-| **Domain** | The set of all possible input values ($$x$$). |
-| **Range** | The set of all possible output values ($$f(x)$$). |
-| **Even Function** | $$f(-x) = f(x)$$(Symmetric about$$y$$-axis). |
-| **Odd Function** | $$f(-x) = -f(x)$$ (Symmetric about origin). |
+| **Mathematical Model** | An idealization of real-world phenomena. |
+| **Even Function** | $$f(-x) = f(x)$$. Symmetric about the $$y$$-axis. |
+| **Odd Function** | $$f(-x) = -f(x)$$. Symmetric about the origin. |
+| **Domain Requirement** | No division by zero, no negatives under even roots. |
 
 ---
 
 ## References
 
-All section numbers and concepts refer to:
+All section numbers and materials refer to:
 
 Stewart, J. (2021). *Calculus*, 9th edition. Cengage Learning.
 
-- [cite_start]§1.1 — Four Ways to Represent a Function [cite: 505, 1037]
-- [cite_start]§1.2 — Mathematical Models: A Catalog of Essential Functions [cite: 505, 1042]
-- [cite_start]§1.3 — New Functions from Old Functions [cite: 505, 1046]
+- §1.1 — Four Ways to Represent a Function
+- §1.2 — Mathematical Models: A Catalog of Essential Functions
+- §1.3 — New Functions from Old Functions
