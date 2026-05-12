@@ -12,7 +12,7 @@ author_profile: true
 header:
   teaser: "/images/double_integral.png"
 ---
-
+**By: Rajib Belbase**
 > **For students in Calculus III.** This post covers the essential ideas behind double and triple integrals — what they mean geometrically, how to set them up, and how to compute them. All material follows Chapter 15 of *Calculus*, 9th edition, by James Stewart.
 
 ---
