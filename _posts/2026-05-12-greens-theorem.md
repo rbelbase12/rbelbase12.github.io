@@ -1,117 +1,81 @@
 ---
-title: "A Foundational Review of Functions"
+title: "Green's Theorem: Connecting Line Integrals and Double Integrals"
 date: 2026-05-12
-author: "Rajib Belbase"
-permalink: /posts/2026/05/calculus-i-review-functions/
+permalink: /posts/2026/05/greens-theorem/
 tags:
   - calculus
-  - differential calculus
-  - calculus I
-  - teaching
+  - multivariable calculus
+  - calculus III
+  - vector calculus
 author_profile: true
 header:
-  teaser: "/images/calculus_1_review.png"
+  teaser: "/images/greens_theorem.png"
 ---
 
-> **An Essential Guide to Functions.** This post covers the foundational concepts of functions required for Calculus. We explore how to represent functions, determine domains and ranges, and apply transformations. All material follows Sections 1.1–1.3 of *Calculus*, 9th edition, by James Stewart.
-
----
-
-## 1. What is a Function?
-
-A **function** $$f$$ is a rule that assigns to each element $$x$$ in a set $$D$$(the domain) exactly one element, called $$f(x)$$, in a set $$E$$ (the codomain). 
-
-
-
-When working with functions algebraically, there are two primary **Domain Restrictions** to keep in mind:
-
-1.  **Rational Functions:** The denominator cannot be zero.
-2.  **Radical Functions:** The expression under a square root (or any even root) must be greater than or equal to zero.
-
-### 1.1 The Four Ways to Represent a Function
-According to Stewart §1.1, functions can be described in four ways:
-
-1.  **Verbally** (description in words)
-2.  **Numerically** (table of values)
-3.  **Visually** (graph)
-4.  **Algebraically** (explicit formula)
-
-### 1.2 The Vertical Line Test
-A curve in the $$xy$$-plane is the graph of a function of $$x$$ if and only if no vertical line intersects the curve more than once. If a vertical line intersects a curve at more than one point, the curve does not represent a function because one input would result in multiple outputs.
+> **For students in Calculus III.** This post explores Green's Theorem, one of the cornerstones of vector calculus. It establishes a profound link between a line integral around a closed curve and a double integral over the region it encloses. All material follows Chapter 16 of *Calculus*, 9th edition, by James Stewart.
 
 ---
 
-## 2. New Functions from Old (Transformations)
+## 1. The Core Concept
 
-By applying transformations to a "parent" function (such as $$f(x) = x^2$$or$$f(x) = \sqrt{x}$$), we can model a wide variety of phenomena.
+Green's Theorem provides a way to evaluate the line integral of a vector field over a simple closed curve $$C$$ by instead calculating a double integral over the plane region $$D$$ bounded by $$C$$.
 
-### 2.1 Shifting
-* **Vertical Shifts:** $$y = f(x) + c$$ moves the graph up $$c$$ units;$$y = f(x) - c$$ moves it down.
-* **Horizontal Shifts:** $$y = f(x - c) $$moves the graph **right**$$c$$units;$$y = f(x + c)$$ moves it **left**.
-
-
-
-### 2.2 Function Composition
-The **composite function** $$f \circ g$$ is created by using the output of one function as the input for another:
-
-$$(f \circ g)(x) = f(g(x))$$
-
-**Note on Domain:** The domain of the composition $$f \circ g$$ consists of all $$x$$ in the domain of $$g$$ such that $$g(x)$$ is in the domain of $$f$$.
+It is essentially the two-dimensional version of the **Fundamental Theorem of Calculus**. Just as the FTC relates the integral of a derivative on an interval $$[a, b]$$ to the values of the function at the boundaries, Green's Theorem relates the double integral of a "derivative" (the curl) over a region to the values of the field on its boundary.
 
 ---
 
-## 3. Worked Examples
+## 2. Statement of Green's Theorem
 
-These examples illustrate the practical application of Stewart's early chapters.
+**Theorem** (Green's Theorem [Stewart §16.4]). Let $$C$$ be a positively oriented, piecewise-smooth, simple closed curve in the plane and let $$D$$ be the region bounded by $$C$$. If $$P$$ and $$Q$$ have continuous partial derivatives on an open region that contains $$D$$, then:
 
-### Example 1: Finding Domain and Range
-**Problem:** Find the domain and range of the function $$f(x) = \sqrt{x - 2}$$.
+$$\oint_C P\, dx + Q\, dy = \iint_D \left( \frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y} \right) dA$$
 
-**Solution:**
-* **Domain:** We require the radicand to be non-negative to avoid imaginary numbers:
-    $$x - 2 \geq 0 \implies x \geq 2$$
-    In interval notation, the domain is **$$[2, \infty)$$**.
-* **Range:** The output of a square root is always non-negative. Since the minimum value of the radicand is 0, the range is **$$[0, \infty)$$**.
-
-### Example 2: Horizontal and Vertical Shifting
-**Problem:** Use the graph of $$g(x) = x^2$$to sketch$$h(x) = (x + 3)^2 - 5$$.
-
-**Solution:**
-1.  **Parent Function:** Start with the standard parabola $$y = x^2$$(vertex at $$(0,0)$$).
-2.  **Horizontal Shift:** Replace $$x$$with$$(x+3)$$, which shifts the graph 3 units to the **left**.
-3.  **Vertical Shift:** Subtract 5 from the result, which shifts the graph 5 units **down**.
-4.  **Final Vertex:** The new vertex is located at **$$(-3, -5)$$**.
-
-### Example 3: Composition of Functions
-**Problem:** If $$f(x) = x^2$$ and $$g(x) = x - 3$$, find the formula for $$(f \circ g)(x)$$.
-
-**Solution:**
-$$(f \circ g)(x) = f(g(x))$$
-
-Substitute the expression for $$g(x)$$ into the variable in function $$f$$:
-$$f(x - 3) = (x - 3)^2$$
-
-Expanded, this result is $$x^2 - 6x + 9$$.
+### 2.1 Understanding "Positive Orientation"
+A curve $$C$$ is **positively oriented** if it is traversed in a counterclockwise direction. A helpful rule of thumb: if you were walking along $$C$$ in the positive direction, the region $$D$$ would always be on your **left**.
 
 ---
 
-## 4. Summary Table
+## 3. Example: Evaluating a Line Integral
 
-| Concept | Key Definition |
-| :--- | :--- |
-| **Mathematical Model** | A mathematical description (often a function) of a real-world phenomenon. |
-| **Even Function** | $$f(-x) = f(x)$$. The graph is symmetric about the $$y$$-axis. |
-| **Odd Function** | $$f(-x) = -f(x)$$. The graph is symmetric about the origin. |
-| **Domain Restriction** | Check for zeros in denominators and negatives in even roots. |
+**Compute** $$\displaystyle\oint_C (y + e^{\sqrt{x}})\, dx + (2x + \cos y^2)\, dy$$, where $$C$$ is the boundary of the region enclosed by the parabolas $$y = x^2$$ and $$x = y^2$$.
+
+Direct evaluation would be difficult due to the $$e^{\sqrt{x}}$$ term. Green's Theorem simplifies this significantly.
+
+**Identify P and Q:**
+*   $$P(x, y) = y + e^{\sqrt{x}} \implies \frac{\partial P}{\partial y} = 1$$
+*   $$Q(x, y) = 2x + \cos y^2 \implies \frac{\partial Q}{\partial x} = 2$$
+
+**Apply the Theorem:**
+$$\iint_D (2 - 1)\, dA = \iint_D 1\, dA$$
+
+This is the area of the region between the two curves:
+$$\int_0^1 \int_{x^2}^{\sqrt{x}} 1\, dy\, dx = \int_0^1 (\sqrt{x} - x^2)\, dx = \left[ \frac{2}{3}x^{3/2} - \frac{1}{3}x^3 \right]_0^1 = \frac{1}{3}$$
+
+---
+
+## 4. Using Green's Theorem to Find Area
+
+Since $$\text{Area}(D) = \iint_D 1\, dA$$, we can use Green's Theorem in reverse to find area using a line integral. Common formulas include:
+
+$$A = \oint_C x\, dy \quad \text{or} \quad A = -\oint_C y\, dx \quad \text{or} \quad A = \frac{1}{2} \oint_C x\, dy - y\, dx$$
+
+**Example: Area of an Ellipse**
+For the ellipse $$x = a\cos t, y = b\sin t$$:
+$$A = \frac{1}{2} \int_0^{2\pi} (a\cos t)(b\cos t) - (b\sin t)(-a\sin t)\, dt = \pi ab$$
+
+---
+
+## 5. Summary Table
+
+| Feature | Requirement |
+|---|---|
+| **Curve Type** | Simple and Closed |
+| **Orientation** | Positive (Counterclockwise) |
+| **Integrand** | $$Q_x - P_y$$ |
 
 ---
 
 ## References
 
-All section numbers refer to:
-
 Stewart, J. (2021). *Calculus*, 9th edition. Cengage Learning.
-
-- §1.1 — Four Ways to Represent a Function
-- §1.2 — Mathematical Models: A Catalog of Essential Functions
-- §1.3 — New Functions from Old Functions
+- §16.4 — Green’s Theorem
