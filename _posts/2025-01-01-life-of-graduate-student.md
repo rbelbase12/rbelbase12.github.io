@@ -9,6 +9,7 @@ tags:
 author_profile: true
 ---
 **By: Rajib Belbase**
+
 Graduate school in the United States is a transformative experience filled with academic rigor, new opportunities, and personal growth. However, it also comes with its fair share of challenges, from managing coursework and research to adjusting to a new cultural and social environment. Here's a glimpse into the life of a graduate student in the U.S.
 
 ## Academic Rigor and Research Demands
