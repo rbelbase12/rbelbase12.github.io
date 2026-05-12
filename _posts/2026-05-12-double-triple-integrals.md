@@ -1,6 +1,7 @@
 ---
 title: "Double and Triple Integrals: Integrating Over Regions in Space"
 date: 2026-05-12
+author: "Rajib Belbase"
 permalink: /posts/2026/05/double-triple-integrals/
 tags:
   - calculus
