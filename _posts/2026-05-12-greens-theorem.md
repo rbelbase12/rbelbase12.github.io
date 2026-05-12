@@ -1,6 +1,7 @@
 ---
 title: "Green's Theorem: Connecting Line Integrals and Double Integrals"
 date: 2026-05-12
+author: "Rajib Belbase"
 permalink: /posts/2026/05/greens-theorem/
 tags:
   - calculus
