@@ -3,8 +3,8 @@ title: "Euler's Identity Isn't Magic — It's Geometry"
 date: 2026-05-11
 permalink: /posts/2026/05/eulers-identity-geometry/
 header:
-  overlay_image: "/assets/images/eulers.svg"
-  teaser: "/assets/images/eulers.svg"
+  overlay_image: "/assets/images/eulers.png"
+  teaser: "/assets/images/eulers.png"
 tags:
   - mathematics
   - complex analysis
