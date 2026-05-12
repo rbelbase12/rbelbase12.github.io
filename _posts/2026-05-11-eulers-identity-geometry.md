@@ -102,7 +102,7 @@ Substitute `z = iθ` into the series for `eᶻ`:
 
 $$e^{i\theta} = \sum_{k=0}^{\infty} \frac{(i\theta)^k}{k!}$$
 
-Expand the powers of `i`. Recall that `i⁰=1, i¹=i, i²=-1, i³=-i, i⁴=1, …` (period 4). Substituting:
+Expand the powers of `i`. Recall that `i⁰=1, i¹=i, i²=-1, i³=-i, i⁴=1, …`. Substituting:
 
 $$e^{i\theta} = 1 + i\theta + \frac{(i\theta)^2}{2!} + \frac{(i\theta)^3}{3!} + \frac{(i\theta)^4}{4!} + \cdots$$
 
