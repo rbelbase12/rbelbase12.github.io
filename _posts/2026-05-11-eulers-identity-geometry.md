@@ -19,7 +19,7 @@ author_profile: true
 Few equations in mathematics have attracted as much popular attention as Euler's Identity:
 
 $$e^{i\pi} + 1 = 0$$
-![Geometric representation of Euler's Identity](/assets/images/eulers.svg)
+![Geometric representation of Euler's Identity](/images/eulers.svg)
 *Figure 1: The complex plane showing how $e^{i\theta}$ traces a circle, reaching -1 at $\pi$ radians.*
 
 It has been called *"the most remarkable formula in mathematics"* by Richard Feynman [1], voted the greatest equation of all time in a poll of physicists [2], and tattooed on the forearms of countless undergraduates. But the framing around it — five fundamental constants, one miraculous equation — obscures more than it reveals.
