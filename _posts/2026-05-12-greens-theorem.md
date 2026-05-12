@@ -19,7 +19,7 @@ header:
 
 ## 1. What is a Function?
 
-A **function** $$f$$is a rule that assigns to each element$$x$$in a set$$D$$(the domain) exactly one element, called$$f(x)$$, in a set $$E$$ (the codomain). 
+A **function** $$f$$ is a rule that assigns to each element $$x$$ in a set $$D$$(the domain) exactly one element, called $$f(x)$$, in a set $$E$$ (the codomain). 
 
 
 
@@ -46,8 +46,8 @@ A curve in the $$xy$$-plane is the graph of a function of $$x$$ if and only if n
 By applying transformations to a "parent" function (such as $$f(x) = x^2$$or$$f(x) = \sqrt{x}$$), we can model a wide variety of phenomena.
 
 ### 2.1 Shifting
-* **Vertical Shifts:** $$y = f(x) + c$$moves the graph up$$c$$units;$$y = f(x) - c$$ moves it down.
-* **Horizontal Shifts:** $$y = f(x - c)$$moves the graph **right**$$c$$units;$$y = f(x + c)$$ moves it **left**.
+* **Vertical Shifts:** $$y = f(x) + c$$ moves the graph up $$c$$ units;$$y = f(x) - c$$ moves it down.
+* **Horizontal Shifts:** $$y = f(x - c) $$moves the graph **right**$$c$$units;$$y = f(x + c)$$ moves it **left**.
 
 
 
@@ -56,7 +56,7 @@ The **composite function** $$f \circ g$$ is created by using the output of one f
 
 $$(f \circ g)(x) = f(g(x))$$
 
-**Note on Domain:** The domain of the composition $$f \circ g$$consists of all$$x$$in the domain of$$g$$such that$$g(x)$$is in the domain of$$f$$.
+**Note on Domain:** The domain of the composition $$f \circ g$$ consists of all $$x$$ in the domain of $$g$$ such that $$g(x)$$ is in the domain of $$f$$.
 
 ---
 
@@ -77,18 +77,18 @@ These examples illustrate the practical application of Stewart's early chapters.
 **Problem:** Use the graph of $$g(x) = x^2$$to sketch$$h(x) = (x + 3)^2 - 5$$.
 
 **Solution:**
-1.  **Parent Function:** Start with the standard parabola $$y = x^2$$(vertex at$$(0,0)$$).
+1.  **Parent Function:** Start with the standard parabola $$y = x^2$$(vertex at $$(0,0)$$).
 2.  **Horizontal Shift:** Replace $$x$$with$$(x+3)$$, which shifts the graph 3 units to the **left**.
 3.  **Vertical Shift:** Subtract 5 from the result, which shifts the graph 5 units **down**.
 4.  **Final Vertex:** The new vertex is located at **$$(-3, -5)$$**.
 
 ### Example 3: Composition of Functions
-**Problem:** If $$f(x) = x^2$$and$$g(x) = x - 3$$, find the formula for $$(f \circ g)(x)$$.
+**Problem:** If $$f(x) = x^2$$ and $$g(x) = x - 3$$, find the formula for $$(f \circ g)(x)$$.
 
 **Solution:**
 $$(f \circ g)(x) = f(g(x))$$
 
-Substitute the expression for $$g(x)$$into the variable in function$$f$$:
+Substitute the expression for $$g(x)$$ into the variable in function $$f$$:
 $$f(x - 3) = (x - 3)^2$$
 
 Expanded, this result is $$x^2 - 6x + 9$$.
