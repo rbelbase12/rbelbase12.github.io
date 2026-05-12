@@ -92,8 +92,7 @@ This is not an extension by analogy — it is *the same formula*, applied over `
 We are now ready to prove **Euler's Formula**:
 
 $$\boxed{e^{i\theta} = \cos\theta + i\sin\theta \quad \text{for all } \theta \in \mathbb{R}}$$
-![Geometric representation of Euler's Identity](/images/unit.png)
-*Figure 1: The complex plane showing how $$e^{i\theta}$$ traces a circle, reaching -1 at $$\pi$$ radians.*
+
 
 The proof is a direct computation using the series definition from Section 2.4.
 
@@ -130,6 +129,8 @@ This means that **multiplying by e^(iθ) is a rotation by θ radians**. Exponent
 ---
 
 ## 4. Euler's Identity as a Special Case
+![Geometric representation of Euler's Identity](/images/unit.png)
+*Figure 1: The complex plane showing how $$e^{i\theta}$$ traces a circle, reaching -1 at $$\pi$$ radians.*
 
 Euler's Identity follows immediately by substituting `θ = π` into Euler's Formula:
 
