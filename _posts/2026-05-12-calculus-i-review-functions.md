@@ -80,7 +80,7 @@ These examples illustrate the practical application of Stewart's early chapters.
 3.  **Vertical Shift:** Subtract 5 from the result, which shifts the graph 5 units **down**.
 4.  **Final Vertex:** The new vertex is located at **$$(-3, -5)$$**.
 <figure>
-  <img src="/images/shifting.png" width="600" alt="Graph of y=x^2 shifting to h(x)=(x+3)^2-5">
+  <img src="/images/shifting.png" width="500" alt="Graph of y=x^2 shifting to h(x)=(x+3)^2-5">
   <figcaption align="center">
     <b>Figure 1:</b> <i>This graph shows the shift from the parent function g(x) to h(x).<br>
     Notice the vertex moves left 3 and down 5.</i>
