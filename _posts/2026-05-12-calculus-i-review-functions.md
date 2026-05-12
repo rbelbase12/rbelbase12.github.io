@@ -14,7 +14,7 @@ header:
 ---
 
 **By: Rajib Belbase**
-> **An Essential Guide to Functions.** This post covers the foundational concepts of functions required for Calculus. We explore how to represent functions, determine domains and ranges, and apply transformations. All material follows Sections 1.1–1.3 of *Calculus*, 9th edition, by James Stewart.
+> **For students in Calculus III.** This post covers the foundational concepts of functions required for Calculus. We explore how to represent functions, determine domains and ranges, and apply transformations. All material follows Sections 1.1–1.3 of *Calculus*, 9th edition, by James Stewart.
 
 ---
 
