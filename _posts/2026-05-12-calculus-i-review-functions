@@ -12,6 +12,7 @@ author_profile: true
 header:
   teaser: "/images/calculus_1_review.png"
 ---
+
 **By: Rajib Belbase**
 > **For students in Calculus I.** This post covers the foundational review of functions required for success in differential calculus. We explore the definition of functions, their representations, and how to combine them. [cite_start]Material follows Chapter 1 of *Calculus*, 9th edition, by James Stewart[cite: 505, 1036].
 
@@ -19,7 +20,7 @@ header:
 
 ## 1. What is a Function?
 
-[cite_start]A **function** $$f$$is a rule that assigns to each element$$x$$in a set$$D$$(the domain) exactly one element, called$$f(x)$$, in a set $$E$$ (the codomain)[cite: 505, 1037]. 
+[cite_start]A **function** $$f$$ is a rule that assigns to each element $$x$$ in a set $$D$$ (the domain) exactly one element, called $$f(x)$$, in a set $$E$$ (the codomain)[cite: 505, 1037]. 
 
 ### 1.1 The Four Ways to Represent a Function
 According to Stewart §1.1, we can describe functions in four ways:
@@ -38,7 +39,7 @@ According to Stewart §1.1, we can describe functions in four ways:
 [cite_start]To master Calculus I, you must be familiar with the "library" of basic functions[cite: 505, 1042]:
 
 ### 2.1 Linear Functions
-These follow the form $$y = mx + b$$, where $$m$$is the slope and$$b$$is the$$y$$-intercept.
+These follow the form $$y = mx + b$$, where $$m$$ is the slope and $$b$$ is the $$y$$-intercept.
 
 ### 2.2 Polynomials and Power Functions
 * **Polynomials:** $$P(x) = a_n x^n + a_{n-1} x^{n-1} + \dots + a_1 x + a_0$$
@@ -67,14 +68,14 @@ We can create new functions from old ones using two primary methods: **Transform
 * [cite_start]**Stretching/Reflecting:** Changing the shape or orientation of the graph[cite: 505, 1048].
 
 ### 4.2 Combinations of Functions
-Given functions $$f$$and$$g$$, we can form their sum, difference, product, and quotient:
+Given functions $$f$$ and $$g$$, we can form their sum, difference, product, and quotient:
 * $$(f + g)(x) = f(x) + g(x)$$
 * [cite_start]$$(f / g)(x) = \frac{f(x)}{g(x)}$$, provided $$g(x) \neq 0$$ [cite: 505, 1051]
 
 ### 4.3 Composition of Functions
 The **composite function** $$f \circ g$$ is defined by:
 $$(f \circ g)(x) = f(g(x))$$
-[cite_start]The domain of $$f \circ g$$is the set of all$$x$$in the domain of$$g$$such that$$g(x)$$is in the domain of$$f$$[cite: 505, 1051].
+[cite_start]The domain of $$f \circ g$$ is the set of all $$x$$ in the domain of $$g$$ such that $$g(x)$$ is in the domain of $$f$$[cite: 505, 1051].
 
 ---
 
@@ -89,7 +90,7 @@ $$(f \circ g)(x) = f(g(x))$$
 1.  **Domain:** The expression inside the square root must be non-negative.
     $$x - 2 \geq 0 \implies x \geq 2$$
     Domain: $$[2, \infty)$$[cite: 8].
-2.  **Range:** Since the square root function always yields non-negative results, and the minimum value of $$f(x)$$is$$\sqrt{2 - 2} = 0$$, the range is all non-negative numbers.
+2.  **Range:** Since the square root function always yields non-negative results, and the minimum value of $$f(x)$$ is $$\sqrt{2 - 2} = 0$$, the range is all non-negative numbers.
     Range: $$[0, \infty)$$[cite: 8].
 
 ### Example 2: Horizontal and Vertical Shifting
@@ -98,14 +99,14 @@ $$(f \circ g)(x) = f(g(x))$$
 **Solution:**
 * [cite_start]**Horizontal Shift:** The term $$(x + 3)^2$$ represents a shift to the **left** by 3 units[cite: 4, 10].
 * [cite_start]**Vertical Shift:** The term $$- 5$$ represents a shift **downward** by 5 units[cite: 4, 10].
-* [cite_start]**Final Result:** The graph of $$h(x)$$is the same shape as$$x^2$$, but with its vertex moved from $$(0,0)$$to$$(-3, -5)$$[cite: 10].
+* [cite_start]**Final Result:** The graph of $$h(x)$$is the same shape as $$x^2$$, but with its vertex moved from $$(0,0)$$ to $$(-3, -5)$$[cite: 10].
 
 ### Example 3: Function Composition
 [cite_start]**Problem:** If $$f(x) = x^2$$and$$g(x) = x - 3$$, find the composite function $$(f \circ g)(x)$$[cite: 4, 7].
 
 **Solution:**
 [cite_start]By definition, $$(f \circ g)(x) = f(g(x))$$[cite: 4].
-1.  Substitute $$g(x)$$into the input for$$f$$:
+1.  Substitute $$g(x)$$ into the input for $$f$$:
     $$f(x - 3)$$
 2.  Apply the rule for $$f$$ (square the input):
     $$(f \circ g)(x) = (x - 3)^2$$[cite: 4, 7].
