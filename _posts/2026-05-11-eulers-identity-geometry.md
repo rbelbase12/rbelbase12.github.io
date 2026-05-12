@@ -8,8 +8,6 @@ tags:
   - geometry
   - euler
 author_profile: true
-header:
-  teaser: "/images/unit.png"
 ---
 
 > **Abstract.** Euler's Identity **$$e^{i\pi} + 1 = 0$$**  is frequently celebrated as the most beautiful equation in mathematics. But its beauty is not mystical. This article dismantles the mysticism and replaces it with something far more satisfying: a rigorous geometric explanation grounded in complex analysis, Taylor series, and the structure of the complex plane. We build every prerequisite from scratch, prove Euler's formula in full, and examine why the identity is not a coincidence but an inevitability.
@@ -21,8 +19,7 @@ header:
 Few equations in mathematics have attracted as much popular attention as Euler's Identity:
 
 $$e^{i\pi} + 1 = 0$$
-![Geometric representation of Euler's Identity](/images/unit.png)
-*Figure 1: The complex plane showing how $$e^{i\theta}$$ traces a circle, reaching -1 at $$\pi$$ radians.*
+
 
 It has been called *"the most remarkable formula in mathematics"* by Richard Feynman [1], voted the greatest equation of all time in a poll of physicists [2], and tattooed on the forearms of countless undergraduates. But the framing around it — five fundamental constants, one miraculous equation — obscures more than it reveals.
 
@@ -95,6 +92,8 @@ This is not an extension by analogy — it is *the same formula*, applied over `
 We are now ready to prove **Euler's Formula**:
 
 $$\boxed{e^{i\theta} = \cos\theta + i\sin\theta \quad \text{for all } \theta \in \mathbb{R}}$$
+![Geometric representation of Euler's Identity](/images/unit.png)
+*Figure 1: The complex plane showing how $$e^{i\theta}$$ traces a circle, reaching -1 at $$\pi$$ radians.*
 
 The proof is a direct computation using the series definition from Section 2.4.
 
