@@ -1,5 +1,5 @@
 ---
-title: "Calculus I: A Foundational Review of Functions"
+title: "A Foundational Review of Functions"
 date: 2026-05-12
 author: "Rajib Belbase"
 permalink: /posts/2026/05/calculus-i-review-functions/
@@ -24,15 +24,17 @@ A **function** $$f$$is a rule that assigns to each element$$x$$in a set$$D$$(the
 
 
 When working with functions algebraically, there are two primary **Domain Restrictions** to keep in mind:
+
 1.  **Rational Functions:** The denominator cannot be zero.
 2.  **Radical Functions:** The expression under a square root (or any even root) must be greater than or equal to zero.
 
 ### 1.1 The Four Ways to Represent a Function
 According to Stewart §1.1, functions can be described in four ways:
-1. **Verbally** (description in words)
-2. **Numerically** (table of values)
-3. **Visually** (graph)
-4. **Algebraically** (explicit formula)
+
+1.  **Verbally** (description in words)
+2.  **Numerically** (table of values)
+3.  **Visually** (graph)
+4.  **Algebraically** (explicit formula)
 
 ### 1.2 The Vertical Line Test
 A curve in the $$xy$$-plane is the graph of a function of $$x$$ if and only if no vertical line intersects the curve more than once. If a vertical line intersects a curve at more than one point, the curve does not represent a function because one input would result in multiple outputs.
@@ -51,6 +53,7 @@ By applying transformations to a "parent" function (such as $$f(x) = x^2$$or$$f(
 
 ### 2.2 Function Composition
 The **composite function** $$f \circ g$$ is created by using the output of one function as the input for another:
+
 $$(f \circ g)(x) = f(g(x))$$
 
 **Note on Domain:** The domain of the composition $$f \circ g$$consists of all$$x$$in the domain of$$g$$such that$$g(x)$$is in the domain of$$f$$.
@@ -84,8 +87,10 @@ These examples illustrate the practical application of Stewart's early chapters.
 
 **Solution:**
 $$(f \circ g)(x) = f(g(x))$$
+
 Substitute the expression for $$g(x)$$into the variable in function$$f$$:
 $$f(x - 3) = (x - 3)^2$$
+
 Expanded, this result is $$x^2 - 6x + 9$$.
 
 ---
@@ -93,7 +98,7 @@ Expanded, this result is $$x^2 - 6x + 9$$.
 ## 4. Summary Table
 
 | Concept | Key Definition |
-|---|---|
+| :--- | :--- |
 | **Mathematical Model** | A mathematical description (often a function) of a real-world phenomenon. |
 | **Even Function** | $$f(-x) = f(x)$$. The graph is symmetric about the $$y$$-axis. |
 | **Odd Function** | $$f(-x) = -f(x)$$. The graph is symmetric about the origin. |
