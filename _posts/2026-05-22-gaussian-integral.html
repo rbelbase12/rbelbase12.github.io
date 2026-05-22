@@ -1,0 +1,1014 @@
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>The Gaussian Integral — A Complete Guide</title>
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,600;1,8..60,300&display=swap" rel="stylesheet">
+
+<!-- MathJax -->
+<script>
+MathJax = {
+  tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$']] },
+  options: { skipHtmlTags: ['script','noscript','style','textarea','pre'] }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+
+<!-- Chart.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+
+<style>
+  :root {
+    --bg: #faf8f3;
+    --bg2: #f2ede2;
+    --ink: #1a1209;
+    --ink2: #4a3f2e;
+    --ink3: #8a7a63;
+    --accent: #b34a1a;
+    --accent2: #1a6b8a;
+    --border: #d8d0c0;
+    --code-bg: #1e1b16;
+    --code-fg: #e8d8b8;
+    --green: #2a7a4a;
+    --green-bg: #eaf5ee;
+    --serif: 'Source Serif 4', Georgia, serif;
+    --display: 'Playfair Display', Georgia, serif;
+    --mono: 'JetBrains Mono', 'Courier New', monospace;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--serif);
+    font-size: 18px;
+    line-height: 1.8;
+  }
+
+  /* ── HEADER ── */
+  .hero {
+    background: var(--ink);
+    color: var(--bg);
+    padding: 80px 24px 60px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(
+      90deg,
+      transparent, transparent 40px,
+      rgba(255,255,255,0.03) 40px, rgba(255,255,255,0.03) 41px
+    );
+  }
+  .hero-tag {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #c8a86e;
+    margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-family: var(--display);
+    font-size: clamp(2.4rem, 6vw, 4rem);
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: 20px;
+    color: #fff;
+  }
+  .hero h1 em { font-style: italic; color: #c8a86e; }
+  .hero-sub {
+    font-size: 1.05rem;
+    color: rgba(255,255,255,0.6);
+    max-width: 560px;
+    margin: 0 auto 32px;
+    font-weight: 300;
+  }
+  .hero-formula {
+    display: inline-block;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 8px;
+    padding: 14px 32px;
+    font-size: 1.4rem;
+    color: #f0e0c0;
+  }
+  .toc-strip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    background: var(--bg2);
+  }
+  .toc-strip a {
+    flex: 1 1 auto;
+    text-align: center;
+    padding: 12px 16px;
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--ink2);
+    text-decoration: none;
+    border-right: 1px solid var(--border);
+    transition: background 0.15s, color 0.15s;
+  }
+  .toc-strip a:last-child { border-right: none; }
+  .toc-strip a:hover { background: var(--ink); color: #fff; }
+
+  /* ── LAYOUT ── */
+  .container {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* ── SECTIONS ── */
+  section {
+    padding: 64px 0 48px;
+    border-bottom: 1px solid var(--border);
+  }
+  section:last-of-type { border-bottom: none; }
+
+  .section-num {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  h2 {
+    font-family: var(--display);
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 28px;
+    line-height: 1.25;
+  }
+  h3 {
+    font-family: var(--display);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 32px 0 12px;
+  }
+  p { margin-bottom: 1.2rem; color: var(--ink2); }
+  strong { color: var(--ink); font-weight: 600; }
+
+  /* ── MATH BLOCKS ── */
+  .math-box {
+    background: var(--bg2);
+    border-left: 4px solid var(--accent);
+    border-radius: 0 8px 8px 0;
+    padding: 24px 28px;
+    margin: 28px 0;
+    overflow-x: auto;
+  }
+  .math-box .label {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .math-box p { color: var(--ink); margin: 0; }
+
+  /* ── STEPS ── */
+  .steps { margin: 28px 0; }
+  .step {
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    gap: 0 20px;
+    margin-bottom: 28px;
+  }
+  .step-num {
+    width: 40px; height: 40px;
+    background: var(--accent);
+    color: #fff;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--mono);
+    font-size: 14px;
+    font-weight: 600;
+    flex-shrink: 0;
+    margin-top: 4px;
+  }
+  .step-body h4 {
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .step-body p { margin-bottom: 8px; }
+
+  /* ── CANVAS / CHART ── */
+  .chart-wrap {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px 24px 20px;
+    margin: 28px 0;
+  }
+  .chart-wrap h4 {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--ink3);
+    margin-bottom: 16px;
+    text-align: center;
+  }
+
+  /* ── CODE BLOCKS ── */
+  .code-block {
+    background: var(--code-bg);
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 28px 0;
+  }
+  .code-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 18px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .code-lang {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #c8a86e;
+  }
+  .code-dots { display: flex; gap: 6px; }
+  .code-dots span {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: #555;
+  }
+  pre {
+    font-family: var(--mono);
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--code-fg);
+    padding: 22px 22px;
+    overflow-x: auto;
+    tab-size: 4;
+  }
+  pre .kw { color: #f5a97f; }
+  pre .fn { color: #7dc9e8; }
+  pre .st { color: #a8d8a8; }
+  pre .cm { color: #6a7a60; font-style: italic; }
+  pre .num { color: #e8c87e; }
+  pre .op { color: #d8a8d8; }
+
+  /* ── CALLOUT BOXES ── */
+  .callout {
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin: 28px 0;
+    border: 1px solid;
+  }
+  .callout.info {
+    background: #eaf4fb;
+    border-color: #a8d0e8;
+  }
+  .callout.info .callout-title { color: var(--accent2); }
+  .callout.tip {
+    background: var(--green-bg);
+    border-color: #a8d8b8;
+  }
+  .callout.tip .callout-title { color: var(--green); }
+  .callout.warn {
+    background: #fff8ea;
+    border-color: #e8d0a0;
+  }
+  .callout.warn .callout-title { color: #8a6010; }
+  .callout-title {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .callout p { margin: 0; color: var(--ink2); }
+
+  /* ── RESULT BOX ── */
+  .result-box {
+    text-align: center;
+    background: var(--ink);
+    color: #fff;
+    border-radius: 12px;
+    padding: 36px 24px;
+    margin: 36px 0;
+  }
+  .result-box .result-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #c8a86e;
+    margin-bottom: 12px;
+  }
+  .result-box .result-eq {
+    font-size: 2rem;
+    color: #f0d090;
+  }
+
+  /* ── APPLICATIONS GRID ── */
+  .apps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    margin: 28px 0;
+  }
+  .app-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+  }
+  .app-card .app-icon {
+    font-size: 28px;
+    margin-bottom: 10px;
+  }
+  .app-card h4 {
+    font-family: var(--display);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+  .app-card p { font-size: 0.9rem; margin: 0; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink);
+    color: rgba(255,255,255,0.5);
+    text-align: center;
+    padding: 40px 24px;
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 1px;
+  }
+  footer span { color: #c8a86e; }
+
+  /* Slider */
+  .slider-row {
+    display: flex; align-items: center; gap: 14px; margin-bottom: 12px;
+  }
+  .slider-row label {
+    font-family: var(--mono); font-size: 13px; color: var(--ink2); min-width: 80px;
+  }
+  .slider-row input[type=range] { flex: 1; accent-color: var(--accent); }
+  .slider-row output {
+    font-family: var(--mono); font-size: 13px; color: var(--accent); min-width: 40px;
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════ HERO ═══════════ -->
+<header class="hero">
+  <p class="hero-tag">Mathematics · Analysis · Python</p>
+  <h1>The <em>Gaussian</em> Integral</h1>
+  <p class="hero-sub">One of the most beautiful results in all of mathematics — a complete guide from proof to code.</p>
+  <div class="hero-formula">
+    $$\int_{-\infty}^{\infty} e^{-x^2}\,dx = \sqrt{\pi}$$
+  </div>
+</header>
+
+<nav class="toc-strip">
+  <a href="#intuition">Intuition</a>
+  <a href="#proof">The Proof</a>
+  <a href="#visual">Visual</a>
+  <a href="#python">Python</a>
+  <a href="#variants">Variants</a>
+  <a href="#applications">Applications</a>
+  <a href="#extras">Extra Ideas</a>
+</nav>
+
+<div class="container">
+
+<!-- ═══════════ 1. INTUITION ═══════════ -->
+<section id="intuition">
+  <p class="section-num">§ 01</p>
+  <h2>What Is the Gaussian Integral?</h2>
+
+  <p>At its heart, the Gaussian integral asks a single question: <strong>what is the area under the bell curve $e^{-x^2}$ from $-\infty$ to $+\infty$?</strong></p>
+
+  <p>The function $f(x) = e^{-x^2}$ has no elementary antiderivative — you cannot write a closed-form expression for $\int e^{-x^2}\,dx$ in terms of familiar functions. Yet the <em>definite</em> integral over all of $\mathbb{R}$ has the stunningly clean value $\sqrt{\pi}$. This apparent miracle is why mathematicians have been enchanted by it for nearly three centuries.</p>
+
+  <div class="callout info">
+    <p class="callout-title">🗓️ Historical note</p>
+    <p>The result is attributed to <strong>Carl Friedrich Gauss</strong> (1777–1855), who used it in his work on the normal distribution. The method we present — squaring the integral and switching to polar coordinates — appears to have been first published by <strong>Poisson</strong> in 1823.</p>
+  </div>
+
+  <p>The function is symmetric ($e^{-x^2} = e^{-(-x)^2}$), always positive, and decays rapidly to zero as $|x| \to \infty$. These properties guarantee the integral converges.</p>
+</section>
+
+<!-- ═══════════ 2. PROOF ═══════════ -->
+<section id="proof">
+  <p class="section-num">§ 02</p>
+  <h2>The Polar Coordinates Proof</h2>
+
+  <p>The standard proof is one of the most elegant tricks in analysis. We cannot integrate the Gaussian directly — so instead, we <em>square</em> it and convert to polar coordinates.</p>
+
+  <div class="steps">
+
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <h4>Define $I$</h4>
+        <p>Let $I$ be the integral we want to evaluate:</p>
+        <div class="math-box">
+          <p class="label">Definition</p>
+          <p>$$I = \int_{-\infty}^{\infty} e^{-x^2}\,dx$$</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <h4>Compute $I^2$</h4>
+        <p>Write $I^2$ as a product of two independent integrals (using a dummy variable $y$):</p>
+        <div class="math-box">
+          <p class="label">Key Insight</p>
+          <p>$$I^2 = \left(\int_{-\infty}^{\infty} e^{-x^2}\,dx\right)\left(\int_{-\infty}^{\infty} e^{-y^2}\,dy\right) = \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} e^{-(x^2+y^2)}\,dx\,dy$$</p>
+        </div>
+        <p>This is now a <strong>double integral over the entire plane</strong>.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <h4>Switch to Polar Coordinates</h4>
+        <p>The integrand $e^{-(x^2+y^2)}$ depends only on $r^2 = x^2 + y^2$ — it has perfect circular symmetry. This calls for <strong>polar coordinates</strong>:</p>
+        <div class="math-box">
+          <p class="label">Substitution</p>
+          <p>$$x = r\cos\theta,\quad y = r\sin\theta,\quad dx\,dy = r\,dr\,d\theta$$</p>
+        </div>
+        <p>The Cartesian plane maps to $r \in [0, \infty)$ and $\theta \in [0, 2\pi)$.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-body">
+        <h4>Evaluate the Double Integral</h4>
+        <div class="math-box">
+          <p class="label">Evaluation</p>
+          <p>
+            $$I^2 = \int_0^{2\pi}\int_0^{\infty} e^{-r^2}\,r\,dr\,d\theta$$
+            $$= 2\pi \int_0^{\infty} r\,e^{-r^2}\,dr$$
+          </p>
+        </div>
+        <p>Now substitute $u = r^2$, so $du = 2r\,dr$:</p>
+        <div class="math-box">
+          <p class="label">u-substitution</p>
+          <p>$$I^2 = 2\pi \cdot \frac{1}{2}\int_0^{\infty} e^{-u}\,du = \pi \Big[-e^{-u}\Big]_0^{\infty} = \pi(0 - (-1)) = \pi$$</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">5</div>
+      <div class="step-body">
+        <h4>Take the Square Root</h4>
+        <p>Since $I > 0$ (the integrand is positive), we take the positive square root:</p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="result-box">
+    <p class="result-label">The Gaussian Integral</p>
+    <p class="result-eq">$$I^2 = \pi \implies I = \sqrt{\pi}$$</p>
+  </div>
+
+  <div class="callout tip">
+    <p class="callout-title">✦ Why does the trick work?</p>
+    <p>The key insight is that $e^{-r^2}$ is <em>radially symmetric</em> — it only depends on the distance from the origin. By squaring $I$, we create a 2D integral with this symmetry, making polar coordinates the natural choice. The factor $r$ in the Jacobian $r\,dr\,d\theta$ is what makes $\int_0^\infty r\,e^{-r^2}\,dr$ tractable via simple substitution.</p>
+  </div>
+</section>
+
+<!-- ═══════════ 3. VISUAL ═══════════ -->
+<section id="visual">
+  <p class="section-num">§ 03</p>
+  <h2>Visualizing the Integral</h2>
+
+  <p>The Gaussian curve is the iconic bell shape. Its area under the curve equals $\sqrt{\pi} \approx 1.7725$. The interactive chart below lets you explore how the <strong>Riemann sum approximation</strong> converges to this exact value.</p>
+
+  <div class="chart-wrap">
+    <h4>The Gaussian curve $e^{-x^2}$ and Riemann approximation</h4>
+    <div class="slider-row">
+      <label>Rectangles</label>
+      <input type="range" id="numRects" min="4" max="100" value="20" step="2">
+      <output id="numRectsOut">20</output>
+    </div>
+    <div class="slider-row">
+      <label>Range ±</label>
+      <input type="range" id="range" min="2" max="5" value="3" step="0.5">
+      <output id="rangeOut">3</output>
+    </div>
+    <div style="position: relative; height: 300px;">
+      <canvas id="gaussChart" role="img" aria-label="Gaussian bell curve with Riemann sum rectangles showing area approximation"></canvas>
+    </div>
+    <div style="display: flex; justify-content: space-between; margin-top: 14px; font-family: 'JetBrains Mono', monospace; font-size: 13px;">
+      <span style="color: #555;">Riemann sum: <strong id="riemannVal" style="color: #b34a1a;">—</strong></span>
+      <span style="color: #555;">Exact: <strong style="color: #2a7a4a;">√π ≈ 1.77245</strong></span>
+    </div>
+  </div>
+
+  <p>Notice how the Riemann sum converges rapidly — even with 20 rectangles over $[-3, 3]$, we get within 0.1% of the true value. The tails contribute very little since $e^{-x^2}$ decays extremely quickly beyond $|x| = 2$.</p>
+
+  <h3>The 3D Perspective</h3>
+  <p>To understand the polar-coordinates proof geometrically: the product $I^2$ represents the <strong>volume under the surface $z = e^{-(x^2+y^2)}$</strong> over the entire plane. This bell-shaped mound has volume $\pi$, so each "slice" through its cross-section gives area $\sqrt{\pi}$.</p>
+
+  <div class="chart-wrap">
+    <h4>Polar decomposition of $I^2$: integrand as a function of $r$</h4>
+    <div style="position: relative; height: 260px;">
+      <canvas id="polarChart" role="img" aria-label="Plot of r times e to the minus r squared versus r, showing the integrand in polar form"></canvas>
+    </div>
+    <p style="font-size: 13px; color: var(--ink3); text-align: center; margin-top: 10px; font-family: 'JetBrains Mono', monospace;">
+      $r\,e^{-r^2}$ — the radial integrand. Area under this curve = $\tfrac{1}{2}$, so $I^2 = 2\pi \cdot \tfrac{1}{2} = \pi$
+    </p>
+  </div>
+</section>
+
+<!-- ═══════════ 4. PYTHON ═══════════ -->
+<section id="python">
+  <p class="section-num">§ 04</p>
+  <h2>Solving with Python</h2>
+
+  <p>Python offers several distinct approaches: symbolic computation, numerical quadrature, Monte Carlo estimation, and direct use of the special-functions library. Let's explore each.</p>
+
+  <h3>1. Symbolic Computation with SymPy</h3>
+
+  <div class="code-block">
+    <div class="code-header">
+      <span class="code-lang">Python · SymPy</span>
+      <div class="code-dots"><span></span><span></span><span></span></div>
+    </div>
+<pre><span class="kw">from</span> sympy <span class="kw">import</span> *
+
+x = <span class="fn">symbols</span>(<span class="st">'x'</span>)
+
+<span class="cm"># Define the integrand</span>
+integrand = <span class="fn">exp</span>(-x**<span class="num">2</span>)
+
+<span class="cm"># Compute the definite integral symbolically</span>
+result = <span class="fn">integrate</span>(integrand, (x, -<span class="fn">oo</span>, <span class="fn">oo</span>))
+
+<span class="fn">print</span>(<span class="st">f"Gaussian integral = {result}"</span>)
+<span class="cm"># Output: Gaussian integral = sqrt(pi)</span>
+
+<span class="fn">print</span>(<span class="st">f"Numerical value  = {float(result):.8f}"</span>)
+<span class="cm"># Output: Numerical value  = 1.77245385</span>
+
+<span class="cm"># Also compute the general form ∫ e^(-a*x²) dx</span>
+a = <span class="fn">symbols</span>(<span class="st">'a'</span>, positive=<span class="kw">True</span>)
+general = <span class="fn">integrate</span>(<span class="fn">exp</span>(-a*x**<span class="num">2</span>), (x, -<span class="fn">oo</span>, <span class="fn">oo</span>))
+<span class="fn">print</span>(<span class="st">f"General form     = {general}"</span>)
+<span class="cm"># Output: General form     = sqrt(pi)/sqrt(a)</span></pre>
+  </div>
+
+  <h3>2. Numerical Quadrature with SciPy</h3>
+
+  <div class="code-block">
+    <div class="code-header">
+      <span class="code-lang">Python · SciPy</span>
+      <div class="code-dots"><span></span><span></span><span></span></div>
+    </div>
+<pre><span class="kw">import</span> numpy <span class="kw">as</span> np
+<span class="kw">from</span> scipy <span class="kw">import</span> integrate
+<span class="kw">import</span> math
+
+<span class="cm"># Method 1: quad (adaptive Gaussian quadrature)</span>
+result, error = integrate.<span class="fn">quad</span>(
+    <span class="kw">lambda</span> x: np.<span class="fn">exp</span>(-x**<span class="num">2</span>),
+    -np.inf, np.inf
+)
+<span class="fn">print</span>(<span class="st">f"quad result  : {result:.10f}"</span>)
+<span class="fn">print</span>(<span class="st">f"error bound  : {error:.2e}"</span>)
+<span class="fn">print</span>(<span class="st">f"sqrt(pi)     : {math.sqrt(math.pi):.10f}"</span>)
+
+<span class="cm"># Method 2: Riemann sum (manual, educational)</span>
+<span class="kw">def</span> <span class="fn">riemann_gaussian</span>(n=<span class="num">10000</span>, L=<span class="num">10</span>):
+    x = np.<span class="fn">linspace</span>(-L, L, n)
+    dx = x[<span class="num">1</span>] - x[<span class="num">0</span>]
+    <span class="kw">return</span> np.<span class="fn">sum</span>(np.<span class="fn">exp</span>(-x**<span class="num">2</span>)) * dx
+
+<span class="fn">print</span>(<span class="st">f"Riemann (n=10000): {riemann_gaussian():.10f}"</span>)</pre>
+  </div>
+
+  <h3>3. Monte Carlo Estimation</h3>
+
+  <p>Monte Carlo methods use random sampling to estimate integrals. For the Gaussian, we can use the fact that sampling from the standard normal distribution is equivalent to computing the integral.</p>
+
+  <div class="code-block">
+    <div class="code-header">
+      <span class="code-lang">Python · Monte Carlo</span>
+      <div class="code-dots"><span></span><span></span><span></span></div>
+    </div>
+<pre><span class="kw">import</span> numpy <span class="kw">as</span> np
+
+<span class="kw">def</span> <span class="fn">monte_carlo_gaussian</span>(N=<span class="num">10_000_000</span>, L=<span class="num">5</span>):
+    <span class="st">"""
+    Estimate ∫_{-L}^{L} e^{-x²} dx via Monte Carlo.
+    Sample x ~ Uniform(-L, L), then:
+        integral ≈ (2L) · E[e^{-x²}]
+    """</span>
+    x = np.random.<span class="fn">uniform</span>(-L, L, N)
+    estimate = <span class="num">2</span>*L * np.<span class="fn">mean</span>(np.<span class="fn">exp</span>(-x**<span class="num">2</span>))
+    <span class="kw">return</span> estimate
+
+np.random.<span class="fn">seed</span>(<span class="num">42</span>)
+estimate = <span class="fn">monte_carlo_gaussian</span>()
+<span class="fn">print</span>(<span class="st">f"Monte Carlo (N=10M): {estimate:.6f}"</span>)
+<span class="fn">print</span>(<span class="st">f"True value √π     : {np.sqrt(np.pi):.6f}"</span>)
+
+<span class="cm"># Convergence study</span>
+<span class="fn">print</span>(<span class="st">"\nConvergence as N grows:"</span>)
+<span class="kw">for</span> N <span class="kw">in</span> [<span class="num">100</span>, <span class="num">1000</span>, <span class="num">10000</span>, <span class="num">100000</span>, <span class="num">1000000</span>]:
+    est = <span class="fn">monte_carlo_gaussian</span>(N)
+    err = <span class="fn">abs</span>(est - np.<span class="fn">sqrt</span>(np.pi))
+    <span class="fn">print</span>(<span class="st">f"  N={N:>8,}: {est:.5f}  (error {err:.2e})"</span>)</pre>
+  </div>
+
+  <h3>4. Using the Error Function (erf)</h3>
+
+  <div class="code-block">
+    <div class="code-header">
+      <span class="code-lang">Python · Special Functions</span>
+      <div class="code-dots"><span></span><span></span><span></span></div>
+    </div>
+<pre><span class="kw">from</span> scipy.special <span class="kw">import</span> erf, erfinv
+<span class="kw">import</span> numpy <span class="kw">as</span> np
+
+<span class="cm"># The error function is defined as:
+# erf(x) = (2/√π) ∫₀ˣ e^{-t²} dt
+# So: ∫_{-∞}^{∞} e^{-t²} dt = √π · erf(∞) = √π · 1 = √π</span>
+
+<span class="cm"># Definite integral from 0 to x:</span>
+<span class="kw">def</span> <span class="fn">gaussian_partial</span>(x):
+    <span class="st">"""∫_{-x}^{x} e^{-t²} dt"""</span>
+    <span class="kw">return</span> np.<span class="fn">sqrt</span>(np.pi) * <span class="fn">erf</span>(x)
+
+<span class="kw">for</span> x_val <span class="kw">in</span> [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>, <span class="num">5</span>, np.inf]:
+    val = <span class="fn">gaussian_partial</span>(x_val)
+    pct = <span class="num">100</span> * val / np.<span class="fn">sqrt</span>(np.pi)
+    <span class="fn">print</span>(<span class="st">f"  ∫_{{-{x_val}}}^{{{x_val}}} = {val:.5f}  ({pct:.2f}% of √π)"</span>)</pre>
+  </div>
+
+  <h3>5. Visualizing with Matplotlib</h3>
+
+  <div class="code-block">
+    <div class="code-header">
+      <span class="code-lang">Python · Matplotlib</span>
+      <div class="code-dots"><span></span><span></span><span></span></div>
+    </div>
+<pre><span class="kw">import</span> numpy <span class="kw">as</span> np
+<span class="kw">import</span> matplotlib.pyplot <span class="kw">as</span> plt
+<span class="kw">from</span> scipy.special <span class="kw">import</span> erf
+
+fig, axes = plt.<span class="fn">subplots</span>(<span class="num">1</span>, <span class="num">3</span>, figsize=(<span class="num">15</span>, <span class="num">4</span>))
+
+x = np.<span class="fn">linspace</span>(-<span class="num">4</span>, <span class="num">4</span>, <span class="num">500</span>)
+y = np.<span class="fn">exp</span>(-x**<span class="num">2</span>)
+
+<span class="cm"># Plot 1: The Gaussian curve with filled area</span>
+ax = axes[<span class="num">0</span>]
+ax.<span class="fn">plot</span>(x, y, <span class="st">'navy'</span>, lw=<span class="num">2</span>, label=<span class="st">r'$e^{-x^2}$'</span>)
+ax.<span class="fn">fill_between</span>(x, y, alpha=<span class="num">0.3</span>, color=<span class="st">'steelblue'</span>)
+ax.<span class="fn">axhline</span>(<span class="num">0</span>, color=<span class="st">'k'</span>, lw=<span class="num">0.5</span>)
+ax.<span class="fn">set_title</span>(<span class="st">r'$\int_{-\infty}^{\infty} e^{-x^2}\,dx = \sqrt{\pi}$'</span>)
+ax.<span class="fn">annotate</span>(<span class="st">f'Area = √π ≈ {np.sqrt(np.pi):.4f}'</span>,
+             xy=(<span class="num">0</span>, <span class="num">0.5</span>), ha=<span class="st">'center'</span>, fontsize=<span class="num">10</span>)
+
+<span class="cm"># Plot 2: Convergence of partial integrals</span>
+ax = axes[<span class="num">1</span>]
+L_vals = np.<span class="fn">linspace</span>(<span class="num">0</span>, <span class="num">4</span>, <span class="num">200</span>)
+partials = np.<span class="fn">sqrt</span>(np.pi) * <span class="fn">erf</span>(L_vals)
+ax.<span class="fn">plot</span>(L_vals, partials, <span class="st">'crimson'</span>, lw=<span class="num">2</span>)
+ax.<span class="fn">axhline</span>(np.<span class="fn">sqrt</span>(np.pi), color=<span class="st">'k'</span>, ls=<span class="st">'--'</span>, lw=<span class="num">1</span>,
+          label=<span class="st">r'$\sqrt{\pi}$'</span>)
+ax.<span class="fn">set_title</span>(<span class="st">r'$\int_{-L}^{L} e^{-x^2}\,dx$ vs. $L$'</span>)
+
+<span class="cm"># Plot 3: Monte Carlo convergence</span>
+ax = axes[<span class="num">2</span>]
+ns = np.<span class="fn">logspace</span>(<span class="num">1</span>, <span class="num">6</span>, <span class="num">50</span>, dtype=<span class="fn">int</span>)
+errors = []
+<span class="kw">for</span> n <span class="kw">in</span> ns:
+    est = <span class="num">10</span> * np.<span class="fn">mean</span>(np.random.<span class="fn">uniform</span>(-<span class="num">5</span>, <span class="num">5</span>, n)
+          |> (<span class="kw">lambda</span> x: np.<span class="fn">exp</span>(-x**<span class="num">2</span>)))
+    errors.<span class="fn">append</span>(<span class="fn">abs</span>(est - np.<span class="fn">sqrt</span>(np.pi)))
+ax.<span class="fn">loglog</span>(ns, errors, <span class="st">'darkorange'</span>, lw=<span class="num">2</span>)
+ax.<span class="fn">set_title</span>(<span class="st">'Monte Carlo error vs. N'</span>)
+
+plt.<span class="fn">tight_layout</span>()
+plt.<span class="fn">savefig</span>(<span class="st">'gaussian_plots.png'</span>, dpi=<span class="num">150</span>)
+plt.<span class="fn">show</span>()</pre>
+  </div>
+
+  <div class="callout tip">
+    <p class="callout-title">✦ Which method to use?</p>
+    <p>Use <strong>SymPy</strong> when you need exact symbolic answers. Use <strong>scipy.integrate.quad</strong> for fast, accurate numerics. Use <strong>Monte Carlo</strong> to demonstrate convergence or for high-dimensional generalizations. Use <strong>erf</strong> for computing probabilities under the normal distribution.</p>
+  </div>
+</section>
+
+<!-- ═══════════ 5. VARIANTS ═══════════ -->
+<section id="variants">
+  <p class="section-num">§ 05</p>
+  <h2>Important Variants</h2>
+
+  <p>The Gaussian integral has several important generalizations, each with elegant closed forms.</p>
+
+  <h3>Scaled Gaussian</h3>
+  <div class="math-box">
+    <p class="label">General Parameter</p>
+    <p>$$\int_{-\infty}^{\infty} e^{-ax^2}\,dx = \sqrt{\frac{\pi}{a}}, \qquad a > 0$$</p>
+  </div>
+
+  <h3>With Linear Term (Completing the Square)</h3>
+  <div class="math-box">
+    <p class="label">Linear Exponent</p>
+    <p>$$\int_{-\infty}^{\infty} e^{-ax^2 + bx}\,dx = \sqrt{\frac{\pi}{a}}\,e^{b^2/4a}$$</p>
+  </div>
+  <p>Proof: complete the square in the exponent: $-ax^2 + bx = -a(x - b/2a)^2 + b^2/4a$, shift $u = x - b/2a$, and the Jacobian is 1.</p>
+
+  <h3>With Polynomial (Gaussian Moments)</h3>
+  <div class="math-box">
+    <p class="label">Even Powers</p>
+    <p>$$\int_{-\infty}^{\infty} x^{2n} e^{-x^2}\,dx = \frac{(2n)!}{4^n\,n!}\,\sqrt{\pi}$$</p>
+  </div>
+  <p>Odd powers integrate to zero by symmetry (odd integrand over symmetric interval).</p>
+
+  <h3>Half-Line Integral</h3>
+  <div class="math-box">
+    <p class="label">Half Gaussian</p>
+    <p>$$\int_0^{\infty} e^{-x^2}\,dx = \frac{\sqrt{\pi}}{2}$$</p>
+  </div>
+
+  <h3>Connection to the Gamma Function</h3>
+  <div class="math-box">
+    <p class="label">Gamma Connection</p>
+    <p>$$\int_0^{\infty} e^{-x^2}\,dx = \frac{1}{2}\,\Gamma\!\left(\frac{1}{2}\right), \qquad \Gamma\!\left(\frac{1}{2}\right) = \sqrt{\pi}$$</p>
+  </div>
+  <p>More generally: $\int_0^\infty x^{n-1}e^{-x^2}\,dx = \tfrac{1}{2}\,\Gamma(n/2)$. This connects the Gaussian integral to the entire family of Gamma integrals.</p>
+</section>
+
+<!-- ═══════════ 6. APPLICATIONS ═══════════ -->
+<section id="applications">
+  <p class="section-num">§ 06</p>
+  <h2>Applications Across Science</h2>
+
+  <p>The Gaussian integral appears wherever continuous distributions, diffusion, or oscillation arise.</p>
+
+  <div class="apps-grid">
+    <div class="app-card">
+      <div class="app-icon">📊</div>
+      <h4>Probability & Statistics</h4>
+      <p>The normal distribution $\mathcal{N}(\mu, \sigma^2)$ normalizes to 1 precisely because $\int e^{-x^2}dx = \sqrt{\pi}$. Every z-table and p-value rests on this.</p>
+    </div>
+    <div class="app-card">
+      <div class="app-icon">⚛️</div>
+      <h4>Quantum Mechanics</h4>
+      <p>The harmonic oscillator ground state $\psi_0 \propto e^{-x^2/2}$ is a Gaussian. Computing expectation values requires Gaussian integrals.</p>
+    </div>
+    <div class="app-card">
+      <div class="app-icon">🌡️</div>
+      <h4>Heat & Diffusion</h4>
+      <p>The fundamental solution to the heat equation $u_t = u_{xx}$ is a Gaussian. Conservation of energy is verified via the Gaussian integral.</p>
+    </div>
+    <div class="app-card">
+      <div class="app-icon">📡</div>
+      <h4>Signal Processing</h4>
+      <p>The Fourier transform of a Gaussian is another Gaussian. This is central to filter design, uncertainty principles, and spectral analysis.</p>
+    </div>
+    <div class="app-card">
+      <div class="app-icon">🧲</div>
+      <h4>Statistical Mechanics</h4>
+      <p>Partition functions in the Boltzmann distribution and path integrals in field theory both rely on Gaussian integrals as a foundation.</p>
+    </div>
+    <div class="app-card">
+      <div class="app-icon">🤖</div>
+      <h4>Machine Learning</h4>
+      <p>Gaussian processes, variational inference, and the normalization of softmax-like distributions all involve evaluating or approximating Gaussian integrals.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 7. EXTRA IDEAS ═══════════ -->
+<section id="extras">
+  <p class="section-num">§ 07</p>
+  <h2>Extra Ideas to Explore</h2>
+
+  <h3>1. The Fresnel Integrals</h3>
+  <p>If you replace $e^{-x^2}$ with $e^{ix^2}$ (a complex Gaussian), you get the <strong>Fresnel integrals</strong> $\int_0^\infty \cos(x^2)dx = \int_0^\infty \sin(x^2)dx = \tfrac{\sqrt{2\pi}}{4}$. These appear in optics and diffraction theory.</p>
+
+  <h3>2. Multidimensional Gaussian</h3>
+  <div class="math-box">
+    <p class="label">n-Dimensional</p>
+    <p>$$\int_{\mathbb{R}^n} e^{-\mathbf{x}^T\mathbf{A}\mathbf{x}}\,d^n\mathbf{x} = \frac{\pi^{n/2}}{\sqrt{\det \mathbf{A}}}$$</p>
+  </div>
+  <p>This $n$-dimensional generalization, where $\mathbf{A}$ is a positive-definite matrix, is the backbone of multivariate statistics and Gaussian processes.</p>
+
+  <h3>3. Stirling's Approximation via Gaussians</h3>
+  <p>Stirling's famous formula $n! \approx \sqrt{2\pi n}\,(n/e)^n$ can be derived by approximating the Gamma function $\Gamma(n+1)$ with a Gaussian near its peak — a technique called the <strong>Laplace method</strong> or <strong>saddle-point approximation</strong>.</p>
+
+  <h3>4. Path Integrals in Physics</h3>
+  <p>Feynman's path integral formulation of quantum mechanics integrates over all possible particle trajectories. For the harmonic oscillator, this reduces to an infinite-dimensional Gaussian integral — the most beautiful generalization of the result we proved.</p>
+
+  <h3>5. The Wallis Product Connection</h3>
+  <p>Combining the Gaussian integral with the reflection formula $\Gamma(z)\Gamma(1-z) = \pi/\sin(\pi z)$ at $z = 1/2$ gives $[\Gamma(1/2)]^2 = \pi$, and this is connected to the Wallis product for $\pi$.</p>
+
+  <div class="callout warn">
+    <p class="callout-title">⚡ Challenge problems</p>
+    <p>Try to prove: (1) $\int_{-\infty}^\infty x^2 e^{-x^2}dx = \sqrt{\pi}/2$ using integration by parts. (2) The Fourier transform $\hat{f}(\xi) = \int e^{-x^2}e^{-2\pi i x\xi}dx = \sqrt{\pi}\,e^{-\pi^2\xi^2}$ (another Gaussian!). (3) Generalize the polar proof to $n$ dimensions to derive $\int_{\mathbb{R}^n} e^{-|\mathbf{x}|^2}d^n\mathbf{x} = \pi^{n/2}$.</p>
+  </div>
+</section>
+
+</div><!-- /container -->
+
+<footer>
+  <p>Written with love for mathematics · <span>$\int_{-\infty}^{\infty} e^{-x^2}\,dx = \sqrt{\pi}$</span></p>
+  <p style="margin-top:8px; font-size:11px; opacity:0.5;">Visualizations built with Chart.js · Math rendered with MathJax</p>
+</footer>
+
+<script>
+(function() {
+  const ACCENT = '#b34a1a';
+  const ACCENT2 = '#1a6b8a';
+
+  function buildGaussData(L, n) {
+    const pts = 500;
+    const xs = [], ys = [];
+    for (let i = 0; i <= pts; i++) {
+      const x = -L + 2*L*i/pts;
+      xs.push(x);
+      ys.push(Math.exp(-x*x));
+    }
+    return { xs, ys };
+  }
+
+  function buildRects(L, n) {
+    const dx = 2*L/n;
+    const rects = [];
+    let sum = 0;
+    for (let i = 0; i < n; i++) {
+      const x0 = -L + i*dx;
+      const xMid = x0 + dx/2;
+      const h = Math.exp(-xMid*xMid);
+      rects.push({ x: x0, w: dx, h });
+      sum += h * dx;
+    }
+    return { rects, sum };
+  }
+
+  const ctx = document.getElementById('gaussChart').getContext('2d');
+  let gaussChart = null;
+  let currentL = 3, currentN = 20;
+
+  function updateGaussChart() {
+    const L = parseFloat(document.getElementById('range').value);
+    const N = parseInt(document.getElementById('numRects').value);
+    currentL = L; currentN = N;
+
+    const { xs, ys } = buildGaussData(L, N);
+    const { rects, sum } = buildRects(L, N);
+
+    document.getElementById('riemannVal').textContent = sum.toFixed(5);
+
+    const barLabels = rects.map(r => r.x.toFixed(2));
+    const barData   = rects.map(r => r.h);
+    const barWidths = rects.map(r => r.w);
+
+    if (gaussChart) gaussChart.destroy();
+
+    gaussChart = new Chart(ctx, {
+      data: {
+        labels: xs.map(v => v.toFixed(2)),
+        datasets: [
+          {
+            type: 'bar',
+            label: 'Riemann sum',
+            data: rects.map(r => ({ x: r.x + r.w/2, y: r.h })),
+            backgroundColor: 'rgba(179,74,26,0.25)',
+            borderColor: 'rgba(179,74,26,0.7)',
+            borderWidth: 1,
+            barPercentage: 1.0,
+            categoryPercentage: 1.0,
+          },
+          {
+            type: 'line',
+            label: 'e^{-x²}',
+            data: xs.map((x,i) => ({ x, y: ys[i] })),
+            borderColor: ACCENT2,
+            borderWidth: 2.5,
+            pointRadius: 0,
+            tension: 0.4,
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          x: {
+            type: 'linear',
+            min: -L - 0.3, max: L + 0.3,
+            ticks: { maxTicksLimit: 9, color: '#888' },
+            grid: { color: 'rgba(0,0,0,0.06)' }
+          },
+          y: {
+            min: 0, max: 1.15,
+            ticks: { color: '#888' },
+            grid: { color: 'rgba(0,0,0,0.06)' }
+          }
+        },
+        plugins: {
+          legend: { display: false },
+          tooltip: { mode: 'index', intersect: false }
+        },
+        animation: { duration: 150 }
+      }
+    });
+  }
+
+  document.getElementById('numRects').addEventListener('input', function() {
+    document.getElementById('numRectsOut').textContent = this.value;
+    updateGaussChart();
+  });
+  document.getElementById('range').addEventListener('input', function() {
+    document.getElementById('rangeOut').textContent = this.value;
+    updateGaussChart();
+  });
+
+  updateGaussChart();
+
+  // Polar chart
+  const rVals = [], rIntegrand = [];
+  for (let i = 0; i <= 300; i++) {
+    const r = i * 4 / 300;
+    rVals.push(r.toFixed(3));
+    rIntegrand.push(r * Math.exp(-r*r));
+  }
+
+  new Chart(document.getElementById('polarChart').getContext('2d'), {
+    type: 'line',
+    data: {
+      labels: rVals,
+      datasets: [{
+        label: 'r·e^{-r²}',
+        data: rIntegrand,
+        borderColor: '#1a6b8a',
+        borderWidth: 2.5,
+        pointRadius: 0,
+        fill: true,
+        backgroundColor: 'rgba(26,107,138,0.12)',
+        tension: 0.4
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        x: {
+          ticks: { maxTicksLimit: 9, color: '#888' },
+          grid: { color: 'rgba(0,0,0,0.06)' },
+          title: { display: true, text: 'r', color: '#888' }
+        },
+        y: {
+          min: 0, max: 0.45,
+          ticks: { color: '#888' },
+          grid: { color: 'rgba(0,0,0,0.06)' }
+        }
+      },
+      plugins: {
+        legend: { display: false },
+        tooltip: { mode: 'index', intersect: false }
+      }
+    }
+  });
+})();
+</script>
+
+</body>
+</html>
