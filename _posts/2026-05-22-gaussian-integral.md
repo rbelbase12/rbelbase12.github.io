@@ -1,5 +1,5 @@
 ---
-title: "The Gaussian Integral: Squaring the Dimension to Uncover Pi"
+title: "The Gaussian Integral"
 date: 2026-05-22
 permalink: /posts/2026/05/gaussian-integral-polar/
 tags:
@@ -22,7 +22,7 @@ Because the single-variable function $$e^{-x^2}$$ lacks an elementary antideriva
   </div>
 </div>
 
-By introducing a secondary duplicate integral under an independent dummy variable $$y$$, we can structure the squared quantity $$I^2$$ as a bivariate double integral representing the volume beneath an infinite 3D surface:
+By introducing a secondary duplicate integral under an independent dummy variable $$y$, we can structure the squared quantity $$I^2$$ as a bivariate double integral representing the volume beneath an infinite 3D surface:
 
 $$I^2 = \left(\int_{-\infty}^{\infty} e^{-x^2}\,dx\right)\left(\int_{-\infty}^{\infty} e^{-y^2}\,dy\right) = \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} e^{-(x^2+y^2)}\,dx\,dy$$
 
