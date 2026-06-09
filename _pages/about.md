@@ -33,7 +33,7 @@ Outside of mathematics, I enjoy **Photography**, **Fishing**, and **Hiking**. Th
 | Date | | Update |
 |---|---|---|
 | 2026 | 🏆 Award | Received the **Outstanding Graduate Poster Award** at the College of Science Research Expo, University of Idaho. |
-| Spring 2026 | 📚 Teaching | Currently teaching **Calculus III** as Instructor at the University of Idaho. |
+| Summer 2026 | 📚 Teaching | Currently teaching **Calculus III** as Instructor at the University of Idaho. |
 | Jul 2025 | 🎓 Conference | Participated in the **Mathematical Congress of the Americas (MCA 2025)** in Miami, FL. |
 | Jan 2025 | 🎓 Conference | Attended the **Joint Mathematics Meetings (JMM 2025)** in Seattle, WA. |
 | 2025 | 🏆 Award | Received the **MCA Travel Award** from the American Mathematical Society. |
