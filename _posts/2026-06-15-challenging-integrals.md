@@ -10,6 +10,10 @@ tags:
 author_profile: true
 
 ---
+A collection of integrals that are deceptively simple to state yet require ingenuity to solve —
+spanning contour integration, special functions, symmetry arguments, and beyond.
+Closed forms are given; proofs are left as exercises (or future posts).
+---
 
 <!-- MathJax: renders LaTeX in any GitHub Pages theme -->
 <script>
@@ -34,12 +38,6 @@ MathJax = {
 .integral-block p { margin: 0.3rem 0; }
 .technique { color: #555; font-style: italic; font-size: 0.95em; }
 </style>
-
----
-A collection of integrals that are deceptively simple to state yet require ingenuity to solve —
-spanning contour integration, special functions, symmetry arguments, and beyond.
-Closed forms are given; proofs are left as exercises (or future posts).
----
  
 ## 1. Classic Improper Integrals
  
