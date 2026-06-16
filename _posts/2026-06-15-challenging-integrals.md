@@ -7,8 +7,6 @@ tags: [integrals, analysis, techniques]
 math: true
 ---
 
-# Integrals Every Mathematician Should Know
-
 <!-- MathJax: renders LaTeX in any GitHub Pages theme -->
 <script>
 MathJax = {
