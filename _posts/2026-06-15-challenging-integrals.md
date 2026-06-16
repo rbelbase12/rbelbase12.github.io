@@ -10,9 +10,11 @@ tags:
 author_profile: true
 
 ---
+
 A collection of integrals that are deceptively simple to state yet require ingenuity to solve —
 spanning contour integration, special functions, symmetry arguments, and beyond.
 Closed forms are given; proofs are left as exercises (or future posts).
+
 ---
 
 <!-- MathJax: renders LaTeX in any GitHub Pages theme -->
