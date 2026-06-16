@@ -38,8 +38,6 @@ MathJax = {
 .integral-block p { margin: 0.3rem 0; }
 .technique { color: #555; font-style: italic; font-size: 0.95em; }
 </style>
-
----
  
 ## 1. Classic Improper Integrals
  
