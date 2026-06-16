@@ -1,10 +1,13 @@
 ---
-layout: post
 title: "Challenging Integrals Every Mathematician Should Know"
-date: 2026-06-15
-categories: [mathematics, calculus]
-tags: [integrals, analysis, techniques]
-math: true
+date: 2026-05-22
+permalink: /posts/2026/05/chal_integrals/
+tags:
+  - mathematics
+  - calculus
+  - integration
+  - analysis
+author_profile: true
 ---
 
 <!-- MathJax: renders LaTeX in any GitHub Pages theme -->
@@ -31,13 +34,11 @@ MathJax = {
 .technique { color: #555; font-style: italic; font-size: 0.95em; }
 </style>
  
-# A Curated List of Challenging Integrals
+# Challenging Integrals Every Mathematician Should Know
  
 A collection of integrals that are deceptively simple to state yet require ingenuity to solve —
 spanning contour integration, special functions, symmetry arguments, and beyond.
 Closed forms are given; proofs are left as exercises (or future posts).
-
- <!--more-->
 ---
  
 ## 1. Classic Improper Integrals
