@@ -1,7 +1,7 @@
 ---
 title: "Challenging Integrals Every Mathematician Should Know"
-date: 2026-05-22
-permalink: /posts/2026/05/chal_integrals/
+date: 2026-06-15
+permalink: /posts/2026/06/chal_integrals/
 tags:
   - mathematics
   - calculus
