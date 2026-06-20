@@ -48,7 +48,7 @@ MathJax = {
 $$\int_0^{\infty} \frac{\sin x}{x} \, dx \;=\; \frac{\pi}{2}$$
  
 <p class="technique">Technique: Feynman's trick (differentiation under the integral sign) or contour integration.</p>
-<a class="solution-link" href="_pages/dirichlet-feynman-prose.md">View solution</a>
+<a class="solution-link" href="https://github.com/rbelbase12/rbelbase12.github.io/blob/0d9c25f6d7a6cac34e64c2e32b8469299d336e8b/_pages/dirichlet-feynman-prose.md">View solution</a>
 </div>
 <div class="integral-block">
 <p><strong>2. Gaussian Integral</strong></p>
