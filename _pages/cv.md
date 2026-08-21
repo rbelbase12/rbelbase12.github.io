@@ -13,7 +13,7 @@ author_profile: true
 
 **PhD in Mathematics**
 University of Idaho
-*Expected May 2027*
+*Expected May 2028*
 
 **MS in Mathematics**
 University of Idaho
