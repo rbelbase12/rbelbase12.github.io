@@ -77,6 +77,9 @@ Olympia World H.S. School, Kathmandu
 
 ## Presentations & Conferences
 
+**Poster: *The Reproducing Kernels from Prolate Spheroidal Wave Functions***
+Fall Fourier Talks, Norbert Wiener Center, University of Maryland — *October 2026*
+
 **Poster: *Gibbs Phenomenon in Fourier and Slepian Series: A Comparative Analysis for Discontinuous Functions***
 College of Science Research Expo, University of Idaho — *March 2026*
 
