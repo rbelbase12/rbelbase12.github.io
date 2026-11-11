@@ -19,7 +19,7 @@ The **Basel problem** asks for the exact value of $$\sum_{n=1}^\infty n^{-2}$$. 
 
 In this post we go through that argument in detail. The idea is to compute the energy of a function in two ways, once in "space" and once in "frequency", and then compare.
 
-
+---
 
 Let $$L^2(0,1)$$ denote the space of square-integrable functions $$f:[0,1]\to\mathbb{C}$$ with inner product and norm
 
@@ -95,7 +95,6 @@ $$
 \end{cases}
 $$
 
-## 3. Applying Plancherel
 
 For $$n\neq0$$,
 
