@@ -146,4 +146,6 @@ $$
 
 ## Reference
 
-The argument follows the presentation in the section "Evaluation of Sums" in the chapter on miscellaneous applications of Fourier analysis, where the Plancherel identity is used to evaluate nontrivial infinite sums.
+This argument follows Section 1.7 ("Miscellaneous Applications"), part 1, "Evaluation of Sums," on p. 47 of:
+
+H. Dym and H. P. McKean, *Fourier Series and Integrals*, Probability and Mathematical Statistics, Vol. 14, Academic Press, New York–London, 1972.
