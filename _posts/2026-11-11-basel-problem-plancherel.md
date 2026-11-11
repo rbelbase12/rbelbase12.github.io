@@ -15,7 +15,7 @@ toc_sticky: true
 excerpt: "A short proof of the Basel problem using Fourier coefficients of the sawtooth function and the Plancherel (Parseval) identity."
 ---
 
-The **Basel problem** asks for the exact value of $$\sum_{n=1}^\infty n^{-2}$$. Euler's answer, $$\pi^2/6$$, has [many proofs](https://en.wikipedia.org/wiki/Basel_problem#Euler's_approach).. One of the cleanest comes from Fourier analysis: compute the Fourier coefficients of a very simple function, then let the Plancherel identity do the rest.
+The **Basel problem** asks for the exact value of $$\sum_{n=1}^\infty n^{-2}$$. Euler's answer, $$\pi^2/6$$, has [many proofs](https://en.wikipedia.org/wiki/Basel_problem#Euler's_approach). One of the cleanest comes from Fourier analysis: compute the Fourier coefficients of a very simple function, then let the Plancherel identity do the rest.
 
 In this post we go through that argument in detail. The idea is to compute the energy of a function in two ways, once in "space" and once in "frequency", and then compare.
 
