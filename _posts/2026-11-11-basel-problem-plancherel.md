@@ -102,8 +102,7 @@ For $$n\neq0$$,
 $$
 |\hat f(n)|^2=\frac{1}{|2\pi i n|^2}=\frac{1}{4\pi^2 n^2}.
 $$
-
-Since $$|\hat f(n)|^2=|\hat f(-n)|^2$$, the terms for $$n$$ and $$-n$$ are equal, so
+Since $$\lvert\hat f(n)\rvert^2=\lvert\hat f(-n)\rvert^2$$, the terms for $$n$$ and $$-n$$ are equal, so
 
 $$
 \sum_{n\in\mathbb{Z}}|\hat f(n)|^2
