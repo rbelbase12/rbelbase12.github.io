@@ -21,7 +21,7 @@ In this post we go through that argument in detail. The idea is to compute the e
 
 ---
 
-Let $$L^2(0,1)$$ denote the space of square-integrable functions $$f:[0,1]\to\mathbb{C}$$ with inner product and norm
+Let $$L^2(0,1)$$ denote the space of square-integrable functions $$f:[0,1)\to\mathbb{C}$$ with inner product and norm
 
 $$
 \langle f,g\rangle=\int_0^1 f(x)\overline{g(x)}\,dx,
