@@ -19,7 +19,7 @@ The **Basel problem** asks for the exact value of $$\sum_{n=1}^\infty n^{-2}$$. 
 
 In this post we go through that argument in detail. The idea is to compute the energy of a function in two ways, once in "space" and once in "frequency", and then compare.
 
-## 1. Setting and the Plancherel identity
+
 
 Let $$L^2(0,1)$$ denote the space of square-integrable functions $$f:[0,1]\to\mathbb{C}$$ with inner product and norm
 
@@ -49,7 +49,7 @@ $$
 
 and $$\langle e_n,e_n\rangle=1$$. Completeness (the span of the $$e_n$$ is dense) is the deep part of the theorem, and we take it as known.
 
-## 2. The function and its Fourier coefficients
+
 
 Let $$f(x)=x$$ on $$[0,1)$$, extended $$1$$-periodically (the *sawtooth function*). Then $$f\in L^2(0,1)$$ and
 
@@ -85,7 +85,7 @@ $$
 \hat f(n)=-\frac{1}{2\pi i n}=-(2\pi i n)^{-1}\qquad (n\neq0).
 $$
 
-### Summary of the coefficients
+
 
 $$
 \int_0^1 x\,e^{-2\pi i n x}\,dx=
@@ -121,7 +121,7 @@ $$
 =\frac14+(2\pi^2)^{-1}\sum_{n=1}^\infty n^{-2}.
 $$
 
-## 4. Solving for the sum
+
 
 Subtract $$\tfrac14$$ from both sides:
 
