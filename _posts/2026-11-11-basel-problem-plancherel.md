@@ -1,5 +1,5 @@
 ---
-title: "Proof of $$\\sum_{n=1}^\\infty n^{-2}=\\pi^2/6$$ via the Plancherel Identity"
+title: "An Application of Fourier Analysis: Proving the Basel Problem ($$\\sum_{n=1}^\\infty n^{-2}=\\pi^2/6$$)"
 date: 2026-11-11
 categories:
   - blog
