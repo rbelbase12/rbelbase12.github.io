@@ -97,9 +97,9 @@ Since $$\mathcal{S}(\mathbb{R})\subset L^2(\mathbb{R})$$ and $$\mathcal{S}(\math
 
 **Lemma 1.9 (Elementary facts).**
 
-* (a) For $$z\in\mathbb{C}$$, $$\operatorname{Re} z\le |z|$$.
+* (a) For $$z\in\mathbb{C}$$, $$\mathrm{Re} z\le |z|$$.
 * (b) For integrable $$f$$, $$\big|\int f\big|\le\int|f|$$.
-* (c) $$\dfrac{d}{dx}|\psi|^2=\bar\psi\psi'+\psi\bar\psi'=2\operatorname{Re}(\bar\psi\psi')$$.
+* (c) $$\dfrac{d}{dx}|\psi|^2=\bar\psi\psi'+\psi\bar\psi'=2\mathrm{Re}(\bar\psi\psi')$$.
 
 **Lemma 1.10 (Gaussian integrals).** For every $$a>0$$,
 
@@ -175,10 +175,10 @@ Both are finite, because $$x\psi$$ and $$\xi\hat\psi$$ are Schwartz functions.
 
 $$
 1=\int_{\mathbb{R}}|\psi|^2\,dx=-\int_{\mathbb{R}}x\,\frac{d}{dx}|\psi|^2\,dx
-=-2\int_{\mathbb{R}}x\,\operatorname{Re}\big(\bar\psi\psi'\big)\,dx .
+=-2\int_{\mathbb{R}}x\,\mathrm{Re}\big(\bar\psi\psi'\big)\,dx .
 $$
 
-**Step 2: Absolute values.** Since $$\operatorname{Re} z\le|z|$$ and $$|\int f|\le\int|f|$$,
+**Step 2: Absolute values.** Since $$\mathrm{Re} z\le|z|$$ and $$|\int f|\le\int|f|$$,
 
 $$
 1\le 2\int_{\mathbb{R}}|x|\,|\psi(x)|\,|\psi'(x)|\,dx .
@@ -206,13 +206,13 @@ $$
 *Proof.* ($$\Rightarrow$$) If equality holds in (1), then every inequality in the chain
 
 $$
-1=-2\int_{\mathbb{R}}x\,\operatorname{Re}(\bar\psi\psi')\,dx\le 2\int_{\mathbb{R}}|x||\psi||\psi'|\,dx
+1=-2\int_{\mathbb{R}}x\,\mathrm{Re}(\bar\psi\psi')\,dx\le 2\int_{\mathbb{R}}|x||\psi||\psi'|\,dx
 \le 2X^{1/2}\Big(\int_{\mathbb{R}}|\psi'|^2\,dx\Big)^{1/2}
 $$
 
 is an equality.
 
-* *Phase condition.* Equality in the first step means that $$|x||\psi||\psi'|+x\operatorname{Re}(\bar\psi\psi')$$ has integral zero. This function is continuous and nonnegative, so it vanishes identically. Put $$z=x\,\bar\psi\psi'$$. Then $$\operatorname{Re} z=-|z|$$, which forces $$z=-|z|\le 0$$.
+* *Phase condition.* Equality in the first step means that $$|x||\psi||\psi'|+x\mathrm{Re}(\bar\psi\psi')$$ has integral zero. This function is continuous and nonnegative, so it vanishes identically. Put $$z=x\,\bar\psi\psi'$$. Then $$\\mathrm{Re} z=-|z|$$, which forces $$z=-|z|\le 0$$.
 * *Modulus condition.* Equality in Cauchy-Schwarz gives a constant $$\lambda\ge0$$ with $$|\psi'|=\lambda|x||\psi|$$.
 
 Together, $$x\,\bar\psi\,\psi'=-\lambda x^2|\psi|^2$$. This gives
@@ -248,7 +248,7 @@ $$
 X\,\Xi=\frac{1}{4B}\cdot\frac{B}{4\pi^2}=\frac{1}{16\pi^2}. \qquad\square
 $$
 
-A remark on the constant. Equality in Cauchy-Schwarz alone only gives $$|\psi'|=\lambda|x||\psi|$$. It is the phase condition, from equality in $$\operatorname{Re} z\le|z|$$, that makes the constant in $$\psi'=\beta x\psi$$ real and negative.
+A remark on the constant. Equality in Cauchy-Schwarz alone only gives $$|\psi'|=\lambda|x||\psi|$$. It is the phase condition, from equality in $$\mathrm{Re} z\le|z|$$, that makes the constant in $$\psi'=\beta x\psi$$ real and negative.
 
 ### 2.3 Proof of inequality (2): translation and modulation
 
@@ -263,7 +263,7 @@ Applying (1) to $$\varphi$$ gives (2). $$\square$$
 
 ## 3. A support version
 
-**Corollary 3.1.** Let $$f\in\mathcal{S}(\mathbb{R})$$ with $$\|f\|_2=1$$, $$\operatorname{supp}f\subset[-a,a]$$ and $$\operatorname{supp}\hat f\subset[-b,b]$$, where $$a,b>0$$. Then
+**Corollary 3.1.** Let $$f\in\mathcal{S}(\mathbb{R})$$ with $$\|f\|_2=1$$, $$\mathrm{supp}f\subset[-a,a]$$ and $$\mathrm{supp}\hat f\subset[-b,b]$$, where $$a,b>0$$. Then
 
 $$
 ab\ge\frac{1}{4\pi}.
