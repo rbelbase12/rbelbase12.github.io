@@ -79,6 +79,10 @@ author_profile: true
       <td><a href="https://ocw.mit.edu/courses/hst-582j-biomedical-signal-and-image-processing-spring-2007/" target="_blank"><strong>Biomedical Signal and Image Processing</strong></a></td>
       <td>Open Course</td>
     </tr>
+        <tr>
+      <td><a href="https://www.wolfram.com/wolfram-u/courses/image-signal-processing/wavelet-analysis-img918/" target="_blank"><strong>Wavelet Analysis by WOLFRAM U</strong></a></td>
+      <td>Open Video Course</td>
+    </tr>
   </tbody>
 </table>
 
