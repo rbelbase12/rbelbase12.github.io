@@ -94,7 +94,7 @@ $$
 
 At every point where $$f$$ is continuous, $$S_m(x)\to f(x)$$ as $$m\to\infty$$. The question is what $$S_m$$ looks like near the jump. Try it yourself in the interactive figure below. Drag the slider, turn on "show first harmonics", and then compare the zoomed plot near $$x=0$$.
 
-<iframe src="{{ '/assets/gibbs/square-wave.html' | relative_url }}"
+<iframe src="{{ '/assets/square-wave.htmll' | relative_url }}"
         title="Interactive Gibbs phenomenon demo"
         style="width:100%;height:1900px;border:1px solid #d5dbe7;border-radius:6px;"
         loading="lazy"></iframe>
