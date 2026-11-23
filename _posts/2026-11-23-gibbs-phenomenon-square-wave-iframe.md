@@ -160,7 +160,7 @@ $$
 \text{Fejér: }\ \sigma_k=1-\frac{k}{M+1}.
 $$
 
-Use the "Method" menu in the demo above to compare them with the plain partial sum. The Fejér means are averages of partial sums and have no overshoot at all, because the Fejér kernel is positive. The price is a blurrier jump. This tension between a sharp edge and ringing is the starting point for more refined tools, such as concentration factors for edge detection and prolate spheroidal wave functions, which I will come back to in later posts.
+Use the "Method" menu in the demo above to compare them with the plain partial sum. The Fejér means are averages of partial sums and have no overshoot at all, because the Fejér kernel is positive.
 
 ## Exercises
 
