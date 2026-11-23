@@ -170,7 +170,7 @@ Use the "Method" menu in the demo above to compare them with the plain partial s
 
 ## References
 
-- H. S. Carslaw, *Introduction to the Theory of Fourier's Series and Integrals*, 3rd ed., Dover, 1952. Includes a classical treatment of the Gibbs phenomenon.
+- H. S. Carslaw, *Introduction to the Theory of Fourier's Series and Integrals*, 3rd ed., Dover, 1952.
 - E. M. Stein and R. Shakarchi, *Fourier Analysis: An Introduction*, Princeton University Press, 2003.
 - G. B. Folland, *Fourier Analysis and Its Applications*, AMS, 2009.
 - A. Zygmund, *Trigonometric Series*, Cambridge University Press, 2002.
