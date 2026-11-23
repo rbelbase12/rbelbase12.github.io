@@ -99,7 +99,7 @@ At every point where $$f$$ is continuous, $$S_m(x)\to f(x)$$ as $$m\to\infty$$. 
         style="width:100%;height:1900px;border:1px solid #d5dbe7;border-radius:6px;"
         loading="lazy"></iframe>
 
-<small>Demo not showing? [Open it in its own page]({{ '/assets/gibbs/square-wave.html' | relative_url }}).</small>
+<small>Demo not showing? [Open it in its own page]({{ '/assets/square-wave.html' | relative_url }}).</small>
 
 
 What you should notice:
