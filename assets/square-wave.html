@@ -1,149 +1,84 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>The Gibbs Phenomenon of the Square Wave</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
-<script>
-window.MathJax = { tex: { inlineMath: [['$','$'],['\\(','\\)']], displayMath: [['$$','$$']] } };
-</script>
-<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-chtml.js"></script>
-<style>
-:root{--bg:#f6f8fb;--panel:#ffffff;--ink:#14213d;--mute:#5b6783;--line:#d5dbe7;--target:#14213d;--sum:#0b7a75;--mark:#c27a00;--acc:#0b7a75}
-@media (prefers-color-scheme:dark){:root{--bg:#0f1626;--panel:#172036;--ink:#e6ebf5;--mute:#9aa7c2;--line:#2b3753;--target:#e6ebf5;--sum:#4fd1c5;--mark:#f2b134;--acc:#4fd1c5}}
-*{box-sizing:border-box}
-html{scroll-padding-top:env(safe-area-inset-top,0px)}
-body{margin:0;background:var(--bg);color:var(--ink);font:19px/1.65 Newsreader,Georgia,serif;padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}
-main{max-width:46rem;margin:0 auto;padding:2.5rem 1.2rem 4rem}
-h1{font-size:2.3rem;line-height:1.15;margin:0 0 .6rem;font-weight:600}
-h2{font-size:1.45rem;margin:3rem 0 .6rem;font-weight:600;border-top:1px solid var(--line);padding-top:1.6rem}
-p{margin:.7rem 0}
-.lede{color:var(--mute);font-style:italic}
-.box{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:1rem;margin:1.2rem 0}
-.ui{font:500 .85rem/1.4 "IBM Plex Sans",system-ui,sans-serif}
-.controls{display:flex;flex-wrap:wrap;gap:.9rem 1.5rem;align-items:center;margin-bottom:.8rem}
-.controls label{display:flex;align-items:center;gap:.5rem}
-input[type=range]{width:min(16rem,60vw);accent-color:var(--acc)}
-select{font:inherit;padding:.25rem .4rem;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:4px}
-canvas{display:block;width:100%;height:auto;aspect-ratio:2/1;border-radius:4px}
-.read{display:flex;flex-wrap:wrap;gap:.4rem 1.6rem;margin-top:.7rem;color:var(--mute)}
-.read b{color:var(--ink)}
-.key{display:flex;gap:1.2rem;flex-wrap:wrap;margin-top:.4rem;color:var(--mute)}
-.key i{display:inline-block;width:1.4rem;height:0;border-top:3px solid;vertical-align:middle;margin-right:.4rem}
-table{border-collapse:collapse;width:100%;margin-top:.6rem}
-th,td{text-align:right;padding:.35rem .6rem;border-bottom:1px solid var(--line)}
-th:first-child,td:first-child{text-align:left}
-.def{border-left:3px solid var(--acc);padding:.1rem 0 .1rem 1rem;margin:1.2rem 0}
-mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%}
-:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
-</style>
-</head>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Gibbs phenomenon demo</title>
+<style>html,body{margin:0;background:transparent}body{padding:4px}.gibbs-demo{margin:0!important}</style></head>
 <body>
-<main>
-<h1>The Gibbs Phenomenon of the Square Wave</h1>
-<p class="lede">Why adding more and more sine waves never removes the overshoot at a jump, and exactly how big that overshoot is.</p>
-
-<h2>1. Periodic functions and the square wave</h2>
-<p>A function $f$ is <em>periodic</em> with period $2\pi$ if $f(x+2\pi)=f(x)$ for all $x$. Sines and cosines such as $\sin(kx)$ are the basic examples. Our test function is the <em>square wave</em>:</p>
-$$f(x)=\begin{cases}-1,& -\pi<x<0,\\ \ \ 1,& 0<x<\pi,\end{cases}\qquad f(x+2\pi)=f(x).$$
-<p>It is smooth everywhere except at the multiples of $\pi$, where it <em>jumps</em> by $2$. That jump is where all the interesting behaviour happens.</p>
-
-<h2>2. Fourier series</h2>
-<p>The idea of Fourier analysis is to write a periodic function as a sum of sines and cosines. For a $2\pi$-periodic $f$,</p>
-$$f(x)\sim \frac{a_0}{2}+\sum_{k=1}^{\infty}\big(a_k\cos kx+b_k\sin kx\big),$$
-$$a_k=\frac1\pi\int_{-\pi}^{\pi}f(x)\cos kx\,dx,\qquad b_k=\frac1\pi\int_{-\pi}^{\pi}f(x)\sin kx\,dx.$$
-<p>The square wave is odd, so every $a_k=0$. For the sine coefficients,</p>
-$$b_k=\frac{2}{\pi}\int_0^{\pi}\sin kx\,dx=\frac{2}{\pi}\cdot\frac{1-\cos k\pi}{k}=\begin{cases}\dfrac{4}{\pi k},& k\text{ odd},\\[2mm] 0,& k\text{ even}.\end{cases}$$
-<div class="def">
-$$f(x)\sim\frac{4}{\pi}\left(\sin x+\frac{\sin 3x}{3}+\frac{\sin 5x}{5}+\cdots\right)=\frac4\pi\sum_{j=1}^{\infty}\frac{\sin\big((2j-1)x\big)}{2j-1}.$$
+<div class="gibbs-demo" id="gibbs-demo">
+<style>
+.gibbs-demo{--gbg:#ffffff;--gink:#14213d;--gmute:#5b6783;--gline:#d5dbe7;--gtarget:#14213d;--gsum:#0b7a75;--gmark:#c27a00;background:var(--gbg);color:var(--gink);border:1px solid var(--gline);border-radius:6px;padding:1rem;margin:1.5rem 0;font:500 14px/1.4 system-ui,-apple-system,"Segoe UI",sans-serif}
+@media (prefers-color-scheme:dark){.gibbs-demo{--gbg:#172036;--gink:#e6ebf5;--gmute:#9aa7c2;--gline:#2b3753;--gtarget:#e6ebf5;--gsum:#4fd1c5;--gmark:#f2b134}}
+.gibbs-demo *{box-sizing:border-box}
+.gibbs-demo .gd-controls{display:flex;flex-wrap:wrap;gap:.7rem 1.4rem;align-items:center;margin-bottom:.7rem}
+.gibbs-demo label{display:flex;align-items:center;gap:.5rem;margin:0}
+.gibbs-demo input[type=range]{width:min(15rem,55vw)}
+.gibbs-demo select{font:inherit;padding:.2rem .4rem;background:var(--gbg);color:var(--gink);border:1px solid var(--gline);border-radius:4px}
+.gibbs-demo canvas{display:block;width:100%;height:auto;aspect-ratio:2/1;margin:0}
+.gibbs-demo .gd-key,.gibbs-demo .gd-read{display:flex;flex-wrap:wrap;gap:.3rem 1.4rem;color:var(--gmute);margin-top:.5rem}
+.gibbs-demo .gd-key i{display:inline-block;width:1.4rem;border-top:3px solid;vertical-align:middle;margin-right:.4rem}
+.gibbs-demo b{color:var(--gink)}
+.gibbs-demo h4{margin:1.1rem 0 .3rem;font-size:1rem;color:var(--gink)}
+.gibbs-demo table{width:100%;border-collapse:collapse;margin:.4rem 0 0;display:table;font-size:14px}
+.gibbs-demo th,.gibbs-demo td{text-align:right;padding:.3rem .5rem;border-bottom:1px solid var(--gline);color:var(--gink);background:none}
+.gibbs-demo th:first-child,.gibbs-demo td:first-child{text-align:left}
+</style>
+<div class="gd-controls">
+<label>Terms m <input id="gd-m" type="range" min="1" max="60" value="3" aria-label="Number of terms"> <span id="gd-mv">3</span></label>
+<label>Method <select id="gd-meth"><option value="f">Fourier partial sum</option><option value="l">Lanczos sigma factors</option><option value="j">Fejér (Cesàro) mean</option></select></label>
+<label><input id="gd-harm" type="checkbox"> show first harmonics</label>
 </div>
-<p>The <em>partial sum</em> with $m$ nonzero terms is $S_m(x)=\frac4\pi\sum_{j=1}^{m}\frac{\sin((2j-1)x)}{2j-1}$. Away from the jumps, $S_m(x)\to f(x)$. What happens near a jump?</p>
-
-<h2>3. Build the square wave one harmonic at a time</h2>
-<div class="box">
-  <div class="controls ui">
-    <label>Terms $m$ <input id="m" type="range" min="1" max="60" value="3" aria-label="Number of terms"> <span id="mv">3</span></label>
-    <label>Method <select id="meth"><option value="f">Fourier partial sum</option><option value="l">Lanczos sigma factors</option><option value="j">Fejér (Cesàro) mean</option></select></label>
-    <label><input id="harm" type="checkbox"> show first harmonics</label>
-  </div>
-  <canvas id="c1" width="920" height="460" role="img" aria-label="Square wave and its Fourier partial sum"></canvas>
-  <div class="key ui"><span><i style="color:var(--target)"></i>square wave</span><span><i style="color:var(--sum)"></i>approximation</span></div>
-</div>
-<p>Drag the slider. The curve gets steeper at the jump and flatter elsewhere, but look at the corner of the jump: the overshoot does not shrink.</p>
-
-<h2>4. Zoom in on the jump</h2>
-<div class="box">
-  <canvas id="c2" width="920" height="460" role="img" aria-label="Zoomed view of the overshoot near the jump at zero"></canvas>
-  <div class="key ui"><span><i style="color:var(--sum)"></i>approximation</span><span><i style="color:var(--mark);border-top-style:dashed"></i>limit height $1.1790$</span><span><i style="color:var(--target)"></i>true value $1$</span></div>
-  <div class="read ui"><span>Highest harmonic: <b id="hh"></b></span><span>Peak height: <b id="pk"></b></span><span>Overshoot / jump: <b id="os"></b></span><span>Peak at $x=$ <b id="px"></b></span></div>
-</div>
-<p>The peak moves closer to the jump as $m$ grows, so the bump gets narrower, but its height settles at a fixed value. The table shows this for the plain Fourier partial sums:</p>
-<div class="box ui"><table id="tb"><thead><tr><th>Terms $m$</th><th>Peak of $S_m$</th><th>Overshoot / jump</th></tr></thead><tbody></tbody></table></div>
-
-<h2>5. Where the number comes from</h2>
-<p>Differentiate $S_m$ and use $\sum_{j=1}^m\cos((2j-1)x)=\dfrac{\sin 2mx}{2\sin x}$:</p>
-$$S_m'(x)=\frac4\pi\sum_{j=1}^{m}\cos\big((2j-1)x\big)=\frac{2}{\pi}\,\frac{\sin 2mx}{\sin x}.$$
-<p>This vanishes first at $x=\frac{\pi}{2m}$, which is the peak. Integrating from $0$ gives its height:</p>
-$$S_m\!\left(\tfrac{\pi}{2m}\right)=\frac2\pi\int_0^{\pi/2m}\frac{\sin 2mt}{\sin t}\,dt\;\xrightarrow{\,m\to\infty\,}\;\frac2\pi\int_0^{\pi}\frac{\sin u}{u}\,du=\frac{2}{\pi}\operatorname{Si}(\pi)\approx 1.17898.$$
-<p>Here we substituted $u=2mt$ and used $\sin t\approx t$ for small $t$. The true value at the top of the jump is $1$, so the overshoot is $0.17898$. Relative to the jump size $2$, that is</p>
-$$\frac{\tfrac2\pi\operatorname{Si}(\pi)-1}{2}\approx 0.0895,$$
-<p>about <strong>9%</strong> of the jump, for every large $m$. This is the Gibbs phenomenon. The convergence $S_m\to f$ is pointwise away from the jump but <em>not uniform</em> near it.</p>
-
-<h2>6. Can we get rid of it?</h2>
-<p>Switch the method in section 3. Both fixes multiply the $k$-th term by a damping factor before summing, with $M$ the highest harmonic used:</p>
-$$\text{Lanczos: } \sigma_k=\frac{\sin\big(\pi k/(M+1)\big)}{\pi k/(M+1)},\qquad \text{Fejér: } \sigma_k=1-\frac{k}{M+1}.$$
-<p>Both remove the overshoot, at the price of a blurrier jump. This trade-off between sharp edges and ringing is the starting point for more refined tools, such as concentration factors for edge detection and prolate spheroidal wave functions.</p>
-</main>
-
+<canvas id="gd-c1" width="920" height="460" role="img" aria-label="Square wave and its Fourier partial sum"></canvas>
+<div class="gd-key"><span><i style="color:var(--gtarget)"></i>square wave</span><span><i style="color:var(--gsum)"></i>approximation</span></div>
+<h4>Zoom on the jump at x = 0</h4>
+<canvas id="gd-c2" width="920" height="460" role="img" aria-label="Zoomed view of the overshoot near the jump at zero"></canvas>
+<div class="gd-key"><span><i style="color:var(--gsum)"></i>approximation</span><span><i style="color:var(--gmark);border-top-style:dashed"></i>limit height 1.1790</span><span><i style="color:var(--gtarget)"></i>true value 1</span></div>
+<div class="gd-read"><span>Highest harmonic: <b id="gd-hh"></b></span><span>Peak height: <b id="gd-pk"></b></span><span>Overshoot / jump: <b id="gd-os"></b></span><span>Peak at x = <b id="gd-px"></b></span></div>
+<h4>Overshoot of the Fourier partial sums</h4>
+<table id="gd-tb"><thead><tr><th>Terms m</th><th>Peak of S_m</th><th>Overshoot / jump</th></tr></thead><tbody></tbody></table>
 <script>
 (function(){
-var PI=Math.PI, $=function(id){return document.getElementById(id)};
+var PI=Math.PI, root=document.getElementById('gibbs-demo');
+function $(id){return document.getElementById(id)}
+function css(n){return getComputedStyle(root).getPropertyValue(n).trim();}
 function coef(k,M,meth){ if(meth==='l'){var t=PI*k/(M+1);return Math.sin(t)/t;} if(meth==='j'){return 1-k/(M+1);} return 1; }
 function S(x,m,meth){ var M=2*m-1,s=0; for(var j=1;j<=m;j++){var k=2*j-1; s+=coef(k,M,meth)*Math.sin(k*x)/k;} return 4/PI*s; }
-function css(n){return getComputedStyle(document.documentElement).getPropertyValue(n).trim();}
 function setup(c){var r=window.devicePixelRatio||1,w=c.clientWidth||600;c.width=w*r;c.height=w*r/2;var g=c.getContext('2d');g.setTransform(r,0,0,r,0,0);return {g:g,w:w,h:w/2};}
 function frame(o,x0,x1,y0,y1,xt,yt,fmt){
   var g=o.g,pad={l:44,r:12,t:12,b:26};
   var X=function(x){return pad.l+(x-x0)/(x1-x0)*(o.w-pad.l-pad.r)};
   var Y=function(y){return o.h-pad.b-(y-y0)/(y1-y0)*(o.h-pad.t-pad.b)};
-  g.clearRect(0,0,o.w,o.h);g.font='12px IBM Plex Sans, sans-serif';g.fillStyle=css('--mute');g.strokeStyle=css('--line');g.lineWidth=1;
+  g.clearRect(0,0,o.w,o.h);g.font='12px system-ui,sans-serif';g.fillStyle=css('--gmute');g.strokeStyle=css('--gline');g.lineWidth=1;
   g.textAlign='right';g.textBaseline='middle';
-  yt.forEach(function(v){g.beginPath();g.moveTo(pad.l,Y(v));g.lineTo(o.w-pad.r,Y(v));g.stroke();g.fillText(v.toFixed(2).replace(/\.?0+$/,''),pad.l-6,Y(v));});
+  yt.forEach(function(v){g.beginPath();g.moveTo(pad.l,Y(v));g.lineTo(o.w-pad.r,Y(v));g.stroke();g.fillText(String(+v.toFixed(3)),pad.l-6,Y(v));});
   g.textAlign='center';g.textBaseline='top';
   xt.forEach(function(v){g.beginPath();g.moveTo(X(v),pad.t);g.lineTo(X(v),o.h-pad.b);g.stroke();g.fillText(fmt(v),X(v),o.h-pad.b+6);});
   g.save();g.beginPath();g.rect(pad.l,pad.t,o.w-pad.l-pad.r,o.h-pad.t-pad.b);g.clip();
   return {X:X,Y:Y,end:function(){g.restore();}};
 }
-function line(g,A,f,x0,x1,col,w,n,dash){g.strokeStyle=col;g.lineWidth=w;g.setLineDash(dash||[]);g.beginPath();for(var i=0;i<=n;i++){var x=x0+(x1-x0)*i/n,y=f(x);i?g.lineTo(A.X(x),A.Y(y)):g.moveTo(A.X(x),A.Y(y));}g.stroke();g.setLineDash([]);}
+function line(g,A,f,x0,x1,col,w,n,dash){g.strokeStyle=col;g.lineWidth=w;g.setLineDash(dash||[]);g.beginPath();for(var i=0;i<=n;i++){var x=x0+(x1-x0)*i/n,y=f(x);if(i){g.lineTo(A.X(x),A.Y(y));}else{g.moveTo(A.X(x),A.Y(y));}}g.stroke();g.setLineDash([]);}
 function peak(m,meth){var best=-9,bx=0,hi=PI/m;for(var i=1;i<=3000;i++){var x=hi*i/3000,v=S(x,m,meth);if(v>best){best=v;bx=x;}}return {v:best,x:bx};}
 function draw(){
-  var m=+$('m').value,meth=$('meth').value;$('mv').textContent=m;
-  var o=setup($('c1')),g=o.g,A=frame(o,-PI,PI,-1.4,1.4,[-PI,-PI/2,0,PI/2,PI],[-1,0,1],function(v){var r=Math.round(v/PI*2);return r===0?'0':({'-2':'-π','-1':'-π/2','1':'π/2','2':'π'})[r];});
-  // square wave
-  g.strokeStyle=css('--target');g.lineWidth=2.5;
+  var m=+$('gd-m').value,meth=$('gd-meth').value;$('gd-mv').textContent=m;
+  var o=setup($('gd-c1')),g=o.g;
+  var A=frame(o,-PI,PI,-1.4,1.4,[-PI,-PI/2,0,PI/2,PI],[-1,0,1],function(v){var r=Math.round(v/PI*2);return r===0?'0':({'-2':'-π','-1':'-π/2','1':'π/2','2':'π'})[r];});
+  g.strokeStyle=css('--gtarget');g.lineWidth=2.5;
   [[-PI,0,-1],[0,PI,1]].forEach(function(s){g.beginPath();g.moveTo(A.X(s[0]),A.Y(s[2]));g.lineTo(A.X(s[1]),A.Y(s[2]));g.stroke();});
-  g.beginPath();g.moveTo(A.X(0),A.Y(-1));g.lineTo(A.X(0),A.Y(1));g.setLineDash([4,4]);g.globalAlpha=.4;g.stroke();g.setLineDash([]);g.globalAlpha=1;
-  if($('harm').checked){for(var j=1;j<=Math.min(m,6);j++){(function(k){g.globalAlpha=.35;line(g,A,function(x){return 4/PI*Math.sin(k*x)/k},-PI,PI,css('--mute'),1.2,400);g.globalAlpha=1;})(2*j-1);}}
-  line(g,A,function(x){return S(x,m,meth)},-PI,PI,css('--sum'),2.2,900);A.end();
-  // zoom
-  var w=Math.max(0.12,Math.min(0.9,4/Math.max(m,1)+0.25)),o2=setup($('c2')),g2=o2.g;
-  var lim=2/PI*3.14159265358979*0+1.178979744;
+  g.beginPath();g.moveTo(A.X(0),A.Y(-1));g.lineTo(A.X(0),A.Y(1));g.setLineDash([4,4]);g.globalAlpha=0.4;g.stroke();g.setLineDash([]);g.globalAlpha=1;
+  if($('gd-harm').checked){for(var j=1;j<=Math.min(m,6);j++){(function(k){g.globalAlpha=0.35;line(g,A,function(x){return 4/PI*Math.sin(k*x)/k},-PI,PI,css('--gmute'),1.2,400);g.globalAlpha=1;})(2*j-1);}}
+  line(g,A,function(x){return S(x,m,meth)},-PI,PI,css('--gsum'),2.2,900);A.end();
+  var w=Math.max(0.12,Math.min(0.9,4/m+0.25)),o2=setup($('gd-c2')),g2=o2.g,lim=1.178979744;
   var A2=frame(o2,-w,w,-1.3,1.3,[-w,-w/2,0,w/2,w],[-1,-0.5,0,0.5,1,1.179],function(v){return v.toFixed(2)});
-  g2.strokeStyle=css('--target');g2.lineWidth=2;g2.beginPath();g2.moveTo(A2.X(-w),A2.Y(-1));g2.lineTo(A2.X(0),A2.Y(-1));g2.moveTo(A2.X(0),A2.Y(1));g2.lineTo(A2.X(w),A2.Y(1));g2.stroke();
-  line(g2,A2,function(){return lim},-w,w,css('--mark'),1.5,2,[6,5]);
-  line(g2,A2,function(x){return S(x,m,meth)},-w,w,css('--sum'),2.2,900);
-  var p=peak(m,meth);g2.fillStyle=css('--mark');g2.beginPath();g2.arc(A2.X(p.x),A2.Y(p.v),4,0,2*PI);g2.fill();A2.end();
-  $('hh').textContent=2*m-1;$('pk').textContent=p.v.toFixed(4);$('os').textContent=(Math.max(0,(p.v-1)/2)*100).toFixed(2)+'%';$('px').textContent=p.x.toFixed(4);
+  g2.strokeStyle=css('--gtarget');g2.lineWidth=2;g2.beginPath();g2.moveTo(A2.X(-w),A2.Y(-1));g2.lineTo(A2.X(0),A2.Y(-1));g2.moveTo(A2.X(0),A2.Y(1));g2.lineTo(A2.X(w),A2.Y(1));g2.stroke();
+  line(g2,A2,function(){return lim},-w,w,css('--gmark'),1.5,2,[6,5]);
+  line(g2,A2,function(x){return S(x,m,meth)},-w,w,css('--gsum'),2.2,900);
+  var p=peak(m,meth);g2.fillStyle=css('--gmark');g2.beginPath();g2.arc(A2.X(p.x),A2.Y(p.v),4,0,2*PI);g2.fill();A2.end();
+  $('gd-hh').textContent=2*m-1;$('gd-pk').textContent=p.v.toFixed(4);$('gd-os').textContent=(Math.max(0,(p.v-1)/2)*100).toFixed(2)+'%';$('gd-px').textContent=p.x.toFixed(4);
 }
-var tb=document.querySelector('#tb tbody');
+var tb=document.querySelector('#gd-tb tbody');
 [1,2,3,5,10,25,50,100,500].forEach(function(m){var p=peak(m,'f');var r=document.createElement('tr');r.innerHTML='<td>'+m+'</td><td>'+p.v.toFixed(4)+'</td><td>'+((p.v-1)/2*100).toFixed(2)+'%</td>';tb.appendChild(r);});
-['m','meth','harm'].forEach(function(i){$(i).addEventListener('input',draw);});
+['gd-m','gd-meth','gd-harm'].forEach(function(i){$(i).addEventListener('input',draw);});
 window.addEventListener('resize',draw);
-if(window.matchMedia)window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',draw);
+if(window.matchMedia){window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',draw);}
 draw();
 })();
 </script>
-</body>
-</html>
+</div>
+</body></html>
