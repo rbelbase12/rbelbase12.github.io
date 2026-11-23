@@ -99,12 +99,6 @@ At every point where $$f$$ is continuous, $$S_m(x)\to f(x)$$ as $$m\to\infty$$. 
         style="width:100%;height:1450px;border:0;"
         loading="lazy"></iframe>
 
-
-What you should notice:
-
-- The approximation gets steeper at the jump as $$m$$ grows.
-- A bump of fixed height remains next to the jump. It moves closer to $$x=0$$ and gets narrower, but it does not shrink.
-
 ## 5. Where the overshoot comes from
 
 To find the height of the bump, locate the maximum of $$S_m$$ near $$0$$. Differentiating and using the identity $$\sum_{j=1}^{m}\cos\bigl((2j-1)x\bigr)=\dfrac{\sin 2mx}{2\sin x}$$ gives
