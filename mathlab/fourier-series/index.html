@@ -1,0 +1,1087 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Fourier Series Lab</title>
+<meta name="author" content="Rajib Belbase">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:light dark;--page:light-dark(#edf2f8,#0a111a);--bg:light-dark(#ffffff,#101b28);--panel:light-dark(#f4f7fb,#16243440);--ink:light-dark(#0f2133,#e6eef7);--mute:light-dark(#4d6176,#9fb2c6);--line:light-dark(#d5e0ec,#263649);--hero:#0b1a30;--grid:light-dark(#e3edf8,#1b2a3a);--f:light-dark(#0f2133,#cfe1f5);--s:light-dark(#d7263d,#ff6b6b);--acc:light-dark(#1f5fbf,#7fb0ff);--err:light-dark(#b00020,#ff8a8a)}
+:root[data-theme=light]{color-scheme:light}
+:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+[hidden]{display:none!important}
+body{background:var(--page);color:var(--ink);font:16px/1.55 "IBM Plex Sans",system-ui,sans-serif;overflow-x:clip;margin:0}
+.band{padding-block:clamp(20px,3vw,40px);padding-left:max(5vw,16px,env(safe-area-inset-left,0px));padding-right:max(5vw,16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:1240px;margin:0 auto}
+h1{font-size:clamp(30px,4vw,44px);line-height:1.05;letter-spacing:-.02em;margin:0 0 6px;font-weight:700}
+h2{font-size:20px;margin:0 0 10px;letter-spacing:-.01em}
+.lede{color:#b9c9dc;margin:0;max-width:52ch;font-size:17px}
+@media(max-width:899px){header.hero{padding-bottom:190px}}
+.hero{position:relative;overflow:hidden;background:radial-gradient(circle at 74% 50%,#17345a 0%,#0a1626 68%);color:#fff;margin-top:calc(-1*env(safe-area-inset-top,0px));padding-top:calc(env(safe-area-inset-top,0px) + clamp(28px,5vw,56px));padding-bottom:clamp(26px,4vw,44px);padding-left:max(5vw,16px,env(safe-area-inset-left,0px));padding-right:max(5vw,16px,env(safe-area-inset-right,0px))}
+.hero .wrap{position:relative;z-index:1}
+.hero h1{font-size:clamp(34px,5vw,56px);color:#fff}
+.heroart{position:absolute;inset:0;width:100%;height:100%;z-index:0}
+.heroformula{margin-top:16px;display:inline-block;color:#e8eef6;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:10px;padding:8px 14px;font-size:16px;max-width:100%;overflow-x:auto}
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--page) 88%,transparent);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--line);padding-left:max(5vw,16px,env(safe-area-inset-left,0px));padding-right:max(5vw,16px,env(safe-area-inset-right,0px))}
+body::before{content:"";position:fixed;top:0;left:0;right:0;height:env(safe-area-inset-top,0px);background:var(--page);z-index:21}
+.nav .wrap{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+.nav a{flex:none;color:var(--mute);text-decoration:none;font-size:15px;font-weight:500;padding:12px 12px;border-bottom:2px solid transparent;white-space:nowrap}
+.nav a:hover{color:var(--ink)}
+.nav a.on{color:var(--ink);border-bottom-color:var(--s)}
+[id]{scroll-margin-top:64px}
+.sech{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:0 0 12px}
+.sech h2{font-size:clamp(22px,2.4vw,28px);margin:0}
+.sech p{margin:0;color:var(--mute);font-size:15px}
+.cols>div{background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:18px;box-shadow:0 1px 2px rgba(15,33,51,.05)}
+.panel.exact{border-radius:14px;padding:20px;box-shadow:0 1px 2px rgba(15,33,51,.05);border-color:var(--line)}
+.foot{color:var(--mute);font-size:14px;border-top:1px solid var(--line)}
+.foot p{margin:0 0 4px}
+.crumb{margin:0 0 10px;font-size:14px;color:#b9c9dc}.crumb a{color:#dbe7f5;text-decoration:none}.crumb a:hover{text-decoration:underline}
+.byline{margin:-2px 0 12px;color:#e8eef6;font-size:16px;font-weight:500;letter-spacing:.01em}
+.footgrid{display:grid;gap:20px 40px;grid-template-columns:repeat(auto-fit,minmax(16em,1fr));margin-bottom:18px}
+.foot h3{font-size:15px;color:var(--ink);margin:0 0 6px}
+.cite{color:var(--ink)}
+.copy{border-top:1px solid var(--line);padding-top:12px;color:var(--ink);font-weight:500}
+.lab{display:grid;gap:20px;grid-template-columns:minmax(0,1fr);grid-template-areas:"plot" "ctrl";margin-top:18px}
+@media(min-width:900px){.lab{grid-template-columns:minmax(300px,370px) minmax(0,1fr);grid-template-areas:"ctrl plot"}}
+.ctrl{grid-area:ctrl;display:flex;flex-direction:column;gap:16px}
+.plotbox{grid-area:plot;display:flex;flex-direction:column;gap:12px}
+.panel{background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:16px;box-shadow:0 1px 2px rgba(15,33,51,.05)}
+.fig{position:relative;min-height:400px;background:var(--bg);border:1px solid var(--line);border-radius:14px;box-shadow:0 1px 2px rgba(15,33,51,.05)}
+.fig.small{min-height:260px}
+.fig>svg{position:absolute;inset:0;width:100%;height:100%}
+.ftools{position:absolute;top:8px;right:8px;display:flex;flex-wrap:wrap;justify-content:flex-end;gap:4px;z-index:3;max-width:calc(100% - 60px)}
+.tsep{width:6px}
+@media(max-width:600px){.ib{width:32px;height:32px;min-height:32px}.ftools{top:4px;right:4px;gap:2px}.tsep{width:2px}}
+.fig>svg{touch-action:pan-y;cursor:grab}
+.fig>svg.drag{cursor:grabbing}
+.fig.big>svg{touch-action:none}
+.ib.playbtn svg{fill:var(--ink);stroke:none}
+.ib.playbtn.on{background:var(--s);border-color:var(--s)}
+.ib.playbtn.on svg{fill:#fff}
+.hline{position:absolute;top:14px;bottom:30px;width:0;border-left:1px dashed var(--mute);pointer-events:none;z-index:2}
+.hov{position:absolute;top:52px;z-index:2;pointer-events:none;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:6px 10px;font:13px/1.45 "IBM Plex Mono",monospace;white-space:nowrap;box-shadow:0 4px 14px rgba(0,0,0,.12)}
+.hov b{font-family:"IBM Plex Sans",sans-serif}
+#svgSpec{cursor:pointer;touch-action:pan-y}
+#svgOver{cursor:default}
+.zhint{font-size:13px;color:var(--mute);margin:6px 0 0}
+.ib{width:36px;height:36px;padding:0;border-radius:8px;display:grid;place-items:center;background:color-mix(in srgb,var(--bg) 88%,transparent)}
+.ib svg{width:18px;height:18px;fill:none;stroke:var(--ink);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.ib.on svg{stroke:var(--bg)}
+.pop{position:absolute;top:50px;right:8px;z-index:4;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:12px;box-shadow:0 6px 20px rgba(0,0,0,.15);display:flex;flex-direction:column;gap:6px;width:min(280px,calc(100% - 16px))}
+.pop button{border-radius:8px;text-align:left}
+.axg{display:grid;grid-template-columns:auto minmax(0,1fr) auto minmax(0,1fr);gap:6px;align-items:center;font-size:14px}
+.ck{display:flex;gap:6px;align-items:center;font-size:14px}
+.ftoast{position:absolute;left:56px;top:12px;font-size:13px;color:var(--mute);z-index:3;pointer-events:none}
+.bigbar{display:none}
+.fig.big{position:fixed;inset:max(12px,env(safe-area-inset-top,0px)) max(12px,env(safe-area-inset-right,0px)) max(12px,env(safe-area-inset-bottom,0px)) max(12px,env(safe-area-inset-left,0px));z-index:50;min-height:0;box-shadow:0 0 0 100vmax rgba(0,0,0,.45)}
+.fig.big>svg{height:calc(100% - 56px)}
+.fig.big .bigbar{display:grid;grid-template-columns:auto auto minmax(0,1fr) 3em;gap:12px;align-items:center;position:absolute;left:16px;right:16px;bottom:8px;font-weight:600}
+svg text{font:13px "IBM Plex Sans",sans-serif;fill:var(--mute);paint-order:stroke;stroke:var(--bg);stroke-width:4px}
+.lbl{font-size:14px;font-weight:600;display:block;margin-bottom:6px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+button{font:inherit;font-size:14px;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:999px;padding:7px 12px;cursor:pointer;min-height:36px}
+button:hover{border-color:var(--acc)}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--acc);outline-offset:1px}
+button.on{background:var(--acc);border-color:var(--acc);color:var(--bg)}
+input[type=text],select{font:16px "IBM Plex Mono",monospace;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:7px 8px;width:100%}
+select{font-family:"IBM Plex Sans",sans-serif}
+.prow{display:grid;grid-template-columns:4.6em 4.6em minmax(0,1fr) 36px;gap:6px;align-items:center;margin-bottom:6px}
+.prow.head{font-size:13px;color:var(--mute);margin-bottom:4px}
+.prow button{padding:0;min-height:36px;border-radius:6px}
+.hint{font-size:13px;color:var(--mute);margin:8px 0 0}
+.errs{color:var(--err);font-size:14px;white-space:pre-line;margin:8px 0 0}
+.slider{display:grid;grid-template-columns:auto auto minmax(0,1fr) auto;gap:14px;align-items:center}
+.slider output{font:600 28px "IBM Plex Sans",sans-serif;white-space:nowrap;min-width:4.2em}
+input[type=range]{width:100%;accent-color:var(--s);height:36px}
+.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:14px;color:var(--mute)}
+.legend i{display:inline-block;width:22px;height:3px;vertical-align:middle;margin-right:6px;border-radius:2px}
+.opts{display:flex;flex-wrap:wrap;gap:12px 18px;align-items:center;font-size:14px}
+.opts label{display:flex;gap:6px;align-items:center}
+.opts select{width:auto}
+.read{display:grid;grid-template-columns:repeat(auto-fit,minmax(9em,1fr));gap:10px}
+.read div{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.read b{display:block;font:600 22px "IBM Plex Sans",sans-serif;white-space:nowrap}
+.read span{font-size:13px;color:var(--mute)}
+.cols{display:grid;gap:20px;grid-template-columns:minmax(0,1fr)}
+@media(min-width:900px){.cols{grid-template-columns:minmax(0,1.1fr) minmax(0,1fr)}}
+.scroll{overflow:auto;max-height:420px;border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;font:14px "IBM Plex Mono",monospace}
+th,td{padding:5px 10px;text-align:right;border-bottom:1px solid var(--grid);white-space:nowrap}
+th{position:sticky;top:0;background:var(--panel);font-family:"IBM Plex Sans",sans-serif;font-weight:600}
+td:first-child,th:first-child{text-align:left;color:var(--mute)}
+.series{overflow-x:auto;font-size:17px;padding:6px 0}
+.math{overflow-x:auto}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:8px}
+.ok{font-size:13px;color:var(--mute)}
+.exact{border-color:var(--acc)}
+.exact h3{font-size:15px;margin:16px 0 2px}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+p{margin:0 0 10px}
+@media(max-width:600px){table{font-size:13px}th,td{padding:5px 6px}.slider output{font-size:22px}.fig{min-height:300px}}
+</style>
+
+<header class="hero"><canvas class="heroart" id="heroArt" aria-hidden="true"></canvas><div class="wrap">
+<p class="crumb"><a href="/">Rajib Belbase</a> / <a href="/mathlab/">MathLab</a></p>
+<h1>Fourier Series Lab</h1>
+<p class="byline">Created by Rajib Belbase</p>
+<p class="lede">Enter any function, piece by piece if it has jumps. Get its Fourier coefficients exactly and numerically, the full series and the partial sums, and watch the Gibbs phenomenon appear as N grows.</p>
+<div class="heroformula">\( S_N(f)(x)=\displaystyle\sum_{|n|\le N}\hat f(n)\,e^{2\pi i n x/L},\qquad \hat f(n)=\frac1L\int_a^b f(x)\,e^{-2\pi i n x/L}\,dx \)</div>
+</div></header>
+<nav class="nav" aria-label="Sections"><div class="wrap"><a href="#calc">Calculator</a><a href="#spectrum">Spectrum &amp; Gibbs</a><a href="#formulas">Exact formulas</a><a href="#details">Close-up &amp; coefficients</a></div></nav>
+
+<main class="band" id="calc"><div class="wrap">
+<div class="sech"><h2>Calculator</h2><p>Type f(x), move N, watch S<sub>N</sub> converge.</p></div>
+<section class="lab">
+  <div class="plotbox">
+    <div class="fig" id="figMain"><svg id="svgMain" role="img" aria-label="Plot of f(x) and the partial sum S_N(x)"></svg>
+      <div class="hline" id="hline" hidden></div><div class="hov" id="hov" hidden></div>
+      <div class="ftools"><button class="ib" data-act="zin" data-f="main" title="Zoom in" aria-label="Zoom in"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6"/><path d="M15 15l5 5M8 10.5h5M10.5 8v5"/></svg></button><button class="ib" data-act="zout" data-f="main" title="Zoom out" aria-label="Zoom out"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6"/><path d="M15 15l5 5M8 10.5h5"/></svg></button><button class="ib" data-act="zreset" data-f="main" title="Reset view" aria-label="Reset view"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.4-5.7M4 4v4.5h4.5"/></svg></button><span class="tsep"></span><button class="ib" data-act="dl" data-f="main" title="Download" aria-label="Download graph"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19h14"/></svg></button><button class="ib" data-act="big" data-f="main" title="Enlarge" aria-label="Enlarge graph"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4H4v5M15 4h5v5M9 20H4v-5M15 20h5v-5"/></svg></button><button class="ib" data-act="set" data-f="main" title="Axes settings" aria-label="Axes settings"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M5.3 18.7l2.1-2.1M16.6 7.4l2.1-2.1"/></svg></button></div>
+      <div class="pop" id="dl-main" hidden><span class="lbl">Download</span><button data-dl="png" data-f="main">PNG image</button><button data-dl="svg" data-f="main">SVG image</button><button data-dl="csv" data-f="main">Data as CSV</button></div>
+      <form class="pop" id="set-main" hidden><span class="lbl">Axes</span>
+        <div class="axg"><label for="x0-main">x from</label><input type="text" id="x0-main" spellcheck="false"><label for="x1-main">to</label><input type="text" id="x1-main" spellcheck="false">
+        <label for="y0-main">y from</label><input type="text" id="y0-main" spellcheck="false"><label for="y1-main">to</label><input type="text" id="y1-main" spellcheck="false"></div>
+        <label class="ck"><input type="checkbox" id="grid-main" checked> Gridlines</label>
+        <p class="errs" id="aerr-main" hidden></p>
+        <div class="row"><button type="submit" class="on">Apply</button><button type="button" data-auto="main">Auto</button></div></form>
+      <span class="ftoast" id="toast-main" aria-live="polite"></span>
+      <div class="bigbar"><button class="ib playbtn" title="Play" aria-label="Play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10-6.5z"/></svg></button><label for="nBig">N</label><input type="range" id="nBig" min="0" max="200" value="15"><output id="nBigOut">15</output></div></div>
+    <p class="zhint">Zoom: the magnifier buttons, a two-finger pinch, or Ctrl + scroll. Drag to move around. Double-click to reset.</p>
+    <div class="panel">
+      <div class="slider"><button class="ib playbtn" title="Play: increase N automatically" aria-label="Play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10-6.5z"/></svg></button><label for="nRange" class="lbl" style="margin:0">Terms N</label><input type="range" id="nRange" min="0" max="200" value="15"><output id="nOut">N = 15</output></div>
+      <div class="opts" style="margin-top:6px">
+        <div class="legend"><span><i style="background:var(--f)"></i>f(x)</span><span><i style="background:var(--s)"></i>S<sub>N</sub>(x)</span><span>○ midpoint of a jump</span></div>
+        <label><input type="checkbox" id="periodic" checked> Show neighbouring periods</label>
+        <label>Summation <select id="method"><option value="plain">Plain partial sum</option><option value="fejer">Fejér (Cesàro) mean</option><option value="lanczos">Lanczos σ-factors</option></select></label>
+      </div>
+    </div>
+    <div class="read" id="readout"></div>
+  </div>
+
+  <div class="ctrl">
+    <div class="panel">
+      <span class="lbl">Start from an example</span>
+      <div class="chips" id="presets"></div>
+    </div>
+    <div class="panel">
+      <span class="lbl">Your function f(x)</span>
+      <div class="prow head"><span>from</span><span>to</span><span>f(x) =</span><span></span></div>
+      <div id="pieces"></div>
+      <div class="row"><button id="addPiece">+ Add a piece</button></div>
+      <p class="errs" id="errs" hidden></p>
+      <p class="hint">Write things like <code>x^2</code>, <code>sin(x)</code>, <code>abs(x)</code>, <code>exp(-x)</code>, <code>2*x+1</code>. Endpoints accept <code>pi</code>, <code>-pi/2</code>, <code>2</code>. The interval is the first “from” to the last “to”; f repeats outside it with period b − a. Gaps between pieces count as 0.</p>
+    </div>
+  </div>
+</section>
+</div></main>
+
+<section class="band" style="padding-top:0" id="spectrum"><div class="wrap"><div class="sech"><h2>Spectrum &amp; Gibbs</h2><p>How big each harmonic is, and how the overshoot behaves.</p></div></div><div class="wrap cols">
+  <div>
+    <h2 id="specTitle">Spectrum of the coefficients</h2>
+    <div class="fig small" id="figSpec"><svg id="svgSpec" role="img" aria-label="Bar chart of coefficient sizes against n"></svg></div>
+    <div class="row"><label class="ck"><input type="checkbox" id="logSpec"> Log scale</label><span class="ok" id="specMsg">Point at a bar (or tap it) to draw that harmonic on the main graph.</span></div>
+    <p class="hint">Red bars are the terms inside S<sub>N</sub>; grey bars are the ones it leaves out. How fast the bars shrink (like 1/n for a jump, 1/n² for a kink) tells you how fast the series converges.</p>
+  </div>
+  <div>
+    <h2>Overshoot as N grows</h2>
+    <div class="fig small" id="figOver"><svg id="svgOver" role="img" aria-label="Overshoot percentage against N"></svg></div>
+    <p class="hint" id="overNote"></p>
+  </div>
+</div></section>
+
+<section class="band" style="padding-top:0" id="formulas"><div class="wrap">
+  <div class="sech"><h2>Exact formulas</h2><p>Definitions in Stein's notation, then your function worked out symbolically.</p></div>
+  <div class="panel exact">
+    <div class="tabs" role="group" aria-label="Series type"><span class="lbl" style="margin:0;align-self:center">Series type</span><button id="formReal" class="on">Trigonometric</button><button id="formCx">Complex</button></div>
+    <div id="fReal">
+    <h2>Trigonometric Fourier series</h2>
+    <div class="math">\[ f(x) \sim A_0 + \sum_{n=1}^{\infty}\Big(A_n\cos\frac{2\pi n x}{L} + B_n\sin\frac{2\pi n x}{L}\Big),\qquad L=b-a \]</div>
+    <div class="math">\[ A_0=\frac1L\int_a^b f(x)\,dx,\qquad A_n=\frac2L\int_a^b f(x)\cos\frac{2\pi n x}{L}\,dx,\qquad B_n=\frac2L\int_a^b f(x)\sin\frac{2\pi n x}{L}\,dx \]</div>
+    <div class="math">\[ S_N(f)(x)=A_0+\sum_{n=1}^{N}\Big(A_n\cos\frac{2\pi n x}{L}+B_n\sin\frac{2\pi n x}{L}\Big) \]</div>
+    </div>
+    <div id="fCx" hidden>
+    <h2>Complex Fourier series</h2>
+    <div class="math">\[ \hat f(n)=\frac{1}{L}\int_a^b f(x)\,e^{-2\pi i n x/L}\,dx,\quad n\in\mathbb Z,\qquad f(x)\sim\sum_{n=-\infty}^{\infty}\hat f(n)\,e^{2\pi i n x/L},\qquad L=b-a \]</div>
+    <div class="math">\[ \hat f(0)=A_0,\qquad \hat f(\pm n)=\frac{A_n\mp i\,B_n}{2}\quad(n\ge1,\ f\ \text{real}) \]</div>
+    <div class="math">\[ S_N(f)(x)=\sum_{|n|\le N}\hat f(n)\,e^{2\pi i n x/L} \]</div>
+    </div>
+    <p class="hint" id="intervalNote"></p>
+    <h2 style="margin-top:18px">Exact formulas for your function</h2>
+    <p class="hint" style="margin-top:0">A symbolic algebra engine (SymPy) runs inside this page and does the integrals exactly, the way you would on paper. It works for polynomials, exponentials, sines, cosines, |x| and products of these, piece by piece. The first run downloads the engine, about 20 MB, and takes a few seconds.</p>
+    <div class="row"><button id="exactBtn" class="on">Find exact formulas</button><span class="ok" id="exactMsg"></span></div>
+    <div id="exactOut"></div>
+    <h2 style="margin-top:22px">Numerical partial sum S<sub>N</sub>(f)(x)</h2>
+    <div class="series" id="series"></div>
+    <div class="row"><button id="copyTex">Copy as LaTeX</button><span class="ok" id="copyMsg"></span></div>
+  </div>
+</div></section>
+
+<section class="band" style="padding-top:0" id="details"><div class="wrap"><div class="sech"><h2>Close-up &amp; coefficients</h2><p>The largest jump up close, and every coefficient up to N.</p></div></div><div class="wrap cols">
+  <div>
+    <h2 id="zoomTitle">Close-up of the largest jump</h2>
+    <div class="fig small" id="figZoom"><svg id="svgZoom" role="img" aria-label="Zoom near the largest jump"></svg>
+      <div class="ftools"><button class="ib" data-act="zin" data-f="zoom" title="Zoom in" aria-label="Zoom in"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6"/><path d="M15 15l5 5M8 10.5h5M10.5 8v5"/></svg></button><button class="ib" data-act="zout" data-f="zoom" title="Zoom out" aria-label="Zoom out"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6"/><path d="M15 15l5 5M8 10.5h5"/></svg></button><button class="ib" data-act="zreset" data-f="zoom" title="Reset view" aria-label="Reset view"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.4-5.7M4 4v4.5h4.5"/></svg></button><span class="tsep"></span><button class="ib" data-act="dl" data-f="zoom" title="Download" aria-label="Download graph"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19h14"/></svg></button><button class="ib" data-act="big" data-f="zoom" title="Enlarge" aria-label="Enlarge graph"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4H4v5M15 4h5v5M9 20H4v-5M15 20h5v-5"/></svg></button><button class="ib" data-act="set" data-f="zoom" title="Axes settings" aria-label="Axes settings"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M5.3 18.7l2.1-2.1M16.6 7.4l2.1-2.1"/></svg></button></div>
+      <div class="pop" id="dl-zoom" hidden><span class="lbl">Download</span><button data-dl="png" data-f="zoom">PNG image</button><button data-dl="svg" data-f="zoom">SVG image</button><button data-dl="csv" data-f="zoom">Data as CSV</button></div>
+      <form class="pop" id="set-zoom" hidden><span class="lbl">Axes</span>
+        <div class="axg"><label for="x0-zoom">x from</label><input type="text" id="x0-zoom" spellcheck="false"><label for="x1-zoom">to</label><input type="text" id="x1-zoom" spellcheck="false">
+        <label for="y0-zoom">y from</label><input type="text" id="y0-zoom" spellcheck="false"><label for="y1-zoom">to</label><input type="text" id="y1-zoom" spellcheck="false"></div>
+        <label class="ck"><input type="checkbox" id="grid-zoom" checked> Gridlines</label>
+        <p class="errs" id="aerr-zoom" hidden></p>
+        <div class="row"><button type="submit" class="on">Apply</button><button type="button" data-auto="zoom">Auto</button></div></form>
+      <span class="ftoast" id="toast-zoom" aria-live="polite"></span></div>
+    <p class="hint" id="zoomNote"></p>
+  </div>
+  <div>
+    <h2 id="tabTitle">Coefficients, n = 0 to N</h2>
+    <div class="scroll"><table><thead id="thead"></thead><tbody id="tbody"></tbody></table></div>
+    <div class="row"><button id="copyCsv">Copy table as CSV</button><span class="ok" id="csvMsg"></span></div>
+    <p class="hint">Numerical method: composite Simpson’s rule with 6000 sub-intervals on each piece, so jumps between pieces never land inside an integration step. Expect about 6 correct digits.</p>
+  </div>
+</div></section>
+
+
+<footer class="band foot"><div class="wrap">
+<div class="footgrid">
+<div><h3>Reference</h3>
+<p class="cite">Elias M. Stein and Rami Shakarchi, <i>Fourier Analysis: An Introduction</i>, Princeton Lectures in Analysis I, Princeton University Press, Princeton, NJ, 2003.</p>
+<p>The notation on this site (L = b − a, f̂(n), S<sub>N</sub>(f)) follows this book.</p></div>
+<div><h3>About</h3>
+<p>Exact formulas by SymPy running in your browser; numbers by Simpson’s rule; equations typeset with MathJax.</p>
+<p>Built with the help of AI tools.</p></div>
+</div>
+<p class="copy">© 2026 Rajib Belbase. All rights reserved.</p>
+</div></footer>
+
+<script type="text/x-python" id="pysrc">
+import json, time
+import re as _re
+from sympy import (Pow, cancel, Symbol, symbols, pi, E, I, exp, sin, cos, tan, sinh, cosh, tanh, log, sqrt, Abs, sign,
+                   Piecewise, Integral, integrate, simplify, nsimplify, latex, Sum, oo, S, Rational,
+                   piecewise_fold, Heaviside, Eq, Ne, factor, together, expand, re, im, conjugate, trigsimp)
+from sympy.parsing.sympy_parser import parse_expr, standard_transformations, implicit_multiplication_application, convert_xor
+
+x = Symbol('x', real=True)
+t = Symbol('t', real=True)
+n = Symbol('n', integer=True, positive=True)
+k = Symbol('n', integer=True, nonzero=True)
+N = Symbol('N', integer=True, positive=True)
+TR = standard_transformations + (implicit_multiplication_application, convert_xor)
+LOC = {'x': x, 'pi': pi, 'e': E, 'E': E, 'abs': Abs, 'sign': sign, 'exp': exp, 'sin': sin, 'cos': cos, 'tan': tan,
+       'sinh': sinh, 'cosh': cosh, 'tanh': tanh, 'log': log, 'ln': log, 'sqrt': sqrt}
+
+
+def P(s):
+    return parse_expr(str(s).strip() or '0', local_dict=LOC, transformations=TR)
+
+
+def _ok(e):
+    from sympy import Pow
+    return not any(p.base == -1 and not p.exp.is_integer for p in e.atoms(Pow))
+
+
+def tidy(e):
+    e = piecewise_fold(e)
+    cands = [e]
+    for fn in (simplify, factor, together):
+        try:
+            cands.append(fn(e))
+        except Exception:
+            pass
+    if e.has(I):
+        try:
+            cands.append(factor(cancel(e), extension=I))
+        except Exception:
+            pass
+    good = [c for c in cands if _ok(c)] or cands
+    return min(good, key=lambda c: c.count_ops())
+
+
+def run(pieces_json):
+    t0 = time.time()
+    raw = json.loads(pieces_json)
+    pcs = []
+    for lo, hi, ex in raw:
+        f = P(ex)
+        if f.free_symbols - {x}:
+            raise ValueError('The formula "%s" uses a letter other than x.' % ex)
+        g = f.rewrite(Piecewise) if f.has(Abs, sign) else f
+        pcs.append((nsimplify(P(lo), [pi]), nsimplify(P(hi), [pi]), g, f))
+    pcs.sort(key=lambda p: float(p[0]))
+    a, b = pcs[0][0], pcs[-1][1]
+    L = simplify((b - a) / 2)
+    w = pi / L
+
+    def integ(g):
+        tot = S(0)
+        for lo, hi, f, _ in pcs:
+            r = integrate(f * g, (x, lo, hi))
+            if r.has(Integral):
+                raise ValueError('SymPy could not find an antiderivative for f(x) = %s times the Fourier factor.' % f)
+            tot += r
+        return tot
+
+    # Stein's notation: period L = b - a (the code's L is the half period)
+    a0 = tidy(integ(S(1)) / L)
+    an = tidy(integ(cos(n * w * x)) / L)
+    bn = tidy(integ(sin(n * w * x)) / L)
+    A0 = tidy(a0 / 2)
+
+    def general(e):
+        if isinstance(e, Piecewise):
+            for ex, cond in e.args:
+                if cond is not S.true:
+                    return ex
+            return e.args[-1][0]
+        return e
+    ga, gb = general(an), general(bn)
+    special = []
+    for m in range(1, 7):
+        try:
+            same = all(simplify(full.subs(n, m) - gen.subs(n, m)) == 0 for full, gen in ((an, ga), (bn, gb)))
+        except Exception:
+            same = False
+        if not same:
+            special.append(m)
+
+    def join(parts):
+        return ' + '.join(parts).replace('+ -', '- ')
+    if special and special == list(range(1, len(special) + 1)):
+        lo_idx = r'n=%d' % (len(special) + 1)
+    elif special:
+        lo_idx = r'\substack{n\ge 1\\ n\ne %s}' % ','.join(map(str, special))
+    else:
+        lo_idx = 'n=1'
+    kk = Symbol('k', integer=True, positive=True)
+    start = (max(special) + 1) if special else 1
+    contiguous = special == list(range(1, len(special) + 1))
+
+    def is_zero(e):
+        try:
+            return simplify(e) == 0
+        except Exception:
+            return False
+
+    def parity(fns, signed=False):
+        ms = list(range(start, start + 8))
+        def z(m):
+            return all(is_zero(f.subs(n, m)) for f in fns) and (not signed or all(is_zero(f.subs(n, -m)) for f in fns))
+        ev = [z(m) for m in ms if m % 2 == 0]
+        od = [z(m) for m in ms if m % 2 == 1]
+        if all(ev) and not all(od):
+            return 'odd'
+        if all(od) and not all(ev):
+            return 'even'
+        return None
+
+    def psub(e, par):
+        v = 1 if par == 'odd' else 0
+        def ok(q):
+            if not (q.is_Pow and q.base == -1 and q.exp.has(n)):
+                return False
+            d = simplify(q.exp.subs(n, v + 2) - q.exp.subs(n, v))
+            return d.is_integer and d.is_even
+        return e.replace(ok, lambda q: (-1) ** q.exp.subs(n, v))
+
+    def stex(e):
+        s = latex(e)
+        return _re.sub(r'(\\(?:sin|cos)\{\\left\()((?:\\pi )?)x \\left\(([^()]*)\\right\)', r'\1\\left(\3\\right) \2x', s)
+
+    def ctex(C):
+        if C == 1:
+            return ''
+        if C == -1:
+            return '-'
+        s = latex(C)
+        return r'\left(' + s + r'\right)' if C.is_Add else s
+
+    def sumtex(C, R, sub, sup=None):
+        try:
+            pw = [q for q in R.atoms(Pow) if q.base == -1 and not q.exp.is_number]
+            if len(pw) == 1 and C.could_extract_minus_sign():
+                C, R = -C, R.subs(pw[0], Pow(-1, pw[0].exp + 1, evaluate=False))
+        except Exception:
+            pass
+        body = stex(R)
+        if R.is_Add:
+            body = r'\left(' + body + r'\right)'
+        lim = (r'\sum_{%s}^{%s}' % (sub, sup)) if sup else (r'\sum_{%s}' % sub)
+        return ctex(C) + lim + ' ' + body
+
+    def join(parts):
+        return ' + '.join(parts).replace('+ -', '- ')
+
+    def chain(lhs, rel, forms):
+        out = []
+        for f in forms:
+            if f not in out:
+                out.append(f)
+        if len(out) == 1:
+            return lhs + ' ' + rel + ' ' + out[0]
+        return r'\begin{aligned} ' + lhs + r' &' + rel + ' ' + out[0] + ''.join(r' \\ &= ' + f for f in out[1:]) + r' \end{aligned}'
+
+    lo_idx = 'n=%d' % start if (not special or contiguous) else r'\substack{n\ge 1\\ n\ne %s}' % ','.join(map(str, special))
+    rng = '' if start == 1 else r'\qquad (n\ge %d)' % start
+    pword = {'odd': r'n\ \text{odd}', 'even': r'n\ \text{even}'}
+    other = {'odd': 'even', 'even': 'odd'}
+    lhs_s = r'S_N(f)(x)'
+    ns = Symbol('n')
+    ep = latex(I * ns * w * x)
+    em = latex(-I * ns * w * x)
+
+    # ================= trigonometric =================
+    arg = n * w * x
+    T = tidy(ga * cos(arg) + gb * sin(arg))
+    head = [latex(A0)] if A0 != 0 else []
+    for m in special:
+        tm = tidy(an.subs(n, m) * cos(m * w * x) + bn.subs(n, m) * sin(m * w * x))
+        if tm != 0:
+            head.append(stex(tm))
+    body = paren(T) if T != 0 else '0'
+    t_inf = [join(head + [sm(lo_idx, r'\infty', body)])] if T != 0 else [join(head) or '0']
+    t_N = [join(head + [sm(lo_idx, 'N', body)])] if T != 0 else [join(head) or '0']
+    tpar = parity([ga, gb]) if T != 0 and (not special or contiguous) else None
+    tnote = ''
+    if T != 0 and (not special or contiguous):
+        if tpar == 'odd':
+            nk, k0, hiN, var = 2 * kk - 1, (start + 2) // 2, r'\lceil N/2\rceil', kk
+            tnote = 'Only odd n contribute, so the simplified form writes n = 2k − 1.'
+        elif tpar == 'even':
+            nk, k0, hiN, var = 2 * kk, (start + 1) // 2, r'\lfloor N/2\rfloor', kk
+            tnote = 'Only even n contribute, so the simplified form writes n = 2k.'
+        else:
+            nk, k0, hiN, var = n, start, 'N', n
+        Tk = tidy(psub(T, tpar).subs(n, nk)) if tpar else T
+        C, R = Tk.as_independent(var, x, as_Add=False)
+        sub = '%s=%d' % ('k' if tpar else 'n', k0)
+        ratio = simplify(C / A0) if A0 != 0 else None
+        if not special and ratio is not None and ratio.is_Rational:
+            t_inf.append(ctex(A0) + r'\left(' + join(['1', sumtex(ratio, R, sub, r'\infty')]) + r'\right)')
+            t_N.append(ctex(A0) + r'\left(' + join(['1', sumtex(ratio, R, sub, hiN)]) + r'\right)')
+        else:
+            t_inf.append(join(head + [sumtex(C, R, sub, r'\infty')]))
+            t_N.append(join(head + [sumtex(C, R, sub, hiN)]))
+    targ = latex(n * w * x)
+    tgen = r'A_0 + \sum_{n=1}^{%s}\Big(A_n\cos(' + targ + r') + B_n\sin(' + targ + r')\Big)'
+    tseries = chain('f(x)', r'\sim', [tgen % r'\infty'] + t_inf)
+    tpartial = chain(lhs_s, '=', [tgen % 'N'] + t_N)
+
+    def coef_line(name, g):
+        if g == 0:
+            return '%s = 0%s' % (name, rng)
+        if tpar:
+            gv = tidy(psub(g, tpar))
+            return r'%s = \begin{cases} %s & %s \\ 0 & %s \end{cases}%s' % (name, latex(gv), pword[tpar], pword[other[tpar]], rng)
+        return '%s = %s%s' % (name, latex(g), rng)
+    tcoef = ['A_0 = ' + latex(A0), coef_line('A_n', ga), coef_line('B_n', gb)]
+    for m in special:
+        tcoef.append(r'A_{%d} = %s,\qquad B_{%d} = %s' % (m, latex(tidy(an.subs(n, m))), m, latex(tidy(bn.subs(n, m)))))
+
+    # ================= complex =================
+    fpos = tidy((an - I * bn) / 2)
+    fneg = tidy((an + I * bn) / 2)
+    gp, gm = general(fpos), general(fneg)
+    try:
+        unified = all(abs(complex(gp.subs(n, -m).evalf()) - complex(gm.subs(n, m).evalf())) < 1e-12 for m in range(start, start + 5))
+    except Exception:
+        unified = False
+    c_inf = [r'\sum_{n=-\infty}^{\infty} \hat f(n)\, e^{%s}' % ep]
+    c_N = [r'\sum_{|n|\le N} \hat f(n)\, e^{%s}' % ep]
+    chead = [latex(A0)] if A0 != 0 else []
+    ccoef = [r'\hat f(0) = ' + latex(A0)]
+    for m in special:
+        vp, vm = tidy(fpos.subs(n, m)), tidy(fneg.subs(n, m))
+        if vp != 0:
+            chead.append(r'%s\, e^{%s}' % (paren(vp), latex(I * m * w * x)))
+        if vm != 0:
+            chead.append(r'%s\, e^{%s}' % (paren(vm), latex(-I * m * w * x)))
+    cnote = ''
+    cr = r'n\ne 0' if not special else r'|n|\ge %d' % start
+    if gp == 0 and (not special or contiguous):
+        ccoef.append(r'\hat f(n) = 0\qquad (%s)' % cr)
+        c_inf.append(join(chead) or '0')
+        c_N.append(join(chead) or '0')
+    elif unified and (not special or contiguous):
+        cpar = parity([gp], signed=True)
+        if cpar:
+            gv = tidy(psub(gp, cpar))
+            ccoef.append(r'\hat f(n) = \begin{cases} %s & %s \\ 0 & %s \end{cases}\qquad (%s)' % (latex(gv), pword[cpar], pword[other[cpar]], cr))
+            cnote = 'Only %s n contribute.' % cpar
+        else:
+            gv = gp
+            ccoef.append(r'\hat f(n) = %s\qquad (%s)' % (latex(gp), cr))
+        c_inf.append(join(chead + [sm1(cr, paren(gp) + r'\, e^{%s}' % ep)]))
+        c_N.append(join(chead + [sm1((r'0<|n|\le N' if not special else r'%d\le |n|\le N' % start), paren(gp) + r'\, e^{%s}' % ep)]))
+        C, R = (gv * exp(I * n * w * x)).as_independent(n, x, as_Add=False)
+        R = R.subs(n, ns)
+        base = [] if not special else [r'|n|\ge %d' % start]
+        ratio = simplify(C / A0) if A0 != 0 else None
+        ratio_ok = ratio is not None and ratio.is_number and all(p.is_Rational for p in ratio.as_real_imag())
+        if cpar == 'odd':
+            si, sN = base + [r'n\ \text{odd}'], [r'|n|\le N', r'n\ \text{odd}']
+        elif cpar == 'even':
+            si, sN = (base or [r'n\ne 0']) + [r'n\ \text{even}'], [r'0<|n|\le N', r'n\ \text{even}']
+        else:
+            si, sN = [cr], [r'0<|n|\le N' if not special else r'%d\le |n|\le N' % start]
+        if special and cpar:
+            sN = [r'%d\le |n|\le N' % start, pword[cpar]]
+        sub_i = r'\substack{%s}' % r'\\ '.join(si)
+        sub_N = r'\substack{%s}' % r'\\ '.join(sN)
+        if not special and ratio_ok:
+            c_inf.append(ctex(A0) + r'\left(' + join(['1', sumtex(ratio, R, sub_i)]) + r'\right)')
+            c_N.append(ctex(A0) + r'\left(' + join(['1', sumtex(ratio, R, sub_N)]) + r'\right)')
+        else:
+            c_inf.append(join(chead + [sumtex(C, R, sub_i)]))
+            c_N.append(join(chead + [sumtex(C, R, sub_N)]))
+    else:
+        ccoef.append(r'\hat f(n) = %s\qquad (n\ge %d)' % (latex(gp), start))
+        ccoef.append(r'\hat f(-n) = %s\qquad (n\ge %d)' % (latex(gm), start))
+        if not special or contiguous:
+            pair = (r'\left(%s\, e^{%s} + %s\, e^{%s}\right)' % (paren_l(gp), ep, paren_l(gm), em)).replace('+ -', '- ')
+            c_inf.append(join(chead + [r'\sum_{n=%d}^{\infty} ' % start + pair]))
+            c_N.append(join(chead + [r'\sum_{n=%d}^{N} ' % start + pair]))
+    for m in special:
+        ccoef.append(r'\hat f(%d) = %s,\qquad \hat f(-%d) = %s' % (m, latex(tidy(fpos.subs(n, m))), m, latex(tidy(fneg.subs(n, m)))))
+    cseries = chain('f(x)', r'\sim', c_inf)
+    cpartial = chain(lhs_s, '=', c_N)
+
+    chk = []
+    for m in range(1, 9):
+        try:
+            chk.append([m, float(an.subs(n, m).evalf()), float(bn.subs(n, m).evalf())])
+        except Exception:
+            pass
+    return json.dumps({
+        'tcoef': tcoef, 'ccoef': ccoef, 'tseries': tseries, 'tpartial': tpartial, 'cseries': cseries, 'cpartial': cpartial,
+        'tnote': tnote, 'cnote': cnote, 'special': special, 'chk': chk,
+        'a0v': float(a0.evalf()), 'secs': round(time.time() - t0, 2)})
+
+
+def sm1(idx, body):
+    if body.startswith('- '):
+        return r'-\sum_{%s} %s' % (idx, body[2:])
+    return r'\sum_{%s} %s' % (idx, body)
+
+
+def sm(lo, hi, body):
+    if body.startswith('- '):
+        return r'-\sum_{%s}^{%s} %s' % (lo, hi, body[2:])
+    return r'\sum_{%s}^{%s} %s' % (lo, hi, body)
+
+
+def f_sym():
+    return Symbol('f')(x) if False else Symbol('f(x)')
+
+
+def paren(e):
+    s = latex(e)
+    return r'\left(' + s + r'\right)' if e.is_Add else s
+
+
+def paren_l(e):
+    s = latex(e)
+    return '(' + s + ')' if getattr(e, 'is_Add', False) or s.startswith('-') else s
+
+</script>
+<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg:{fontCache:'global'}};</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjs@12.4.2/lib/browser/math.js"></script>
+<script>
+{
+const $=id=>document.getElementById(id);
+const NMAX=200, M=6000, GIBBS=0.0894898722;
+const PRESETS=[
+ ['Square wave',[['-pi','0','-1'],['0','pi','1']]],
+ ['Sawtooth x',[['-pi','pi','x']]],
+ ['|x|',[['-pi','pi','abs(x)']]],
+ ['x²',[['-pi','pi','x^2']]],
+ ['Half-wave sine',[['-pi','0','0'],['0','pi','sin(x)']]],
+ ['Pulse',[['-pi','-pi/2','0'],['-pi/2','pi/2','1'],['pi/2','pi','0']]],
+ ['eˣ',[['-pi','pi','exp(x)']]],
+ ['x on [0, 2]',[['0','2','x']]]
+];
+let rows=PRESETS[0][1].map(r=>({from:r[0],to:r[1],expr:r[2]}));
+let active=0, model=null, timer=null, form='real';
+
+function num(s){const v=math.evaluate(String(s).trim());if(typeof v!=='number'||!isFinite(v))throw new Error('nan');return v}
+function gcd(a,b){return b?gcd(b,a%b):a}
+function fmt(v,scale){if(Math.abs(v)<1e-9*(scale||1))return '0';const s=Math.abs(v)>=1e5||Math.abs(v)<1e-3?v.toExponential(4):v.toPrecision(6);return s.replace(/\.?0+(e|$)/,'$1').replace('-','−')}
+
+function renderPresets(){
+ $('presets').innerHTML=PRESETS.map((p,i)=>`<button data-i="${i}" class="${i===active?'on':''}">${p[0]}</button>`).join('');
+}
+function renderRows(){
+ $('pieces').innerHTML=rows.map((r,i)=>`<div class="prow"><input type="text" aria-label="Piece ${i+1} from" data-i="${i}" data-k="from"><input type="text" aria-label="Piece ${i+1} to" data-i="${i}" data-k="to"><input type="text" aria-label="Piece ${i+1} formula" data-i="${i}" data-k="expr" spellcheck="false" autocapitalize="off"><button data-del="${i}" aria-label="Remove piece ${i+1}" ${rows.length<2?'disabled':''}>×</button></div>`).join('');
+ $('pieces').querySelectorAll('input').forEach(el=>{el.value=rows[+el.dataset.i][el.dataset.k]});
+}
+
+function build(){
+ const errs=[], ps=[];
+ rows.forEach((r,i)=>{
+  let lo,hi,c;
+  try{lo=num(r.from);hi=num(r.to)}catch(e){errs.push(`Piece ${i+1}: the endpoints must be numbers such as -pi, pi/2 or 1.5.`);return}
+  if(!(hi>lo)){errs.push(`Piece ${i+1}: “to” must be larger than “from”.`);return}
+  try{c=math.compile(String(r.expr).trim()||'0');const t=c.evaluate({x:(lo+hi)/2});if(typeof t!=='number')throw 0}catch(e){errs.push(`Piece ${i+1}: I can’t read the formula “${r.expr}”. Try a form like 2*x or sin(x).`);return}
+  ps.push({lo,hi,f:x=>{const v=c.evaluate({x});return typeof v==='number'?v:NaN}});
+ });
+ if(errs.length)return {errs};
+ ps.sort((p,q)=>p.lo-q.lo);
+ const full=[];
+ for(let i=0;i<ps.length;i++){
+  if(i&&ps[i].lo<ps[i-1].hi-1e-12)return {errs:['Two pieces overlap. Make each piece start where the previous one ends.']};
+  if(i&&ps[i].lo>ps[i-1].hi+1e-12)full.push({lo:ps[i-1].hi,hi:ps[i].lo,f:()=>0});
+  full.push(ps[i]);
+ }
+ const a=full[0].lo,b=full[full.length-1].hi,L=(b-a)/2,k=Math.PI/L;
+ const A=new Float64Array(NMAX+1),B=new Float64Array(NMAX+1);
+ let F2=0,fmin=Infinity,fmax=-Infinity;const TX=[],TW=[];
+ for(const p of full){
+  const h=(p.hi-p.lo)/M;
+  for(let j=0;j<=M;j++){
+   const x=p.lo+j*h,fx=p.f(x);
+   if(!isFinite(fx))return {errs:[`f is not a finite number at x = ${x.toPrecision(5)}. Check for division by zero or square roots of negatives.`]};
+   fmin=Math.min(fmin,fx);fmax=Math.max(fmax,fx);
+   const w=(j===0||j===M?1:j%2?4:2)*h/3*fx;
+   F2+=w*fx;TX.push(x);TW.push(w);
+   const c1=Math.cos(k*x),s1=Math.sin(k*x);let c=1,s=0;
+   for(let n=0;n<=NMAX;n++){A[n]+=w*c;B[n]+=w*s;const cn=c*c1-s*s1;s=s*c1+c*s1;c=cn}
+  }
+ }
+ for(let n=0;n<=NMAX;n++){A[n]/=L;B[n]/=L}
+ B[0]=0;F2/=L;
+ const jumps=[];
+ const addJump=(x0,fl,fr)=>{if(isFinite(fl)&&isFinite(fr)&&Math.abs(fr-fl)>1e-9*(1+Math.abs(fmax)+Math.abs(fmin)))jumps.push({x0,fl,fr,J:fr-fl})};
+ for(let i=1;i<full.length;i++)addJump(full[i].lo,full[i-1].f(full[i].lo),full[i].f(full[i].lo));
+ addJump(a,full[full.length-1].f(b),full[0].f(a));
+ jumps.sort((p,q)=>Math.abs(q.J)-Math.abs(p.J));
+ const piMode=[a,b].every(v=>Math.abs(v/Math.PI*4-Math.round(v/Math.PI*4))<1e-9);
+ return {TX,TW,full,a,b,L,k,A,B,F2,fmin,fmax,jumps,piMode,scale:Math.max(Math.abs(fmin),Math.abs(fmax),1e-12)};
+}
+
+function sigma(N){
+ const m=$('method').value,s=new Float64Array(N+1);
+ for(let n=0;n<=N;n++){
+  if(m==='fejer')s[n]=1-n/(N+1);
+  else if(m==='lanczos'){const t=Math.PI*n/(N+1);s[n]=n?Math.sin(t)/t:1}
+  else s[n]=1;
+ }
+ s[0]=1;return s;
+}
+function SN(x,N,sg){
+ const {A,B,k}=model;const c1=Math.cos(k*x),s1=Math.sin(k*x);
+ let c=c1,s=s1,S=A[0]/2;
+ for(let n=1;n<=N;n++){S+=sg[n]*(A[n]*c+B[n]*s);const cn=c*c1-s*s1;s=s*c1+c*s1;c=cn}
+ return S;
+}
+function fval(x){
+ const {a,L,full}=model,P=2*L;const t=x-Math.floor((x-a)/P)*P;
+ for(const p of full)if(t>=p.lo&&t<=p.hi)return p.f(t);
+ return NaN;
+}
+
+function niceStep(span,n){const r=span/n,p=10**Math.floor(Math.log10(r)),q=r/p;return (q<1.5?1:q<3?2:q<7?5:10)*p}
+function piLab(v){let n=Math.round(v/Math.PI*4),d=4;if(!n)return '0';const g=gcd(Math.abs(n),d);n/=g;d/=g;return (n<0?'−':'')+(Math.abs(n)===1?'':Math.abs(n))+'π'+(d===1?'':'/'+d)}
+function xTicks(X0,X1,max){
+ const out=[];
+ if(model.piMode&&(X1-X0)>=0.75*Math.PI){
+  const st=[.25,.5,1,2,4].map(s=>s*Math.PI).find(s=>(X1-X0)/s<=max)||8*Math.PI;
+  for(let v=Math.ceil(X0/st-1e-9)*st;v<=X1+1e-9;v+=st)out.push([v,piLab(v)]);
+ }else{
+  const st=niceStep(X1-X0,max);
+  for(let v=Math.ceil(X0/st-1e-9)*st;v<=X1+1e-9;v+=st)out.push([v,fmt(+v.toPrecision(10))]);
+ }
+ return out;
+}
+
+let uid=0;
+function plot(svg,X0,X1,Y0,Y1,N,sg,opt){
+ const W=svg.clientWidth,H=svg.clientHeight;if(!W||!H)return;
+ const ml=48,mr=12,mt=14,mb=30;
+ const sx=x=>ml+(x-X0)/(X1-X0)*(W-ml-mr),sy=y=>mt+(Y1-y)/(Y1-Y0)*(H-mt-mb);
+ const id='c'+(uid++);let g=`<defs><clipPath id="${id}"><rect x="${ml}" y="${mt}" width="${W-ml-mr}" height="${H-mt-mb}"/></clipPath></defs>`;
+ const gs=opt.grid===false?'none':'var(--grid)';
+ for(const [v,l] of xTicks(X0,X1,W<520?5:9))g+=`<line x1="${sx(v)}" x2="${sx(v)}" y1="${mt}" y2="${H-mb}" stroke="${gs}"/><text x="${sx(v)}" y="${H-10}" text-anchor="middle">${l}</text>`;
+ const ys=niceStep(Y1-Y0,H<300?4:6);
+ for(let v=Math.ceil(Y0/ys-1e-9)*ys;v<=Y1+1e-9;v+=ys)g+=`<line x1="${ml}" x2="${W-mr}" y1="${sy(v)}" y2="${sy(v)}" stroke="${gs}"/><text x="${ml-6}" y="${sy(v)+4}" text-anchor="end">${fmt(+v.toPrecision(10))}</text>`;
+ if(Y0<0&&Y1>0)g+=`<line x1="${ml}" x2="${W-mr}" y1="${sy(0)}" y2="${sy(0)}" stroke="var(--line)" stroke-width="1.5"/>`;
+ if(X0<0&&X1>0)g+=`<line x1="${sx(0)}" x2="${sx(0)}" y1="${mt}" y2="${H-mb}" stroke="var(--line)" stroke-width="1.5"/>`;
+ g+=`<g clip-path="url(#${id})">`;
+ const {a,b,L,full}=model,P=2*L;
+ if(opt.band)g+=`<rect x="${sx(a)}" y="${mt}" width="${sx(b)-sx(a)}" height="${H-mt-mb}" fill="var(--acc)" opacity=".05"/>`;
+ for(let kk=Math.floor((X0-a)/P)-1;kk<=Math.ceil((X1-a)/P);kk++){
+  const sh=kk*P,main=kk===0;
+  for(const p of full){
+   const lo=Math.max(p.lo+sh,X0),hi=Math.min(p.hi+sh,X1);if(hi<=lo)continue;
+   const n=Math.max(20,Math.ceil((hi-lo)/(X1-X0)*600));let d='';
+   for(let j=0;j<=n;j++){const x=lo+(hi-lo)*j/n,y=p.f(x-sh);if(isFinite(y))d+=(d?'L':'M')+sx(x).toFixed(1)+' '+sy(y).toFixed(1)}
+   g+=`<path d="${d}" fill="none" stroke="var(--f)" stroke-width="2.2" opacity="${main||!opt.band?1:.45}"/>`;
+  }
+ }
+ if(opt.gibbs)g+=opt.gibbs(sx,sy);
+ if(opt.hl!=null){const m=Math.abs(opt.hl),{A,B,k}=model;let d='';const nn=Math.round(W);for(let j=0;j<=nn;j++){const x=X0+(X1-X0)*j/nn,y=m?A[m]*Math.cos(m*k*x)+B[m]*Math.sin(m*k*x):A[0]/2;d+=(j?'L':'M')+sx(x).toFixed(1)+' '+sy(y).toFixed(1)}g+=`<path d="${d}" fill="none" stroke="var(--acc)" stroke-width="1.8" stroke-dasharray="6 4"/>`}
+ const n=Math.round(W*1.5);let d='';
+ for(let j=0;j<=n;j++){const x=X0+(X1-X0)*j/n;d+=(j?'L':'M')+sx(x).toFixed(1)+' '+sy(Math.max(Y0-10*(Y1-Y0),Math.min(Y1+10*(Y1-Y0),SN(x,N,sg)))).toFixed(1)}
+ g+=`<path d="${d}" fill="none" stroke="var(--s)" stroke-width="2"/>`;
+ for(const jp of model.jumps)for(let kk=Math.floor((X0-jp.x0)/P);kk<=Math.ceil((X1-jp.x0)/P);kk++){const x=jp.x0+kk*P;if(x>=X0&&x<=X1)g+=`<circle cx="${sx(x)}" cy="${sy((jp.fl+jp.fr)/2)}" r="4.5" fill="var(--bg)" stroke="var(--f)" stroke-width="1.5"/>`}
+ if(opt.peak)g+=`<circle cx="${sx(opt.peak[0])}" cy="${sy(opt.peak[1])}" r="5" fill="var(--s)"/>`;
+ g+='</g>';
+ svg.innerHTML=g;
+}
+
+function gibbs(N,sg){
+ const jp=model.jumps[0];if(!jp||N<1)return null;
+ const {L}=model,s=Math.sign(jp.J),w=Math.min(4*L/N,L*0.9);
+ let best=-Infinity,xp=jp.x0;
+ for(let j=1;j<=800;j++){const x=jp.x0+w*j/800,v=s*(SN(x,N,sg)-jp.fr);if(v>best){best=v;xp=x}}
+ return {jp,pct:best/Math.abs(jp.J)*100,xp,yp:SN(xp,N,sg)};
+}
+
+function termTex(n,kind,v){
+ const {L,piMode}=model;let arg;
+ if(Math.abs(L-Math.PI)<1e-12)arg=(n===1?'':n)+'x';
+ else if(Math.abs(L-1)<1e-12)arg=(n===1?'':n)+'\\pi x';
+ else arg=`\\frac{${n===1?'':n}\\pi x}{${piMode?piLab(L).replace('π','\\pi'):fmt(L)}}`;
+ return `${fmt(v).replace('−','-')}\\${kind}(${arg})`;
+}
+function seriesTex(N,sg,limit){
+ const {A,B,scale}=model;const t=[];
+ const a0=A[0]/2;if(Math.abs(a0)>1e-9*scale)t.push(fmt(a0).replace('−','-'));
+ let shown=0,more=false;
+ for(let n=1;n<=N;n++)for(const [kind,v] of [['cos',A[n]*sg[n]],['sin',B[n]*sg[n]]]){
+  if(Math.abs(v)<=1e-9*scale)continue;
+  if(shown>=limit){more=true;continue}
+  t.push(termTex(n,kind,v));shown++;
+ }
+ let s=t.length?t.join(' + ').replace(/\+ -/g,'- '):'0';
+ if(more)s+=' + \\cdots';
+ return `S_{${N}}(f)(x) = A_0+\\sum_{n=1}^{${N}}${$("method").value==="plain"?"":"\\sigma_n"}\\Big(A_n\\cos\\tfrac{2\\pi n x}{L}+B_n\\sin\\tfrac{2\\pi n x}{L}\\Big) = ${s}`;
+}
+function typeset(el,tex){
+ el.textContent='\\['+tex+'\\]';
+ if(window.MathJax&&MathJax.typesetPromise){try{MathJax.typesetClear&&MathJax.typesetClear([el])}catch(e){}MathJax.typesetPromise([el]).catch(()=>{})}
+}
+
+function fmtC(re,im,sc){
+ const z=v=>Math.abs(v)<1e-9*(sc||1);
+ if(z(re)&&z(im))return '0';
+ if(z(im))return fmt(re,sc);
+ if(z(re))return fmt(im,sc)+'i';
+ return fmt(re,sc)+(im<0?' − ':' + ')+fmt(Math.abs(im),sc)+'i';
+}
+function cn(n){const {A,B}=model,m=Math.abs(n);if(!m)return [A[0]/2,0];return [A[m]/2,(n>0?-1:1)*B[m]/2]}
+function expArg(n){
+ const {L,piMode}=model,m=Math.abs(n),sgn=n<0?'-':'',c=m===1?'':m;
+ if(Math.abs(L-Math.PI)<1e-12)return `e^{${sgn}i${c}x}`;
+ if(Math.abs(L-1)<1e-12)return `e^{${sgn}i${c}\\pi x}`;
+ return `e^{${sgn}i${c}\\pi x/${piMode?piLab(L).replace('π','\\pi'):fmt(L)}}`;
+}
+function seriesTexC(N,sg,limit){
+ const sc=model.scale,t=[];
+ const [r0]=cn(0);if(Math.abs(r0)>1e-9*sc)t.push(fmt(r0).replace('−','-'));
+ let shown=0,more=false;
+ for(let n=1;n<=N;n++){
+  const [re,im]=cn(n),r=re*sg[n],i=im*sg[n];
+  if(Math.abs(r)<=1e-9*sc&&Math.abs(i)<=1e-9*sc)continue;
+  if(shown>=limit){more=true;continue}
+  for(const sgn of [1,-1]){
+   const c=fmtC(r,sgn*i,sc).replace(/−/g,'-');
+   t.push((c.includes(' ')?'('+c+')':c)+'\\,'+expArg(sgn*n));
+  }
+  shown++;
+ }
+ let s=t.length?t.join(' + ').replace(/\+ -/g,'- '):'0';
+ if(more)s+=' + \\cdots';
+ return `S_{${N}}(f)(x) = \\sum_{|n|\\le ${N}}${$('method').value==='plain'?'':'\\sigma_{|n|}'} \\hat f(n)\\,e^{2\\pi i n x/L} = ${s}`;
+}
+function renderTable(N){
+ const sc=model.scale,tr=[];
+ if(form==='real'){
+  $('tabTitle').textContent='Trigonometric coefficients Aₙ, Bₙ for n = 0 to N';
+  $('thead').innerHTML='<tr><th>n</th><th>A<sub>n</sub></th><th>B<sub>n</sub></th><th>√(A<sub>n</sub>²+B<sub>n</sub>²)</th></tr>';
+  for(let n=0;n<=N;n++){const An=n?model.A[n]:model.A[0]/2;tr.push(`<tr><td>${n}</td><td>${fmt(An,sc)}</td><td>${n?fmt(model.B[n],sc):'—'}</td><td>${fmt(n?Math.hypot(model.A[n],model.B[n]):Math.abs(An),sc)}</td></tr>`)}
+ }else{
+  $('tabTitle').textContent='Complex coefficients f̂(n) for n = −N to N';
+  $('thead').innerHTML='<tr><th>n</th><th>Re f̂(n)</th><th>Im f̂(n)</th><th>|f̂(n)|</th></tr>';
+  for(let n=-N;n<=N;n++){const [re,im]=cn(n);tr.push(`<tr><td>${String(n).replace('-','−')}</td><td>${fmt(re,sc)}</td><td>${fmt(im,sc)}</td><td>${fmt(Math.hypot(re,im),sc)}</td></tr>`)}
+ }
+ $('tbody').innerHTML=tr.join('');
+}
+
+function update(){
+ if(!model)return;
+ const N=+$('nRange').value;$('nOut').textContent='N = '+N;$('nBig').value=N;$('nBigOut').textContent=N;
+ const sg=sigma(N),{a,b,L,fmin,fmax}=model,per=$('periodic').checked;
+ const X0=per?a-L:a,X1=per?b+L:b,sp=(fmax-fmin)||1;
+ const G=gibbs(N,sg);
+ const am=axes.main.r||[X0,X1,fmin-0.18*sp,fmax+0.18*sp];axes.main.last=am;
+ plot($('svgMain'),am[0],am[1],am[2],am[3],N,sg,{band:per,grid:axes.main.grid,hl});
+ let ex=0;for(let n=1;n<=N;n++)ex+=(2*sg[n]-sg[n]*sg[n])*(model.A[n]**2+model.B[n]**2);
+ const rms=Math.sqrt(Math.max(0,(model.F2-model.A[0]**2/2-ex)/2));
+ const cards=[[fmt(model.A[0]/2,model.scale),'f̂(0) = A₀, the mean value'],[fmt(rms),'RMS error of S_N (via Parseval)']];
+ if(G)cards.push([G.pct>0?G.pct.toFixed(2)+'%':'none',`overshoot at the jump x = ${model.piMode?piLab(G.jp.x0):fmt(G.jp.x0)}`],[(GIBBS*100).toFixed(2)+'%','Gibbs limit as N → ∞']);
+ $('readout').innerHTML=cards.map(c=>`<div><b>${c[0]}</b><span>${c[1]}</span></div>`).join('');
+ const z=$('svgZoom');
+ if(G){
+  const jp=G.jp,w=L/5,lo=Math.min(jp.fl,jp.fr),hi=Math.max(jp.fl,jp.fr),J=Math.abs(jp.J);
+  const lvl=jp.fr+Math.sign(jp.J)*GIBBS*J;
+  const az=axes.zoom.r||[jp.x0-w,jp.x0+w,lo-0.3*J,hi+0.3*J];axes.zoom.last=az;
+  plot(z,az[0],az[1],az[2],az[3],N,sg,{grid:axes.zoom.grid,peak:[G.xp,G.yp],gibbs:(sx,sy)=>`<line x1="0" x2="9999" y1="${sy(lvl)}" y2="${sy(lvl)}" stroke="var(--acc)" stroke-dasharray="5 4"/><text x="${sx(jp.x0-w)+56}" y="${sy(lvl)+(jp.J>0?-6:16)}" style="fill:var(--acc)">Gibbs limit, 8.95% of the jump</text>`});
+  $('zoomTitle').textContent=`Close-up of the jump at x = ${model.piMode?piLab(jp.x0):fmt(jp.x0)}`;
+  $('zoomNote').textContent=`Jump size ${fmt(jp.J)}. The red dot marks the first peak of S_N past the jump, at x − x₀ = ${fmt(G.xp-jp.x0)} (for comparison, L/(2N) = ${fmt(L/N)}). Raising N squeezes the overshoot toward the jump but its height does not fall. Switch the summation to Fejér to watch it disappear.`;
+ }else{
+  z.innerHTML='';$('zoomTitle').textContent='Close-up of a jump';
+  $('zoomNote').textContent=model.jumps.length?'Set N to at least 1 to see the overshoot.':'This function (with its periodic extension) has no jumps between pieces, so there is no Gibbs overshoot to show. Try the square wave or the sawtooth.';
+ }
+ renderTable(N);drawSpec(N);drawOver(N);hover.refresh&&hover.refresh();
+ clearTimeout(update.t);update.t=setTimeout(()=>typeset($('series'),form==='real'?seriesTex(N,sg,8):seriesTexC(N,sg,4)),120);
+}
+
+function recompute(){
+ const m=build();
+ if(m.errs){$('errs').hidden=false;$('errs').textContent=m.errs.join('\n');return}
+ $('errs').hidden=true;model=m;
+ const {a,b,L,piMode}=m,f=v=>piMode?piLab(v):fmt(v);
+ $('intervalNote').textContent=`Here a = ${f(a)}, b = ${f(b)}, so L = b − a = ${f(b-a)}. Coefficients are computed for n up to ${NMAX}.`;
+ update();
+}
+function schedule(){clearTimeout(timer);timer=setTimeout(recompute,300)}
+
+$('presets').addEventListener('click',e=>{const bt=e.target.closest('button');if(!bt)return;active=+bt.dataset.i;rows=PRESETS[active][1].map(r=>({from:r[0],to:r[1],expr:r[2]}));renderPresets();renderRows();recompute();if(py)$('exactBtn').click();else exactStale()});
+$('pieces').addEventListener('input',e=>{const el=e.target;if(!el.dataset.k)return;rows[+el.dataset.i][el.dataset.k]=el.value;active=-1;renderPresets();schedule();exactStale()});
+$('pieces').addEventListener('click',e=>{const bt=e.target.closest('button[data-del]');if(!bt)return;rows.splice(+bt.dataset.del,1);active=-1;renderPresets();renderRows();recompute();exactStale()});
+$('addPiece').addEventListener('click',()=>{const last=rows[rows.length-1];let lo=last?last.to:'0',hi;try{hi=String(+(num(lo)+1).toPrecision(6))}catch(e){hi='1'}rows.push({from:lo,to:hi,expr:'0'});active=-1;renderPresets();renderRows();recompute()});
+$('nRange').addEventListener('input',update);
+$('periodic').addEventListener('change',update);
+$('method').addEventListener('change',update);
+
+let py=null,pyLoading=null,exact=null,exactKey='';
+function loadScript(src){return new Promise((ok,no)=>{const sc=document.createElement('script');sc.src=src;sc.onload=ok;sc.onerror=()=>no(new Error('Could not load '+src));document.head.appendChild(sc)})}
+function loadEngine(){
+ if(!pyLoading)pyLoading=(async()=>{
+  $('exactMsg').textContent='Loading the symbolic engine (first time only)…';
+  const bytes=async u=>{const r=await fetch(u);if(!r.ok)throw new Error('Could not load '+u);const b=atob((await r.text()).trim()),a=new Uint8Array(b.length);for(let i=0;i<b.length;i++)a[i]=b.charCodeAt(i);return a};
+  await loadScript('pyodide/pyodide.js');
+  const std=URL.createObjectURL(new Blob([await bytes('pyodide/python_stdlib.b64.txt')],{type:'application/zip'}));
+  const p=await loadPyodide({indexURL:new URL('pyodide/',location.href).href,stdLibURL:std});
+  $('exactMsg').textContent='Loading SymPy…';
+  for(const w of ['wheels/mpmath.b64.txt','wheels/sympy.b64.txt'])p.unpackArchive(await bytes(w),'wheel');
+  p.FS.writeFile('/home/pyodide/fexact.py',$('pysrc').textContent);
+  $('exactMsg').textContent='Starting SymPy…';await new Promise(r=>setTimeout(r,30));
+  p.runPython('import sys; sys.path.insert(0,"/home/pyodide"); import fexact');
+  py=p;return p;
+ })();
+ return pyLoading;
+}
+function texBlock(label,tex,note){
+ const d=document.createElement('div');
+ if(label){const h=document.createElement('h3');h.textContent=label;d.appendChild(h)}
+ if(tex){const m=document.createElement('div');m.className='math';m.textContent='\\['+tex+'\\]';d.appendChild(m)}
+ if(note){const q=document.createElement('p');q.className='hint';q.textContent=note;d.appendChild(q)}
+ return d;
+}
+function renderExact(){
+ const out=$('exactOut');out.innerHTML='';if(!exact)return;const r=exact;
+ const blocks=[];
+ const sp=r.special.length?`The general formula fails at n = ${r.special.join(', ')}, so ${r.special.length>1?'those coefficients are':'that coefficient is'} listed separately.`:'';
+ const cx=form!=='real',coef=cx?r.ccoef:r.tcoef;
+ coef.forEach((t,i)=>blocks.push(texBlock(i?'':'Fourier coefficients',t,i===coef.length-1?sp:'')));
+ blocks.push(texBlock('Fourier series',cx?r.cseries:r.tseries,cx?r.cnote:r.tnote),texBlock('Partial Fourier sum',cx?r.cpartial:r.tpartial,'Each line is equal to the one above it; the last line is the most simplified form.'));
+ let note='';
+ if(model&&r.chk.length){let mx=Math.abs(r.a0v-model.A[0]);for(const [m,av,bv] of r.chk)mx=Math.max(mx,Math.abs(av-model.A[m]),Math.abs(bv-model.B[m]));note=`Check: the exact formulas agree with the numerical coefficients for n = 0 to ${r.chk.length} (largest difference ${mx.toExponential(1)}). SymPy took ${r.secs} s.`}
+ const q=document.createElement('p');q.className='hint';q.textContent=note;blocks.push(q);
+ blocks.forEach(b=>out.appendChild(b));
+ if(window.MathJax&&MathJax.typesetPromise){try{MathJax.typesetClear([out])}catch(e){}MathJax.typesetPromise([out]).catch(()=>{})}
+}
+function exactStale(){if(exact&&JSON.stringify(rows)!==exactKey)$('exactMsg').textContent='The function has changed. Press the button to update the exact formulas.'}
+$('exactBtn').addEventListener('click',async()=>{
+ const bt=$('exactBtn');bt.disabled=true;
+ try{
+  const p=await loadEngine();
+  $('exactMsg').textContent='Integrating… the page may pause for a few seconds.';
+  await new Promise(r=>setTimeout(r,40));
+  const key=JSON.stringify(rows);
+  const res=p.globals.get('fexact').run(JSON.stringify(rows.map(r=>[r.from,r.to,r.expr])));
+  exact=JSON.parse(res);exactKey=key;$('exactMsg').textContent='';renderExact();
+ }catch(e){
+  const msg=String(e&&e.message||e).trim().split('\n').filter(Boolean).pop()||'Unknown error';
+  $('exactMsg').textContent='Could not find exact formulas: '+msg.replace(/^\w*Error: /,'');
+  if(!py)pyLoading=null;
+ }
+ bt.disabled=false;
+});
+
+function setForm(f){form=f;$('formReal').classList.toggle('on',f==='real');$('formCx').classList.toggle('on',f!=='real');$('fReal').hidden=f!=='real';$('fCx').hidden=f==='real';update();renderExact()}
+$('formReal').addEventListener('click',()=>setForm('real'));
+$('formCx').addEventListener('click',()=>setForm('cx'));
+async function copy(text,msg){try{await navigator.clipboard.writeText(text);$(msg).textContent='Copied.'}catch(e){$(msg).textContent='Copying is blocked here. Select the text and copy it by hand.'}setTimeout(()=>{$(msg).textContent=''},3000)}
+$('copyTex').addEventListener('click',()=>{if(!model)return;const N=+$('nRange').value;copy(form==='real'?seriesTex(N,sigma(N),1e9):seriesTexC(N,sigma(N),1e9),'copyMsg')});
+$('copyCsv').addEventListener('click',()=>{if(!model)return;const N=+$('nRange').value,l=[form==='real'?'n,A_n,B_n':'n,Re fhat(n),Im fhat(n)'];if(form==='real')for(let n=0;n<=N;n++)l.push(`${n},${n?model.A[n]:model.A[0]/2},${n?model.B[n]:0}`);else for(let n=-N;n<=N;n++)l.push(`${n},${cn(n).join(',')}`);copy(l.join('\n'),'csvMsg')});
+
+const axes={main:{r:null,grid:true,last:null},zoom:{r:null,grid:true,last:null}};
+const FIG={main:'figMain',zoom:'figZoom'},SVG={main:'svgMain',zoom:'svgZoom'};
+function toast(k,t){const el=$('toast-'+k);el.textContent=t;clearTimeout(toast[k]);toast[k]=setTimeout(()=>{el.textContent=''},3500)}
+function closePops(except){document.querySelectorAll('.pop').forEach(p=>{if(p.id!==except)p.hidden=true})}
+function fillAxes(k){const r=axes[k].last;if(!r)return;['x0','x1','y0','y1'].forEach((n,i)=>{$(n+'-'+k).value=fmt(+r[i].toPrecision(6)).replace('−','-')});$('grid-'+k).checked=axes[k].grid;$('aerr-'+k).hidden=true}
+function setBig(k,on){const f=$(FIG[k]);f.classList.toggle('big',on);document.body.style.overflow=on?'hidden':'';const b=f.querySelector('[data-act="big"]');b.title=on?'Close enlarged view':'Enlarge';b.setAttribute('aria-label',b.title);b.innerHTML=on?'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>':'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4H4v5M15 4h5v5M9 20H4v-5M15 20h5v-5"/></svg>';update()}
+document.addEventListener('click',e=>{
+ const b=e.target.closest('[data-act]');
+ if(b){const k=b.dataset.f,a=b.dataset.act;if(a[0]==='z'){closePops();return}
+  if(a==='big'){closePops();setBig(k,!$(FIG[k]).classList.contains('big'));return}
+  const id=(a==='dl'?'dl-':'set-')+k,p=$(id);closePops(id);if(p.hidden&&a==='set')fillAxes(k);p.hidden=!p.hidden;return}
+ const d=e.target.closest('[data-dl]');if(d){closePops();exportFig(d.dataset.f,d.dataset.dl);return}
+ const au=e.target.closest('[data-auto]');if(au){const k=au.dataset.auto;axes[k].r=null;axes[k].grid=$('grid-'+k).checked;closePops();update();return}
+ if(!e.target.closest('.pop'))closePops();
+});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closePops();for(const k in FIG)if($(FIG[k]).classList.contains('big'))setBig(k,false)}});
+for(const k of ['main','zoom'])$('set-'+k).addEventListener('submit',e=>{e.preventDefault();
+ try{const v=['x0','x1','y0','y1'].map(n=>num($(n+'-'+k).value));if(!(v[1]>v[0])||!(v[3]>v[2]))throw new Error('order');axes[k].r=v;axes[k].grid=$('grid-'+k).checked;closePops();update()}
+ catch(err){const el=$('aerr-'+k);el.hidden=false;el.textContent=err.message==='order'?'Each “to” must be larger than its “from”.':'Use numbers or expressions like -pi, 2*pi, 1.5.'}});
+$('nBig').addEventListener('input',()=>{$('nRange').value=$('nBig').value;update()});
+function resolvedSvg(k){
+ const svg=$(SVG[k]),W=svg.clientWidth,H=svg.clientHeight,cs=getComputedStyle(document.documentElement);
+ const col=n=>cs.getPropertyValue(n).trim()||'#000';
+ const N=+$('nRange').value,m=$('method').value,lab=m==='plain'?`S<tspan baseline-shift="sub" font-size="10">${N}</tspan>(f)`:m==='fejer'?`Fejér mean, N = ${N}`:`Lanczos σ, N = ${N}`;
+ let inner=svg.innerHTML.replace(/var\((--[a-z]+)\)/g,(x,n)=>col(n));
+ const ink=col('--ink'),bg=col('--bg');
+ const legend=`<g transform="translate(${W-198},16)"><rect width="178" height="44" rx="6" fill="${bg}" stroke="${col('--line')}"/><line x1="10" x2="34" y1="15" y2="15" stroke="${col('--f')}" stroke-width="2.2"/><text x="42" y="19">f(x)</text><line x1="10" x2="34" y1="32" y2="32" stroke="${col('--s')}" stroke-width="2"/><text x="42" y="36">${lab}</text></g>`;
+ return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}"><style>text{font:13px 'IBM Plex Sans',Helvetica,Arial,sans-serif;fill:${col('--mute')};paint-order:stroke;stroke:${bg};stroke-width:4px}</style><rect width="100%" height="100%" fill="${bg}"/>${inner}${legend}</svg>`.replace(/<text([^>]*)>/g,(t,a)=>t);
+}
+async function saveFile(k,name,data){
+ try{
+  const url=URL.createObjectURL(data instanceof Blob?data:new Blob([data]));const a=document.createElement('a');a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),2000);
+ }catch(e){toast(k,e&&e.code==='declined'?'Download cancelled.':'Could not save the file'+(e&&e.code?' ('+e.code+')':'')+'.')}
+}
+async function exportFig(k,kind){
+ if(!model)return;const N=+$('nRange').value,base=(k==='main'?'fourier-partial-sum':'gibbs-closeup')+'-N'+N;
+ if(kind==='csv'){const r=axes[k].last,sg=sigma(N),l=['x,f(x),S_N(x)'];for(let j=0;j<=1000;j++){const x=r[0]+(r[1]-r[0])*j/1000;l.push(`${x},${fval(x)},${SN(x,N,sg)}`)}return saveFile(k,base+'.csv',l.join('\n'))}
+ const svgText=resolvedSvg(k);
+ if(kind==='svg')return saveFile(k,base+'.svg',new Blob([svgText],{type:'image/svg+xml'}));
+ try{
+  const img=new Image(),url=URL.createObjectURL(new Blob([svgText],{type:'image/svg+xml'}));
+  await new Promise((ok,no)=>{img.onload=ok;img.onerror=no;img.src=url});
+  const sc=3,c=document.createElement('canvas'),W=$(SVG[k]).clientWidth,H=$(SVG[k]).clientHeight;c.width=W*sc;c.height=H*sc;
+  const ctx=c.getContext('2d');ctx.scale(sc,sc);ctx.drawImage(img,0,0,W,H);URL.revokeObjectURL(url);
+  const blob=await new Promise(r=>c.toBlob(r,'image/png'));await saveFile(k,base+'.png',blob);
+ }catch(e){toast(k,'Could not make the PNG here. Try SVG instead.')}
+}
+
+const PAD={l:48,r:12,t:14,b:30};
+let rafId=0;function redraw(){if(!rafId)rafId=requestAnimationFrame(()=>{rafId=0;update()})}
+function toData(k,px,py){const svg=$(SVG[k]),W=svg.clientWidth,H=svg.clientHeight,r=axes[k].last;
+ return [r[0]+(px-PAD.l)/(W-PAD.l-PAD.r)*(r[1]-r[0]),r[3]-(py-PAD.t)/(H-PAD.t-PAD.b)*(r[3]-r[2])]}
+function zoomAt(k,f,cx,cy){const r=axes[k].last;if(!r)return;
+ if(cx==null){cx=(r[0]+r[1])/2;cy=(r[2]+r[3])/2}
+ const n=[cx+(r[0]-cx)*f,cx+(r[1]-cx)*f,cy+(r[2]-cy)*f,cy+(r[3]-cy)*f];
+ if(n[1]-n[0]<1e-9||n[3]-n[2]<1e-12||n[1]-n[0]>1e6)return;
+ axes[k].r=n;axes[k].last=n;redraw()}
+function panBy(k,dx,dy){const svg=$(SVG[k]),W=svg.clientWidth,H=svg.clientHeight,r=axes[k].last;if(!r)return;
+ const ux=dx/(W-PAD.l-PAD.r)*(r[1]-r[0]),uy=dy/(H-PAD.t-PAD.b)*(r[3]-r[2]);
+ const n=[r[0]-ux,r[1]-ux,r[2]+uy,r[3]+uy];axes[k].r=n;axes[k].last=n;redraw()}
+for(const k of ['main','zoom']){
+ const svg=$(SVG[k]),pts=new Map();let pinch=null;
+ const local=e=>{const b=svg.getBoundingClientRect();return [e.clientX-b.left,e.clientY-b.top]};
+ svg.addEventListener('pointerdown',e=>{if(e.button>0)return;try{svg.setPointerCapture(e.pointerId)}catch(_){}pts.set(e.pointerId,local(e));svg.classList.add('drag');
+  if(pts.size===2){const [a,b]=[...pts.values()];pinch={d:Math.hypot(a[0]-b[0],a[1]-b[1])}}});
+ svg.addEventListener('pointermove',e=>{if(!pts.has(e.pointerId))return;const p=local(e),q=pts.get(e.pointerId);
+  if(pts.size===1){panBy(k,p[0]-q[0],p[1]-q[1]);pts.set(e.pointerId,p);return}
+  pts.set(e.pointerId,p);if(pts.size===2&&pinch){const [a,b]=[...pts.values()],d=Math.hypot(a[0]-b[0],a[1]-b[1]);if(d>10&&pinch.d>10){const c=toData(k,(a[0]+b[0])/2,(a[1]+b[1])/2);zoomAt(k,pinch.d/d,c[0],c[1]);pinch.d=d}}});
+ const end=e=>{pts.delete(e.pointerId);if(pts.size<2)pinch=null;if(!pts.size)svg.classList.remove('drag')};
+ svg.addEventListener('pointerup',end);svg.addEventListener('pointercancel',end);
+ svg.addEventListener('wheel',e=>{if(!(e.ctrlKey||e.metaKey||$(FIG[k]).classList.contains('big')))return;e.preventDefault();const p=local(e),c=toData(k,p[0],p[1]);zoomAt(k,Math.exp(Math.max(-0.5,Math.min(0.5,e.deltaY*(e.ctrlKey?0.004:0.0015)))),c[0],c[1])},{passive:false});
+ svg.addEventListener('dblclick',()=>{axes[k].r=null;update()});
+}
+document.addEventListener('click',e=>{const b=e.target.closest('[data-act]');if(!b)return;const k=b.dataset.f,a=b.dataset.act;
+ if(a==='zin')zoomAt(k,0.7);else if(a==='zout')zoomAt(k,1/0.7);else if(a==='zreset'){axes[k].r=null;update()}});
+
+let hl=null,hlPin=false,overCache=null,playT=0;
+function supN(v){const m={'-':'⁻','0':'⁰','1':'¹','2':'²','3':'³','4':'⁴','5':'⁵','6':'⁶','7':'⁷','8':'⁸','9':'⁹'};return String(v).split('').map(c=>m[c]||c).join('')}
+function specData(N){const cx=form!=='real',M=Math.min(NMAX,Math.max(2*N,20)),out=[];const {A,B}=model;
+ for(let n=cx?-M:0;n<=M;n++){const m=Math.abs(n);const v=m?(cx?Math.hypot(A[m],B[m])/2:Math.hypot(A[m],B[m])):Math.abs(A[0]/2);out.push([n,v])}return {M,out,cx}}
+function drawSpec(N){
+ const svg=$('svgSpec'),W=svg.clientWidth,H=svg.clientHeight;if(!W||!H||!model)return;
+ const {M,out,cx}=specData(N),log=$('logSpec').checked,ml=52,mr=12,mt=14,mb=30;
+ $('specTitle').textContent=cx?'Spectrum: |f̂(n)| against n':'Spectrum: √(Aₙ² + Bₙ²) against n';
+ const vmax=Math.max(...out.map(o=>o[1]))||1;let Y0,Y1,ty;
+ if(log){Y1=Math.ceil(Math.log10(vmax)+1e-9);Y0=Y1-6;ty=v=>Math.max(Y0,Math.log10(Math.max(v,1e-300)))}else{Y0=0;Y1=vmax*1.08;ty=v=>v}
+ const n0=out[0][0],n1=out[out.length-1][0],bw=(W-ml-mr)/(n1-n0+1);
+ const sx=n=>ml+(n-n0+0.5)*bw,sy=y=>mt+(Y1-y)/(Y1-Y0)*(H-mt-mb);
+ svg._map={n0,n1,ml,mr,W};
+ let g='';
+ if(log){for(let e=Y0;e<=Y1;e++)g+=`<line x1="${ml}" x2="${W-mr}" y1="${sy(e)}" y2="${sy(e)}" stroke="var(--grid)"/><text x="${ml-6}" y="${sy(e)+4}" text-anchor="end">10${supN(e)}</text>`}
+ else{const st=niceStep(Y1,5);for(let v=0;v<=Y1+1e-12;v+=st)g+=`<line x1="${ml}" x2="${W-mr}" y1="${sy(v)}" y2="${sy(v)}" stroke="var(--grid)"/><text x="${ml-6}" y="${sy(v)+4}" text-anchor="end">${fmt(+v.toPrecision(6))}</text>`}
+ const xs=niceStep(n1-n0,W<520?5:9);for(let v=Math.ceil(n0/xs)*xs;v<=n1;v+=xs)g+=`<text x="${sx(v)}" y="${H-10}" text-anchor="middle">${String(v).replace('-','−')}</text>`;
+ const base=sy(log?Y0:0);
+ for(const [n,v] of out){const y=sy(ty(v)),inS=Math.abs(n)<=N,isH=hl!=null&&Math.abs(n)===Math.abs(hl);
+  g+=`<rect x="${(sx(n)-Math.max(1,bw*0.36)).toFixed(1)}" width="${Math.max(2,bw*0.72).toFixed(1)}" y="${Math.min(y,base).toFixed(1)}" height="${Math.abs(base-y).toFixed(1)}" fill="${isH?'var(--acc)':inS?'var(--s)':'var(--line)'}"/>`}
+ g+=`<line x1="${ml}" x2="${W-mr}" y1="${base}" y2="${base}" stroke="var(--mute)"/>`;
+ svg.innerHTML=g;
+}
+function specPick(e){const svg=$('svgSpec'),m=svg._map;if(!m||!model)return null;const b=svg.getBoundingClientRect(),px=e.clientX-b.left;
+ const n=Math.round(m.n0-0.5+(px-m.ml)/(m.W-m.ml-m.mr)*(m.n1-m.n0+1));return n<m.n0||n>m.n1?null:n}
+function specCaption(n){if(n==null){$('specMsg').textContent='Point at a bar (or tap it) to draw that harmonic on the main graph.';return}
+ const m=Math.abs(n),{A,B}=model;
+ if(form!=='real'){const re=m?A[m]/2:A[0]/2,im=m?(n>0?-1:1)*B[m]/2:0;$('specMsg').textContent=`n = ${String(n).replace('-','−')}: f̂(n) = ${fmtC(re,im,model.scale)}. The dashed curve is f̂(n)e^{inx} + f̂(−n)e^{−inx}.`}
+ else $('specMsg').textContent=m?`n = ${m}: Aₙ = ${fmt(A[m],model.scale)}, Bₙ = ${fmt(B[m],model.scale)}. Dashed on the main graph.`:`n = 0: A₀ = ${fmt(A[0]/2,model.scale)}.`;
+ if(hlPin)$('specMsg').textContent+=' Tap again to clear.'}
+$('svgSpec').addEventListener('pointermove',e=>{if(hlPin||e.pointerType!=='mouse')return;const n=specPick(e);if(n!==hl){hl=n;specCaption(n);redraw()}});
+$('svgSpec').addEventListener('pointerleave',()=>{if(hlPin)return;hl=null;specCaption(null);redraw()});
+$('svgSpec').addEventListener('click',e=>{const n=specPick(e);if(hlPin&&n===hl){hlPin=false;hl=null}else{hlPin=n!=null;hl=n}specCaption(hl);redraw()});
+$('logSpec').addEventListener('change',update);
+function overData(){const key=model.TX.length+'|'+$('method').value+'|'+model.A[1]+'|'+model.B[1];if(overCache&&overCache.key===key&&overCache.model===model)return overCache;
+ const pts=[];if(model.jumps.length)for(let N=1;N<=NMAX;N++){const G=gibbs(N,sigma(N));pts.push(G?G.pct:0)}
+ overCache={key,model,pts};return overCache}
+function drawOver(N){
+ const svg=$('svgOver'),W=svg.clientWidth,H=svg.clientHeight;if(!W||!H||!model)return;
+ if(!model.jumps.length){svg.innerHTML='';$('overNote').textContent='This function has no jumps, so S_N has no Gibbs overshoot. Try the square wave or the sawtooth.';return}
+ const {pts}=overData(),ml=48,mr=14,mt=14,mb=30,mx=Math.max(12,...pts)*1.08,mn=Math.min(0,...pts)*1.08;
+ const sx=n=>ml+(n-1)/(NMAX-1)*(W-ml-mr),sy=y=>mt+(mx-y)/(mx-mn)*(H-mt-mb);
+ let g='';const st=niceStep(mx-mn,5);
+ for(let v=Math.ceil(mn/st)*st;v<=mx;v+=st)g+=`<line x1="${ml}" x2="${W-mr}" y1="${sy(v)}" y2="${sy(v)}" stroke="var(--grid)"/><text x="${ml-6}" y="${sy(v)+4}" text-anchor="end">${fmt(+v.toPrecision(6))}%</text>`;
+ for(let v=0;v<=NMAX;v+=W<520?50:25)g+=`<text x="${sx(Math.max(v,1))}" y="${H-10}" text-anchor="middle">${Math.max(v,1)}</text>`;
+ const gl=sy(GIBBS*100);g+=`<line x1="${ml}" x2="${W-mr}" y1="${gl}" y2="${gl}" stroke="var(--acc)" stroke-dasharray="5 4"/><text x="${W-mr-4}" y="${gl-6}" text-anchor="end" style="fill:var(--acc)">Gibbs limit 8.949%</text>`;
+ g+=`<path d="${pts.map((v,i)=>(i?'L':'M')+sx(i+1).toFixed(1)+' '+sy(v).toFixed(1)).join('')}" fill="none" stroke="var(--s)" stroke-width="2"/>`;
+ if(N>=1){const v=pts[N-1];g+=`<line x1="${sx(N)}" x2="${sx(N)}" y1="${mt}" y2="${H-mb}" stroke="var(--mute)" stroke-dasharray="2 3"/><circle cx="${sx(N)}" cy="${sy(v)}" r="5" fill="var(--s)"/><text x="${sx(N)+(N>NMAX*0.7?-8:8)}" y="${sy(v)-10}" text-anchor="${N>NMAX*0.7?'end':'start'}" style="fill:var(--ink)">N = ${N}: ${v>0?v.toFixed(2)+'%':'no overshoot'}</text>`}
+ svg.innerHTML=g;
+ const m=$('method').value;$('overNote').textContent=m==='plain'?`Overshoot of S_N past the largest jump, as a percentage of the jump. It settles toward 8.949% instead of shrinking: that is the Gibbs phenomenon.`:`With ${m==='fejer'?'Fejér':'Lanczos σ'} summation the overshoot ${m==='fejer'?'disappears (the Fejér kernel is positive).':'drops to about 1% (Lanczos factors damp the ringing).'}`;
+}
+const hover={};
+{const fig=$('figMain'),svg=$('svgMain'),hv=$('hov'),ln=$('hline');let last=null;
+ hover.show=px=>{if(!model||!axes.main.last)return;const W=svg.clientWidth,r=axes.main.last;if(px<PAD.l||px>W-PAD.r){hover.hide();return}
+  last=px;const x=r[0]+(px-PAD.l)/(W-PAD.l-PAD.r)*(r[1]-r[0]),N=+$('nRange').value,f=fval(x),S=SN(x,N,sigma(N));
+  hv.innerHTML=`<b>x</b> = ${fmt(x)}<br><b>f(x)</b> = ${fmt(f)}<br><b>S<sub>${N}</sub>(x)</b> = ${fmt(S)}<br><b>error</b> = ${isFinite(f)?fmt(S-f):'—'}`;
+  hv.hidden=false;ln.hidden=false;ln.style.left=px+'px';const hw=hv.offsetWidth;hv.style.left=(px+12+hw>W?px-12-hw:px+12)+'px'};
+ hover.hide=()=>{hv.hidden=true;ln.hidden=true;last=null};
+ hover.refresh=()=>{if(last!=null)hover.show(last)};
+ svg.addEventListener('pointermove',e=>{if(e.pointerType!=='mouse'||e.buttons){hover.hide();return}hover.show(e.clientX-svg.getBoundingClientRect().left)});
+ svg.addEventListener('pointerleave',hover.hide);
+ svg.addEventListener('click',e=>{if(e.pointerType&&e.pointerType!=='mouse')hover.show(e.clientX-svg.getBoundingClientRect().left)});
+}
+function setPlay(on){clearInterval(playT);playT=0;document.querySelectorAll('.playbtn').forEach(b=>{b.classList.toggle('on',on);b.setAttribute('aria-label',on?'Pause':'Play');b.innerHTML=on?'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z"/></svg>':'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10-6.5z"/></svg>'});
+ if(on){if(+$('nRange').value>=NMAX)$('nRange').value=0;playT=setInterval(()=>{const N=+$('nRange').value+1;if(N>NMAX){setPlay(false);return}$('nRange').value=N;update()},N_SPEED())}}
+const N_SPEED=()=>matchMedia('(prefers-reduced-motion: reduce)').matches?250:110;
+document.querySelectorAll('.playbtn').forEach(b=>b.addEventListener('click',()=>setPlay(!playT)));
+$('nRange').addEventListener('pointerdown',()=>setPlay(false));$('nBig').addEventListener('pointerdown',()=>setPlay(false));
+
+{const art=$('heroArt'),ctx=art.getContext('2d'),still=matchMedia('(prefers-reduced-motion: reduce)').matches;let W=0,H=0,trail=[];
+ const fit=()=>{const d=devicePixelRatio||1;W=art.clientWidth;H=art.clientHeight;art.width=W*d;art.height=H*d;ctx.setTransform(d,0,0,d,0,0);trail=[]};
+ const aro=new ResizeObserver(fit);aro.observe(art);fit();
+ const step=t=>{if(!W)return;ctx.clearRect(0,0,W,H);const small=W<900,R=small?Math.min(40,H*0.1):Math.min(H*0.19,72),cx=small?16+R*1.35:Math.max(W*0.6,690),cy=small?H-95:H*0.5,K=9,th=t/1400;
+  let x=cx,y=cy;ctx.lineWidth=1;
+  for(let j=0;j<K;j++){const k=2*j+1,r=R*4/(Math.PI*k);ctx.strokeStyle='rgba(185,201,220,.28)';ctx.beginPath();ctx.arc(x,y,r,0,2*Math.PI);ctx.stroke();
+   const nx=x+r*Math.cos(k*th),ny=y+r*Math.sin(k*th);ctx.strokeStyle='rgba(255,255,255,.6)';ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(nx,ny);ctx.stroke();x=nx;y=ny}
+  const wx=cx+R*1.9,len=Math.max(0,Math.floor(W-wx-16));trail.unshift(y);if(trail.length>len)trail.length=len;
+  ctx.strokeStyle='rgba(255,255,255,.35)';ctx.setLineDash([3,4]);ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(wx,y);ctx.stroke();ctx.setLineDash([]);
+  ctx.strokeStyle='#ff6b6b';ctx.lineWidth=2.2;ctx.beginPath();trail.forEach((v,i)=>i?ctx.lineTo(wx+i,v):ctx.moveTo(wx+i,v));ctx.stroke();
+  ctx.fillStyle='#ff6b6b';ctx.beginPath();ctx.arc(x,y,3.5,0,7);ctx.fill()};
+ const loop=t=>{step(t);if(!still)requestAnimationFrame(loop)};
+ if(still){for(let i=0;i<1200;i++)step(i*16)}else requestAnimationFrame(loop);
+ const links=[...document.querySelectorAll('.nav a')];
+ const io=new IntersectionObserver(es=>{for(const e of es)if(e.isIntersecting){links.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+e.target.id))}},{rootMargin:'-45% 0px -50% 0px'});
+ ['calc','spectrum','formulas','details'].forEach(id=>io.observe($(id)));
+}
+
+const ro=new ResizeObserver(()=>update());ro.observe($('figMain'));ro.observe($('figZoom'));ro.observe($('figSpec'));ro.observe($('figOver'));
+
+renderPresets();renderRows();
+if(window.math)recompute();else{$('errs').hidden=false;$('errs').textContent='The maths library did not load. Check your connection and reload the page.'}
+}
+</script>
+</html>
